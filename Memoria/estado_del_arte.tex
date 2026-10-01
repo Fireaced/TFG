@@ -1,0 +1,41 @@
+\chapter{Estado de la Cuestión}
+\label{ch:estado_cuestion}
+
+La digitalización de documentos financieros, y en particular la extracción de datos estructurados a partir de recibos y facturas simplificadas (tickets), ha sido un desafío clásico dentro del campo de la Visión por Computador y el Procesamiento del Lenguaje Natural (PLN). A lo largo de los años, las soluciones para abordar este problema han evolucionado desde sistemas basados puramente en reglas heurísticas hasta complejos modelos neuronales de extremo a extremo (\textit{End-to-End}).
+
+En este capítulo se realiza un repaso de las tecnologías existentes para la extracción de información en documentos, justificando la elección de las herramientas empleadas en este proyecto.
+
+\section{Sistemas OCR Tradicionales}
+Tradicionalmente, la extracción de texto en documentos se ha basado en motores de Reconocimiento Óptico de Caracteres (OCR, por sus siglas en inglés) como Tesseract . El flujo de trabajo clásico de estos sistemas consta de dos fases bien diferenciadas:
+\begin{enumerate}
+    \item \textbf{Extracción textual:} El motor OCR escanea la imagen y devuelve una cadena de texto plana o delimitada por saltos de línea y tabulaciones.
+    \item \textbf{Procesamiento post-OCR:} Se aplican algoritmos basados en Expresiones Regulares (Regex) o reglas heurísticas para identificar patrones específicos, como fechas, precios o números de identificación.
+\end{enumerate}
+
+Aunque herramientas como Tesseract son de código abierto y eficientes para textos continuos, estudios comparativos recientes demuestran que presentan severas deficiencias al enfrentarse a documentos con diseños complejos o estructuras no estándar \parencite{ronquillo2024analisis}. La investigación subraya que, ante formatos complejos, Tesseract sufre una reducción de precisión, pérdida de información importante y una disminución en su velocidad de procesamiento.
+
+Esta debilidad es crítica al procesar documentos semi-estructurados como los tickets de compra. Los recibos de supermercado, como los emitidos por Mercadona, poseen estructuras visuales complejas: alineaciones irregulares, productos a granel que dividen su información en múltiples líneas y márgenes estrechos. Estas particularidades provocan que los sistemas de OCR tradicional pierdan el contexto espacial, fusionando columnas incorrectamente y haciendo que la extracción basada en reglas sea frágil y poco escalable.
+
+\section{Modelos basados en \textit{Transformers} y el enfoque \textit{Document Understanding}}
+Para solventar la pérdida del contexto visual (disposición espacial o \textit{layout}), la investigación derivó hacia el \textit{Visual Document Understanding} (VDU). Modelos como LayoutLM revolucionaron el sector al combinar embeddings de texto (obtenidos mediante un OCR previo) con embeddings de posición en 2D, logrando que el modelo comprendiera la estructura visual del documento \parencite{maciel2022extraccion}. 
+
+Sin embargo, estos modelos híbridos siguen dependiendo de un motor OCR externo, lo que hereda sus limitaciones: si el OCR inicial falla al reconocer un carácter, el error se propaga irremisiblemente por toda la red neuronal.
+
+\subsection{Modelos de Extracción \textit{End-to-End}: Donut}
+El punto de inflexión en la comprensión de documentos llegó con la aparición de arquitecturas de extremo a extremo que eliminan por completo la necesidad de un motor OCR externo. 
+
+El modelo \textbf{Donut} (\textit{Document Understanding Transformer}) \parencite{kim2021donut}, propuesto por investigadores de NAVER Corp., emplea una arquitectura \textit{Vision-Encoder-Decoder} que es entrenable de principio a fin sin depender de un marco de trabajo OCR subyacente. Su enfoque aborda directamente los problemas críticos de los sistemas tradicionales, como los costosos recursos computacionales y la degradación del rendimiento provocada por la propagación de errores del OCR \parencite{kim2021donut}. Su arquitectura se compone de dos módulos principales:
+\begin{itemize}
+    \item \textbf{Encoder Visual (Swin Transformer):} Convierte la imagen del documento de entrada en un conjunto de \textit{embeddings} (parches de imagen) que son procesados directamente por la red neuronal \parencite{kim2021donut}.
+    \item \textbf{Decoder Textual (BART):} A partir de las características visuales codificadas, genera una secuencia de \textit{tokens} que es directamente convertible, con una relación uno a uno, en un formato estructurado como JSON \parencite{kim2021donut}.
+\end{itemize}
+
+Esta capacidad de mapear píxeles directamente a un JSON estructurado de forma completa y autónoma convierte a Donut en una herramienta superior en velocidad de inferencia y eficiencia en coste \parencite{kim2021donut}. Por ello, resulta la herramienta ideal para este proyecto, ya que no se ve afectado por los problemas clásicos de alineación espacial de los tickets de Mercadona y evita que un fallo temprano de reconocimiento de un solo carácter arruine la sintaxis global del documento.
+
+
+\section{Limitaciones de los Modelos Pequeños y Técnicas Híbridas}
+A pesar de la potencia de modelos como Donut, las arquitecturas entrenadas con \textit{datasets} pequeños (fenómeno conocido como \textit{Few-Shot Learning}) son propensas a sufrir \textit{hallucinations} o alucinaciones. En el contexto de los recibos, estas alucinaciones se manifiestan generando claves JSON erróneas, inventando cantidades o rompiendo la sintaxis matemática del diccionario resultante.
+
+Para abordar esta complejidad, la literatura académica reciente respalda el uso de \textbf{arquitecturas híbridas}. Estudios como el de Maciel y Pons (2022) demuestran que la integración de modelos de inteligencia artificial con programación tradicional (como motores de reglas o lógicas de post-procesamiento) resulta ser una solución muy superior al uso de la IA de forma aislada \parencite{maciel2022extraccion}. Esta integración permite extraer la información bruta con la red neuronal y, en un segundo paso, procesarla con reglas deterministas para cumplir con estrictos parámetros de calidad y robustecer los procesos de negocio \parencite{maciel2022extraccion}.
+
+Siguiendo este paradigma, el presente proyecto implementa un flujo de trabajo tolerante a fallos, donde el lenguaje de programación Python, a través de Expresiones Regulares (Regex), actúa como un \textit{parser} defensivo que valida, filtra y rescata la información estructurada frente a los posibles errores sintácticos generados por la Inteligencia Artificial.

@@ -1,0 +1,125 @@
+\chapter{Metodología}
+\label{ch:metodologia}
+
+Este capítulo detalla el proceso técnico y secuencial llevado a cabo para el desarrollo del sistema de extracción de información. La metodología se ha dividido en cuatro fases principales: la creación y preprocesamiento del conjunto de datos (\textit{dataset}), el entrenamiento del modelo neuronal, el desarrollo de la lógica del servidor (\textit{backend}) y la integración con la interfaz de usuario (\textit{frontend}).
+
+\section{Preparación del Conjunto de Datos}
+El modelo Donut requiere un aprendizaje supervisado, lo que implica alimentarlo con pares de imágenes y sus correspondientes diccionarios de datos estructurados (\textit{Ground Truth}). Dado que no existía un conjunto de datos público específico para los formatos de la cadena de supermercados Mercadona, se procedió a construir uno propio a partir de una muestra de más de 70 tickets originales.
+
+\subsection{Conversión y Extracción de Texto Base}
+El primer paso consistió en homogeneizar el formato de entrada. Los documentos originales, recibidos en formato PDF, fueron rasterizados y convertidos a imágenes JPEG con una resolución adecuada. Paralelamente, para generar la verdad fundamental o \textit{Ground Truth} de forma semi-automática, se utilizó la librería \texttt{pdfplumber} en Python, la cual permite extraer el texto plano manteniendo una aproximación de su disposición espacial original.
+
+\subsection{Construcción del \textit{Ground Truth}: La Máquina de Estados}
+Uno de los mayores retos algorítmicos en la fase de preprocesamiento fue la inconsistencia en el formato de las líneas de compra. Mientras que los productos estándar ocupan una única línea de texto, los productos vendidos a granel (por peso) dividen su información en varias líneas consecutivas. Por ejemplo, la lectura de un plátano a granel se distribuye visualmente en tres líneas: el nombre del producto, el desglose de peso y precio unitario, y finalmente el coste total.
+
+Para resolver este problema y generar un archivo \texttt{metadata.jsonl} perfecto para el entrenamiento, se diseñó e implementó un algoritmo basado en una \textbf{Máquina de Estados con Buffer}. Este diseño de ingeniería de software permite que el analizador no evalúe las líneas de forma aislada, sino que mantenga un estado de memoria (\textit{buffer}) que espera a leer las siguientes líneas antes de decidir si un producto está completo o si es un artículo a granel.
+
+En el listado~\ref{lst:maquina-estados} se expone el fragmento de código implementado para la resolución de este problema.
+
+\begin{lstlisting}[language=python, caption=Implementación de la máquina de estados para la extracción de productos a granel., label=lst:maquina-estados]
+def procesar_lineas_ticket(lineas):
+    productos_extraidos = []
+    buffer_producto = None
+
+    for linea in lineas:
+        # 1. Si la linea es el desglose del peso (ej: "0,850 kg 1,99 /kg")
+        if re.search(r'\d+,\d+\s*kg', linea) and buffer_producto:
+            buffer_producto['peso'] = linea.strip()
+            continue
+            
+        # 2. Si la linea es el precio final del peso (ej: "1,69")
+        if re.match(r'^\d+,\d{2}$', linea.strip()) and buffer_producto:
+            buffer_producto['precio'] = linea.strip()
+            productos_extraidos.append(buffer_producto)
+            buffer_producto = None # Vaciamos el buffer
+            continue
+
+        # 3. Si habia un producto normal en el buffer, lo guardamos
+        if buffer_producto:
+            productos_extraidos.append(buffer_producto)
+            buffer_producto = None
+
+        # 4. Detectamos un nuevo producto (ej: "1 PLATANOS")
+        match_prod = re.match(r'^(\d+)\s+(.+)$', linea)
+        if match_prod:
+            buffer_producto = {
+                "cantidad": match_prod.group(1),
+                "descripcion": match_prod.group(2)
+            }
+
+    # Guardar el ultimo producto si quedo en el buffer al acabar
+    if buffer_producto:
+        productos_extraidos.append(buffer_producto)
+        
+    return productos_extraidos
+\end{lstlisting}
+
+Este enfoque algorítmico garantizó que la estructura anidada del archivo JSON reflejara fielmente la semántica del ticket, independientemente de la longitud o tipo del producto adquirido, estableciendo una base sólida y libre de ruido para el entrenamiento de la Inteligencia Artificial.
+
+\section{Fase 2: Entrenamiento del Modelo de IA (\textit{Fine-tuning})}
+Una vez obtenido el conjunto de datos estructurado en formato \texttt{jsonl} junto con sus respectivas imágenes, se procedió a la fase de entrenamiento o ajuste fino (\textit{fine-tuning}) del modelo neuronal. 
+
+Dado que entrenar un modelo de lenguaje visual desde cero requiere recursos computacionales inmensos y millones de imágenes, se optó por la técnica de transferencia de aprendizaje (\textit{Transfer Learning}). Se seleccionó como base el modelo preentrenado \texttt{naver-clova-ix/donut-base-finetuned-cord-v2}, alojado en el repositorio de \textit{Hugging Face}. Este modelo base ya cuenta con conocimientos previos sobre la estructura general de recibos y facturas (gracias al \textit{dataset} CORD), lo que reduce drásticamente la cantidad de datos necesarios para que aprenda el formato específico de Mercadona.
+
+\subsection{Entorno de Ejecución y Recursos}
+El entrenamiento se llevó a cabo en la plataforma Google Colab, utilizando aceleración por hardware mediante GPUs virtuales (como la NVIDIA T4 o V100). El uso de este entorno en la nube permitió procesar las transformaciones tensoriales complejas del modelo \textit{Vision-Encoder-Decoder} en tiempos de ejecución razonables, evitando cuellos de botella por falta de memoria VRAM en equipos locales.
+
+\subsection{Ajuste de Hiperparámetros y Solución del \textit{Underfitting}}
+El proceso de \textit{fine-tuning} no fue directo y requirió un proceso empírico de prueba y error. En la primera iteración, se configuró el entrenamiento con \textbf{4 épocas (\textit{epochs})}, es decir, el modelo vio el conjunto de datos completo únicamente en 4 ocasiones. 
+
+El resultado de este primer intento fue un modelo que sufría de subajuste (\textit{underfitting}) y colapso de secuencias. Al pasarle una imagen de prueba, el decodificador textual entraba en un bucle infinito, "tartamudeando" y repitiendo el mismo carácter (por ejemplo, múltiples corchetes o llaves) sin llegar a cerrar la estructura del JSON, provocando un error en la deserialización de los datos.
+
+Para solventar esta inestabilidad en la inferencia, se rediseñó la configuración de entrenamiento aplicando los siguientes hiperparámetros definitivos:
+\begin{itemize}
+    \item \textbf{Aumento a 15 \textit{epochs}:} Se incrementó el número de pasadas completas sobre el \textit{dataset}. Al contar con una muestra pequeña de unos 70 documentos, el modelo necesitaba observar la relación entre la imagen y los textos muchas más veces para asimilar la estructura rígida de los recibos objetivo.
+    \item \textbf{Programador de Tasa de Aprendizaje (\textit{Cosine Scheduler}):} Se sustituyó el decaimiento lineal clásico por un \texttt{lr\_scheduler\_type="cosine"}. Esta técnica permite que la tasa de aprendizaje disminuya siguiendo una curva cosenoidal, realizando ajustes grandes en las primeras épocas para asentar los pesos importantes, y ajustes muy finos y suaves hacia el final del entrenamiento para estabilizar la gramática del modelo sin destruir lo aprendido.
+\end{itemize}
+
+Gracias a estas modificaciones, el segundo entrenamiento convergió exitosamente. El modelo dejó de tartamudeer y comenzó a generar estructuras JSON sintácticamente válidas, extrayendo los productos, el total y la tienda con altísima fidelidad temporal y espacial.
+
+\section{Fase 3: Desarrollo del Backend y el Parser Defensivo}
+Una vez obtenido un modelo capaz de generar secuencias de texto precisas, se procedió a su despliegue en un servidor local desarrollado en Python. El objetivo de este \textit{backend} es recibir las imágenes de los clientes, procesarlas a través del modelo neuronal y devolver la información estructurada.
+
+Sin embargo, tal y como se expuso en la revisión bibliográfica, los modelos entrenados bajo el paradigma de escasez de datos (\textit{Few-Shot Learning}) tienden a generar inestabilidades en escenarios de producción. Durante las pruebas de inferencia en el servidor, se detectaron dos problemas críticos:
+\begin{enumerate}
+    \item \textbf{Rotura sintáctica del JSON:} En ocasiones, el modelo generaba correctamente toda la información del ticket pero omitía cerrar llaves o comillas al final de la secuencia, provocando excepciones fatales (\texttt{JSONDecodeError}) que detenían el servidor.
+    \item \textbf{Alucinación numérica (Miopía de la IA):} Debido a la tipografía pequeña de la columna de cantidades en los recibos, la red neuronal infería valores irreales o formatos inventados (ej. \texttt{cnt="7"} o \texttt{cnt="1-4"}) para productos que, en la imagen original, mostraban claramente una sola unidad.
+\end{enumerate}
+
+\subsection{Implementación de la Arquitectura Híbrida}
+Para solventar estos fallos sin necesidad de reentrenar el modelo con miles de imágenes adicionales, se implementó una arquitectura híbrida (neuro-simbólica) en el \textit{backend}. En lugar de confiar ciegamente en analizadores sintácticos estrictos como \texttt{json.loads()}, se desarrolló un \textbf{Parser Defensivo} tolerante a fallos.
+
+Este algoritmo actúa como un "salvavidas": recibe la cadena de texto cruda generada por Donut y utiliza Expresiones Regulares (\textit{Regex}) para bucear en ella, rescatando patrones conocidos (como la tienda, la fecha y los productos) e ignorando las llaves rotas o caracteres espurios generados por las alucinaciones. En el listado~\ref{lst:parser-defensivo} se muestra el núcleo de esta lógica.
+
+\begin{lstlisting}[language=python, caption=Implementación del parser defensivo mediante Expresiones Regulares para rescatar datos de JSON corruptos., label=lst:parser-defensivo]
+def rescatar_json_roto(texto_crudo: str) -> dict:
+    tienda = "Desconocida"
+    m_tienda = re.search(r'"name":\s*"([^"]+)"', texto_crudo)
+    if m_tienda: tienda = m_tienda.group(1)
+
+    items = []
+    # Busca bloques de productos, saltando alucinaciones sintacticas
+    patron_productos = re.finditer(r'"nm":\s*"([^"]+)".*?(?:"cnt"|"price"):\s*"([\d,\.\-]+)"', texto_crudo)
+    
+    for match in patron_productos:
+        nombre = match.group(1).strip()
+        precio_crudo = match.group(2)
+
+        try:
+            precio = float(precio_crudo.replace(',', '.'))
+        except:
+            precio = 0.0
+
+        items.append({
+            "descripcion": nombre,
+            "cantidad": 1,  # Correccion determinista de la alucinacion visual
+            "precio_unitario": precio
+        })
+
+    return {"tienda": tienda, "items": items}
+\end{lstlisting}
+
+\subsection{Reglas de Negocio en el Post-Procesamiento}
+Adicionalmente, la arquitectura híbrida permitió inyectar reglas de negocio deterministas en la fase de extracción. Como se observa en la línea 21 del listado~\ref{lst:parser-defensivo}, se forzó por código el valor de la cantidad a \texttt{1}. Este post-procesamiento corrige instantáneamente el problema de la "miopía" numérica de la IA, apoyándose en la heurística comercial de que el formato de Mercadona lista cada unidad en una línea independiente, salvo excepciones de venta a granel. 
+
+El uso conjunto del modelo visual y la programación tradicional dotó al sistema de una alta tolerancia a fallos, permitiendo extraer un 100\% de información útil en tickets donde el modelo neuronal rompía su propio formato de salida.

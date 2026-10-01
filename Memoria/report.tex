@@ -1,0 +1,322 @@
+\documentclass[%
+    school=etsisi,%
+    type=pfg,%
+    degree=61CI,%
+]{upm-report}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TÍTULO, AUTORES Y DIRECTORES
+%
+\title{Plantilla de proyecto de fin de estudios para la UPM}
+\author{}
+\bibauthor{Tecla, S. \and Blador, S.}
+\director{San Bláster \and Panflerto Díaz}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% RESUMEN Y ABSTRACT
+%
+\abstract{spanish}{
+    El resumen de un \acrlong{pfg} o de un \acrlong{pfm} condensa en
+    tres o cuatro párrafos el contenido de la memoria. Se debería asumir
+    que el lector tiene una cierta idea de lo que se trata y también que
+    si no le enganchamos, probablemente pase de él (eso es malo).
+    
+    \textbf{Condensado no quiere decir incompleto}. Debe contener la
+    información más destacable. Lo ideal: que ocupe entre media y una
+    cara de un folio A4. Comenzará por el propósito y principales
+    objetivos de la memoria, seguirá con los aspectos más destacables
+    de la metodología empleada, y luego de los resultados obtenidos. Por
+    último se presentarán la o las conclusiones más importantes a las
+    que se ha llegado.
+    
+    Que tenga un estilo claro y conciso, sin ambigüedades de ningún tipo.
+    Además, al ser un resumen de todo el contenido, ni que decir tiene
+    que deberá ser lo último que escribamos, y deberá mantener una
+    absoluta fidelidad con el contenido de la memoria.
+}
+\keywords{spanish}{
+    Cuatro o cinco;
+    Expresiones clave;
+    Que clasifiquen;
+    Nuestro proyecto o;
+    Investigación
+}
+
+\abstract{english}{
+    This section must contain the summary that we have written before in
+    Spanish, but in English, as well as the keywords.
+}
+\keywords{english}{
+    Four or five;
+    Key Expressions;
+    Summarising;
+    Our Project or;
+    Research
+}
+
+% Opcional
+\reportquotation{
+    Oigo y olvido, veo y recuerdo, hago y aprendo.
+}{Confucio}
+
+% Opcional
+\acknowledgements{
+    Agradecimientos que se quieran dar. Si no se quiere añadir
+    agradecimientos, es tan sencillo como eliminar la entrada
+    \texttt{\textbackslash acknowledgements} del fichero
+    \texttt{report.tex}.
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% GLOSARIO Y ABREVIATURAS
+%
+\newglossaryentry{arco-perdicion}{
+        name=Arco de la Perdición,
+        description={Arco único que posee poderes destructivos capaz de
+            desatar grandes catástrofes y de traer desgracias a aquellos
+            que se encuentren en su camino
+        }
+}
+\newglossaryentry{hacha-batalla}{
+        name=hacha de batalla,
+        description={Herramienta antigua utilizada en combate,
+            caracterizada por su doble función de arma y herramienta
+        }
+}
+\newglossaryentry{python}{
+    name={Python},
+    plural={Pythonacos},
+    description={El mejor lenguaje de programación}
+}
+
+\newacronym[
+    longplural={inteligencias artificiales}
+    ]{ia}{IA}{inteligencia artificial}
+\newacronym[
+    longplural={organizaciones no gubernamentales},
+    shortplural={ONG}
+    ]{ong}{ONG}{organización no gubernamental}
+\newacronym[
+    longplural={proyectos de fin de grado}
+    shortplural={PFG}
+    ]{pfg}{PFG}{proyecto de fin de grado}
+\newacronym[
+    longplural={proyectos de fin de máster}
+    shortplural={PFM}
+    ]{pfm}{PFM}{proyecto de fin de máster}
+\newacronym[
+    description={Del inglés \textit{role-playing game}},
+    shortplural={RPG}
+    ]{rpg}{RPG}{juego de rol}
+\newacronym[
+    description={S.P.E.C.I.A.L es la sigla usada para los atributos de
+        Fuerza (\textbf{S}trenght), Percepción (\textbf{P}erception),
+        Resistencia (\textbf{E}ndurance), Carisma, (\textbf{C}harisma),
+        Inteligencia, (\textbf{I}ntelligence), Agilidad,
+        (\textbf{A}gility), y Suerte (\textbf{L}uck)
+    },
+    ]{special}{SPECIAL}{\textit{Strenght, Perception, Endurance,
+        Charisma, Intelligence, Agility \& Luck}
+    }
+
+\begin{document}
+
+\chapter{Introducción}
+\label{ch:introduccion}
+
+La introducción a un trabajo de fin de estudios es el punto de entrada a
+todo el trabajo realizado y es considerada la más importante tras el
+resumen, donde se resume el trabajo entero. Hay que dejar claro
+\textbf{qué} se ha hecho y el \textbf{porqué} de su importancia. Intenta
+generar expectativa. Un gancho típico suele ser discutir sobre un dato
+relevante o controvertido o plantear una pregunta relevante en lo que se
+está trabajando.
+
+\section{Motivación}
+La motivación principal para el desarrollo de este Trabajo de Fin de Grado nace de una doble vertiente: una inquietud tecnológica y un propósito práctico enfocado en el usuario final. Desde el punto de vista tecnológico, el proyecto está impulsado por el interés personal en explorar el aprendizaje automático, concretamente en el desafío de enseñar a modelos neuronales de visión y lenguaje (como Donut) a realizar tareas nuevas de extracción de información. Supone un reto de ingeniería estimulante demostrar empíricamente cómo estos modelos compactos, combinados con programación clásica, pueden superar la rigidez estructural de los sistemas tradicionales.
+
+Desde la perspectiva práctica, la motivación radica en democratizar el control de las finanzas personales. En la actualidad, la gestión de la economía doméstica mediante la digitalización de comprobantes físicos sigue siendo una tarea tediosa que la mayoría de los particulares evita. Los usuarios carentes de familiaridad con herramientas ofimáticas (como complejas hojas de cálculo en Excel) encuentran una barrera de entrada significativa para llevar un registro de sus gastos. Por tanto, dotar a la sociedad de una herramienta automatizada y accesible que elimine esta fricción resulta una contribución altamente motivadora, orientada simplemente a ayudar a la gente a organizarse mejor en su día a día.
+
+\section{Objetivos}
+El objetivo general de este proyecto es diseñar y desarrollar una aplicación web de código abierto que permita a los usuarios automatizar la gestión de sus finanzas personales mediante la extracción de datos de tickets de compra (centrado inicialmente en comprobantes de Mercadona). El sistema utilizará Inteligencia Artificial para la lectura de los documentos, almacenará las compras en una base de datos y proporcionará una interfaz funcional para categorizar los gastos y buscar tickets por fechas.
+
+Para alcanzar este objetivo general, se han definido los siguientes objetivos específicos, planteados bajo criterios de medición y viabilidad propios de un Trabajo Fin de Grado en Ingeniería de Computadores de la Universidad Politécnica de Madrid:
+
+\begin{itemize}
+    \item \textbf{Desarrollo y ajuste del modelo de extracción (Específico y Medible):} Entrenar y adaptar el modelo de IA (Donut) para que alcance una tasa de éxito funcional viable. El criterio de éxito se establece en lograr que la mayoría de los tickets (aproximadamente un 50-60\%) se procesen de forma perfecta, limitando el margen de error en el porcentaje restante a fallos menores y tolerables (tales como la lectura incorrecta de una o dos cantidades o precios por comprobante).
+    \item \textbf{Implementación de la plataforma web (Específico):} Construir una interfaz accesible y conectarla a un sistema de base de datos que permita a usuarios sin conocimientos técnicos ordenar, categorizar y filtrar temporalmente sus gastos.
+    \item \textbf{Ejecución temporal (Acotado en el tiempo y Alcanzable):} Desarrollar la totalidad del sistema (investigación, prueba de concepto, entrenamiento y aplicación final) en un marco temporal aproximado de 9 a 10 meses, habiendo iniciado el proyecto en enero de 2026.
+    \item \textbf{Liberación del software (Relevante):} Publicar el resultado final bajo una filosofía de código abierto, permitiendo que la comunidad pueda auditar, utilizar y expandir el código.
+\end{itemize}
+
+\section{Motivación (Impacto del Proyecto)}
+El interés por desarrollar este proyecto no busca resolver una crisis tecnológica, sino aportar valor real y directo en la calidad de vida y la organización financiera de los individuos. A nivel social, el impacto recae sobre los particulares, quienes raramente llevan un control exhaustivo de en qué gastan su dinero. Según diversos estudios sobre la salud financiera de las familias [Insertar aquí referencia a estudio o artículo periodístico sobre las dificultades de ahorro y control de la economía doméstica en España], la falta de herramientas sencillas es una de las principales causas de la desorganización económica.
+
+Por otro lado, el proyecto presenta una clara motivación medioambiental. Aunque el objetivo no se centra en el sector corporativo, facilitar la digitalización estructurada de los comprobantes físicos promueve indirectamente la reducción de la dependencia del papel. Este enfoque se alinea fuertemente con las iniciativas \textit{Paperless} y las políticas de sostenibilidad [Insertar aquí referencia a directiva europea de reducción de residuos y digitalización, por ejemplo, los objetivos de la Década Digital de la UE], demostrando que pequeñas herramientas tecnológicas pueden sumar al esfuerzo ecológico global.
+
+\section{Justificación}
+La justificación fundamental de este proyecto reside en la necesidad de superar las severas limitaciones técnicas y de mantenibilidad que presentan los sistemas convencionales de digitalización. Tradicionalmente, la extracción de datos en documentos semi-estructurados se ha abordado mediante sistemas de Reconocimiento Óptico de Caracteres (OCR clásico) acoplados a motores de reglas estrictos.
+
+\begin{itemize}
+    \item \textbf{Brecha tecnológica y Relevancia:} El enfoque clásico basado en OCR presenta una rigidez crítica. Cualquier variación mínima en la estructura, formato o diseño del ticket exige una reprogramación manual de las reglas del software. Este proyecto justifica su innovación al demostrar que un sistema de Inteligencia Artificial bien entrenado es intrínsecamente más adaptable. La IA es capaz de moldearse para aceptar múltiples formatos con facilidad y extraer la información correctamente independientemente de cambios visuales, cerrando la brecha de mantenibilidad que penaliza a los sistemas tradicionales.
+    \item \textbf{Contribución práctica:} A diferencia de las soluciones de mercado que dependen de APIs de pago caras —y que obligan a subir datos financieros confidenciales a la nube de terceros corporativos—, este desarrollo aporta una solución de código abierto. Su contribución práctica se materializa en empoderar al usuario final, proporcionándole un entorno privado y automatizado que sustituye las barreras tecnológicas (como el uso avanzado de Excel) por un flujo de trabajo transparente y directo.
+\end{itemize}
+
+\include{sources/estado_del_arte}
+\include{sources/metodologia}
+
+\chapter{¿Cómo estructurar la memoria?}
+\label{s:como-estructurar}
+
+Un \gls{pfg} tiene como propósito demostrar que se poseen las destrezas
+y los conocimientos que se esperan de un egresado de la titulación
+cursada. Esto quiere decir que, a diferencia de otros tipos de trabajo
+académico, en éste no es necesario realizar aportaciones originales al
+estado de la cuestión sobre el que se trabaja.
+
+¿Y sobre la estructura? \enquote{Como buenamente se quiera/pueda}.
+Dependerá del tipode trabajo, pero con carácter general, los trabajos
+suelen seguir cierta estructura. La típica suele ser la siguiente:
+
+\begin{enumerate}
+    \item Una \textbf{portada} que muestre lo requerido por la normativa
+        de la escuela.
+    \item Un \textbf{resumen} y un \textbf{\textit{abstract}} resumiendo
+        toda la memoria (el primero en español, el segundo en inglés).
+    \item Índice de contenidos, de figuras y de tablas, que apuntan a
+        los diferentes elementos de interés de la memoria.
+    \item La \textbf{introducción}, que explica qué se va a hacer y por
+        qué.
+    \item El \textbf{estado de la cuestión}\footnote{Se suele decir
+        \enquote{estado del arte}, pero se desaconseja su uso por ser
+        un anglicismo derivado de la expresión \textit{state of the art}
+        en favor expresiones como \enquote{estado de la cuestión}, cosa
+        que, por otro lado, suena bastante bien. Más información en
+        \url{https://www.rae.es/dpd/arte}.}, donde se dice qué es lo que
+        existe sobre lo que se sustenta nuestro proyecto.
+    \item La \textbf{metodología} que describe paso por paso el proceso
+        de cómo se ha realizado el proyecto.
+    \item Los \textbf{resultados} obtenidos tras finalizar el proyecto
+        junto con una \textbf{discusión} (en el mismo capítulo o en uno
+        nuevo) donde se explican las implicaciones que el autor de la
+        memoria considere oportuno destacar sobre los mismos.
+    \item Las \textbf{conclusiones} del proyecto, donde el autor indica
+        el nivel de consecución de los objetivos, se tira a la piscina
+        a la hora de dar respuestas a cuestiones relacionadas con los
+        resultados, propone trabajos futuros \textbf{de interés o
+        utilidad} (no chorradas) y poco más.
+    \item Un apéndice describiendo el impacto social y medioambiental
+        del proyecto.
+    \item Más apéndices que el autor considere necesarios.
+    \item Referencias bibliográficas.
+    \item Glosario, abreviaturas y demás.
+\end{enumerate}
+
+La plantilla genera automáticamente la portada de acuerdo a los que
+dicta la normativa de la escuela, los índices de contenidos, figuras y
+tablas, las referencias bibliográficas y los apéndices (con ayuda, por
+supuesto, pero se dedicen del marcado). El resto lo tiene que poner el
+autor; aun así no te preocupes que es más fácil de lo que parece.
+
+
+
+\section{Glosario}
+\label{s:glosario}
+
+El glosario de una memoria es el lugar donde se encuentran los términos que se usan a lo largo del documento y que se considera que requieren una aclaración. En esta plantilla, en el momento que generemos un término, se creará un capítulo al final de la memoria con el listado de todos aquellos términos definidos.
+
+Para gestionar el glosario se hace uso del paquete \texttt{glossaries} el cual es relativamente complejo de configurar. También su documentación es muy extensa\footnote{Pero aún así es el sitio donde ir a buscar información. El paquete, junto con su documentación está disponible en la dirección \href{https://www.ctan.org/pkg/glossaries}{https://www.ctan.org/pkg/glossaries}.}, así que en esta sección hablaremos únicamente de lo esencial.
+
+\subsection{¿Cuándo y cómo especificar términos?}
+
+La regla general del \enquote{cuándo} es una vez terminada la memoria. En ese punto, seremos conscientes de qué términos son los más interesantes para incluir en el glosario. En ese punto deberemos ir término por termino sustituyéndolo por la entrada del glosario para que el proceso automático se encargue de la indexación y numeración de páginas.
+
+El \enquote{cómo} se refiere a de qué manera escribirlos. La regla general en el castellano (y hasta donde el autor de la plantilla sabe, en cualquier idioma) es de la manera en la que aparecería en medio del texto. Es decir, si la palabra se escribe generalmente en minúscula (e.g.~\textit{El jugador blandía un \gls{hacha-batalla}}) se deberá incluir dentro del glosario en minúscula, mientras que si se escribe generalmente en mayúscula (e.g.~\textit{Encontró el \gls{arco-perdicion}}) irá en mayúscula.
+
+\subsection{Definiendo los términos del glosario}
+
+Las entradas se escribirán dentro del fichero \texttt{frontmatter/glossary.tex}. La forma estándar de definir un término es la que se muestra en el listado~\ref{lst:std-glossary-entry}.
+
+\begin{lstlisting}[language={[latex]TeX},caption=Código para crear una entrada en el glosario,label=lst:std-glossary-entry]
+\newglossaryentry{hacha-batalla}{
+    name={hacha de batalla},
+    description={Herramienta antigua utilizada en combate}
+}
+\end{lstlisting}
+
+Luego, dentro del texto, podremos hacer referencia a dichas entradas con los comandos que se muestran en la tabla~\ref{tab:glossary-commands}.
+
+\begin{table}
+    \caption{\label{tab:glossary-commands}Comandos para incluir términos del glosario en el texto de la memoria}
+    \begin{tabularx}{\textwidth}{@{}lX@{}}
+        \toprule
+        \textbf{Comando} & \textbf{Ejemplo con la clave \texttt{hacha-batalla}} \\
+        \midrule
+        \texttt{\textbackslash gls} & \gls{hacha-batalla} \\
+        \texttt{\textbackslash Gls} & \Gls{hacha-batalla} \\
+        \texttt{\textbackslash glspl} & \glspl{hacha-batalla} \\
+        \texttt{\textbackslash Glslp} & \Glspl{hacha-batalla} \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+Como los plurales los gestiona automáticamente, puede ser que queramos, como en este caso, modificar el plural de nuestro término. Para ello debemos añadir la opción \texttt{plural} a la entrada para especificar cómo es el plural de la entrada, como se muestra en el listado~\ref{lst:gls-longplural}.
+
+\begin{lstlisting}[language={[latex]TeX},caption=Especificando el plural para un término del glosario,label=lst:gls-longplural]
+\newglossaryentry{python}{
+    name={Python},
+    plural={Pythonacos},
+    description={El mejor lenguaje de programación}
+}
+\end{lstlisting}
+
+Así, el plural de la clave \texttt{python} descrita quedaría como \glspl{python}, en lugar del valor por defecto que sería \textit{Pythons}.
+
+Un caso particular de términos del glosario son las siglas y los acrónimos. No vamos a entrar en detalle aquí\footnote{Pero recomendamos visitar \href{https://www.fundeu.es/recomendacion/siglas-y-acronimos-claves-de-redaccion/}{https://www.fundeu.es/recomendacion/siglas-y-acronimos-claves-de-redaccion/} y darle una leída porque es interesante.} sino que vamos a introducir las siglas como caso especial de entrada de glosario. Cuando tengamos una sigla, la crearemos en el glosario como se muestra en el listado~\ref{lst:new-acronym}.
+
+\begin{lstlisting}[language={[latex]TeX},caption=Entrada genérica de una sigla o acrónimo en el glosario,label=lst:new-acronym]
+\newacronym[
+    description={Proyecto Fin de Grado. Proyecto a realizar al final de una titulación de Grado},
+    longplural={Proyectos Fin de Grado}
+    ]{pfg}{PFG}{Proyecto Fin de Grado}
+\end{lstlisting}
+
+En el ejemplo se puede ver que hay dos entradas, \texttt{longplural} y \texttt{description} que son opcionales. La primera es la equivalente a \texttt{plural} de \texttt{newglossaryentry}, y no necesita más explicación.
+
+La segunda, \texttt{description} suele utilizarse para acrónimos, cuando necesitamos describir la entrada. Cuidado en este caso porque si hace referencia a varias palabras estas se deberían incluir dentro de la descripción (como en el ejemplo, \enquote{\acrlong{pfg}}).
+
+La regla general de los acrónimos y las siglas es que la primera vez que aparecen en el texto, deben aparecer con el nombre completo mientras que el resto de veces pueden aparecer indistintamente como sigla o forma larga. De esto se encarga automáticamente el comando \texttt{gls}. Es decir, si tenemos la sigla \texttt{special}, la primera vez que incluyamos la sigla con \texttt{\textbackslash gls\{special\}} saldrá \gls{special} mientras que el resto de veces que la incluyamos se verá simplemente \gls{special}.
+
+Con los acrónimos se incluyen comandos adicionales para controlar su presentación. Estos son los mostrados en la tabla~\ref{tab:acronym-commands}
+
+\begin{table}
+    \caption{\label{tab:acronym-commands}Comandos específicos para controlar la presentación de acrónimos}
+    \begin{tabularx}{\textwidth}{@{}lX@{}}
+        \toprule
+        \textbf{Comando} & \textbf{Ejemplo con la clave \texttt{rpg}} \\
+        \midrule
+        \texttt{\textbackslash acrshort} & \acrshort{rpg} \\
+        \texttt{\textbackslash acrshortpl} & \acrshortpl{rpg} \\
+        \texttt{\textbackslash acrlong} & \acrlong{rpg} \\
+        \texttt{\textbackslash Acrlong} & \Acrlong{rpg} \\
+        \texttt{\textbackslash acrlongpl} & \acrlongpl{rpg} \\
+        \texttt{\textbackslash Acrlongpl} & \Acrlongpl{rpg} \\
+        \texttt{\textbackslash acrfull} & \acrfull{rpg} \\
+        \texttt{\textbackslash Acrfull} & \Acrfull{rpg} \\
+        \texttt{\textbackslash acrfullpl} & \acrfullpl{rpg} \\
+        \texttt{\textbackslash Acrfullpl} & \Acrfullpl{rpg} \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+Por cierto, en castellano las siglas \textbf{no incluyen la \enquote{s} al final}, así que no deberíamos usar los comandos que terminan en \texttt{pl}. Por eso la definición que se ha hecho de la sigla \texttt{rpg} es la mostrada en la figura~\ref{fig:acronym-rpg}.
+
+\begin{lstlisting}[language={[latex]TeX},caption=Entrada de \texttt{rpg} en \texttt{glossaries.tex},label=fig:acronym-rpg]
+\newacronym[
+    description={Role-Playing Game. Juego de rol},
+    shortplural={RPG}
+    ]{rpg}{RPG}{\textit{Role-Playing Game}}
+\end{lstlisting}
+
+
+\end{document}
