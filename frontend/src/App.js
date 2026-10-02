@@ -21,6 +21,8 @@ export default function App() {
   const [filtroSubcategoria, setFiltroSubcategoria] = useState('');
   const [filtroMes, setFiltroMes] = useState('');      // "YYYY-MM"
   const [filtroDia, setFiltroDia] = useState('');      // "YYYY-MM-DD"
+  const [confirmarBorrado, setConfirmarBorrado] = useState(null);   // id del ticket pendiente de confirmar
+  const [borrando, setBorrando] = useState(null);
 
   useEffect(() => {
     axios.get(`${API}/categorias`)
@@ -230,6 +232,23 @@ export default function App() {
   };
   const formatoFecha = (iso) => iso ? iso.split('-').reverse().join('/') : '';
   const claseSelect = 'bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-blue-500';
+
+  const handleDeleteTicket = async (ticket) => {
+    setBorrando(ticket.id);
+    try {
+      await axios.delete(`${API}/tickets/${ticket.id}`);
+      setTickets((prev) => prev.filter((t) => t.id !== ticket.id));
+      toast.success('Ticket eliminado', {
+        description: `${ticket.nombre_personalizado || ticket.tienda} del ${ticket.fecha_compra}`,
+      });
+    } catch (e) {
+      console.error('Error eliminando el ticket:', e);
+      toast.error('No se pudo eliminar el ticket.');
+    } finally {
+      setBorrando(null);
+      setConfirmarBorrado(null);
+    }
+  };
 
   const handleSaveTicket = async () => {
     if (draftTicket.items.some((it) => !it.descripcion.trim())) {
@@ -591,6 +610,7 @@ export default function App() {
                           </h3>
                           <p className="text-sm text-slate-400">{formatoFecha(ticket._fecha) || ticket.fecha_compra}</p>
                         </div>
+                        <div className="flex items-start gap-4">
                         <div className="text-right">
                           {filtroCategoria ? (
                             <>
@@ -606,6 +626,39 @@ export default function App() {
                               <p className="text-2xl font-mono text-emerald-400">{Number(ticket.precio_total).toFixed(2)} €</p>
                             </>
                           )}
+                        </div>
+                        {/* Eliminar ticket: primer clic pide confirmación, segundo clic borra */}
+                        {confirmarBorrado === ticket.id ? (
+                          <div className="flex flex-col items-end gap-1">
+                            <span className="text-xs text-slate-400">¿Eliminar?</span>
+                            <div className="flex gap-1">
+                              <button
+                                onClick={() => handleDeleteTicket(ticket)}
+                                disabled={borrando === ticket.id}
+                                className="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-medium disabled:opacity-50 inline-flex items-center gap-1"
+                              >
+                                {borrando === ticket.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
+                                Sí
+                              </button>
+                              <button
+                                onClick={() => setConfirmarBorrado(null)}
+                                disabled={borrando === ticket.id}
+                                className="px-3 py-1.5 rounded-lg border border-slate-700 text-slate-300 hover:bg-slate-800 text-xs"
+                              >
+                                No
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => setConfirmarBorrado(ticket.id)}
+                            title="Eliminar ticket"
+                            aria-label="Eliminar ticket"
+                            className="p-2.5 rounded-lg bg-red-600 hover:bg-red-500 text-white transition-colors"
+                          >
+                            <Trash2 className="w-5 h-5" />
+                          </button>
+                        )}
                         </div>
                       </div>
 

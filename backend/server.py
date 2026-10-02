@@ -15,7 +15,8 @@ import torch
 from transformers import DonutProcessor, VisionEncoderDecoderModel
 from PIL import Image
 
-from fastapi import FastAPI, APIRouter, UploadFile, File
+from fastapi import FastAPI, APIRouter, UploadFile, File, HTTPException
+import hashlib
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -318,9 +319,63 @@ def process_bank_pdf(pdf_bytes: bytes) -> list:
 
 # ─── Endpoints de la API ───
 
+# ─── Detección de tickets duplicados ───
+
+def huella_ticket(fecha_compra, precio_total, items) -> str:
+    """Huella del contenido del ticket: misma fecha, mismo total y exactamente los mismos productos
+    (descripción, cantidad y precio unitario), sin importar el orden ni mayúsculas/espacios."""
+    productos = sorted(
+        f"{normalizar(str(i.get('descripcion', '')))}|{int(i.get('cantidad', 1) or 1)}|{float(i.get('precio_unitario', 0) or 0):.2f}"
+        for i in items
+    )
+    base = json.dumps([fecha_a_iso(fecha_compra), f"{float(precio_total or 0):.2f}", productos], ensure_ascii=False)
+    return hashlib.sha256(base.encode("utf-8")).hexdigest()
+
+
+async def buscar_duplicado(huella: Optional[str] = None, archivo_hash: Optional[str] = None):
+    condiciones = []
+    if huella:
+        condiciones.append({"huella": huella})
+    if archivo_hash:
+        condiciones.append({"archivo_hash": archivo_hash})
+    if not condiciones:
+        return None
+    return await db.tickets.find_one({"$or": condiciones}, {"_id": 0, "id": 1, "fecha_compra": 1,
+                                                            "precio_total": 1, "nombre_personalizado": 1, "tienda": 1})
+
+
+def euros_es(valor) -> str:
+    return f"{float(valor or 0):.2f}".replace(".", ",")
+
+
+def respuesta_duplicado(existente: dict, upload_record: dict) -> dict:
+    nombre = existente.get("nombre_personalizado") or existente.get("tienda") or "ticket"
+    return {
+        "id": upload_record["id"],
+        "filename": upload_record["filename"],
+        "status": "duplicado",
+        "duplicado": True,
+        "mensaje": (f"Este ticket ya está guardado ({nombre} del {existente.get('fecha_compra')}, "
+                    f"{euros_es(existente.get('precio_total'))} €). Se ha omitido."),
+        "ticket_existente_id": existente.get("id"),
+    }
+
+
+@app.on_event("startup")
+async def rellenar_huellas():
+    """Calcula la huella de los tickets guardados antes de que existiera la detección de duplicados."""
+    async for t in db.tickets.find({"huella": {"$exists": False}}, {"_id": 0}):
+        await db.tickets.update_one(
+            {"id": t["id"]},
+            {"$set": {"huella": huella_ticket(t.get("fecha_compra"), t.get("precio_total"), t.get("items", [])),
+                      "fecha_iso": fecha_a_iso(t.get("fecha_compra"))}},
+        )
+
+
 @api_router.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
-    content = await file.read() 
+    content = await file.read()
+    archivo_hash = hashlib.sha256(content).hexdigest()
     file_type = detect_file_type(file.filename, file.content_type or '')
 
     upload_record = {
@@ -359,8 +414,24 @@ async def upload_file(file: UploadFile = File(...)):
                 }
             else:
                 # Flujo Ticket (IA Donut) - REVISIÓN HUMANA ACTIVADA
+                # 1) Mismo archivo ya subido: se detecta al instante, sin ejecutar el modelo
+                existente = await buscar_duplicado(archivo_hash=archivo_hash)
+                if existente:
+                    upload_record.update({'status': 'duplicado', 'result_type': 'ticket'})
+                    await db.uploads_history.insert_one(upload_record)
+                    return respuesta_duplicado(existente, upload_record)
+
                 raw_donut_data = await asyncio.to_thread(process_receipt_donut, content)
                 result = parse_donut_output(raw_donut_data)
+
+                # 2) Archivo distinto (otra foto, otro PDF) pero mismo ticket: misma fecha, total y productos
+                existente = await buscar_duplicado(
+                    huella=huella_ticket(result['fecha_compra'], result['precio_total'], result.get('items', [])))
+                if existente:
+                    upload_record.update({'status': 'duplicado', 'result_type': 'ticket'})
+                    await db.uploads_history.insert_one(upload_record)
+                    return respuesta_duplicado(existente, upload_record)
+
                 result['items'] = await categorizar_items(result.get('items', []))
                 
                 # Ya NO guardamos en db.tickets aquí. 
@@ -379,7 +450,8 @@ async def upload_file(file: UploadFile = File(...)):
                     'fecha_compra': result['fecha_compra'],
                     'items': result['items'],
                     'precio_total': result['precio_total'],
-                    'upload_id': upload_record['id'] # Pasamos el ID para enlazarlo luego
+                    'upload_id': upload_record['id'], # Pasamos el ID para enlazarlo luego
+                    'archivo_hash': archivo_hash,
                 }
 
         elif file_type == 'csv':
@@ -477,11 +549,24 @@ class DraftTicketModel(BaseModel):
     items: List[ItemModel]
     precio_total: float
     upload_id: Optional[str] = None # Para enlazar con el uploads_history
+    archivo_hash: Optional[str] = None
 
 @api_router.post("/save-ticket")
 async def save_ticket(ticket_data: DraftTicketModel):
     """Guarda el ticket definitivo en MongoDB tras la revisión del usuario."""
     
+    # 0. Última comprobación de duplicados, ya con los datos revisados por el usuario
+    items_dict = [item.model_dump() for item in ticket_data.items]
+    huella = huella_ticket(ticket_data.fecha_compra, ticket_data.precio_total, items_dict)
+    existente = await buscar_duplicado(huella=huella, archivo_hash=ticket_data.archivo_hash)
+    if existente:
+        if ticket_data.upload_id:
+            await db.uploads_history.update_one({"id": ticket_data.upload_id}, {"$set": {"status": "duplicado"}})
+        nombre = existente.get("nombre_personalizado") or existente.get("tienda") or "ticket"
+        raise HTTPException(status_code=409, detail=(
+            f"Este ticket ya está guardado ({nombre} del {existente.get('fecha_compra')}, "
+            f"{euros_es(existente.get('precio_total'))} €). No se ha vuelto a guardar."))
+
     # 1. Empaquetamos los datos verificados
     ticket_final = {
         'id': str(uuid.uuid4()),
@@ -490,8 +575,10 @@ async def save_ticket(ticket_data: DraftTicketModel):
         'tienda': ticket_data.tienda,
         'fecha_compra': ticket_data.fecha_compra,
         'fecha_iso': fecha_a_iso(ticket_data.fecha_compra),
-        'items': [item.model_dump() for item in ticket_data.items],
+        'items': items_dict,
         'precio_total': ticket_data.precio_total,
+        'huella': huella,
+        'archivo_hash': ticket_data.archivo_hash,
         'created_at': datetime.now(timezone.utc).isoformat()
     }
     
@@ -566,6 +653,17 @@ async def get_tickets_analytics():
             key=lambda x: -x['gasto']
         ),
     }
+
+@api_router.delete("/tickets/{ticket_id}")
+async def delete_ticket(ticket_id: str):
+    """Elimina un ticket guardado (y marca su subida como eliminada en el historial)."""
+    ticket = await db.tickets.find_one({"id": ticket_id}, {"_id": 0, "upload_id": 1})
+    if not ticket:
+        raise HTTPException(status_code=404, detail="El ticket no existe")
+    await db.tickets.delete_one({"id": ticket_id})
+    if ticket.get("upload_id"):
+        await db.uploads_history.update_one({"id": ticket["upload_id"]}, {"$set": {"status": "eliminado"}})
+    return {"status": "eliminado", "id": ticket_id}
 
 @api_router.delete("/uploads/{upload_id}")
 async def delete_upload(upload_id: str):

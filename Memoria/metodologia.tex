@@ -1,125 +1,189 @@
 \chapter{Metodología}
 \label{ch:metodologia}
 
-Este capítulo detalla el proceso técnico y secuencial llevado a cabo para el desarrollo del sistema de extracción de información. La metodología se ha dividido en cuatro fases principales: la creación y preprocesamiento del conjunto de datos (\textit{dataset}), el entrenamiento del modelo neuronal, el desarrollo de la lógica del servidor (\textit{backend}) y la integración con la interfaz de usuario (\textit{frontend}).
+Este capítulo detalla el proceso técnico llevado a cabo para el desarrollo del sistema. El trabajo se ha organizado de forma \textbf{iterativa}: una primera versión completa del sistema (modelo v2) permitió detectar sus puntos débiles, y su análisis guió el rediseño del conjunto de datos y del entrenamiento que dio lugar al modelo definitivo (v3). La metodología se divide en cinco fases: la construcción del conjunto de datos (\textit{dataset}), el entrenamiento del modelo neuronal, el diagnóstico y rediseño del entrenamiento, el desarrollo del servidor (\textit{backend}) y la interfaz web.
 
-\section{Preparación del Conjunto de Datos}
-El modelo Donut requiere un aprendizaje supervisado, lo que implica alimentarlo con pares de imágenes y sus correspondientes diccionarios de datos estructurados (\textit{Ground Truth}). Dado que no existía un conjunto de datos público específico para los formatos de la cadena de supermercados Mercadona, se procedió a construir uno propio a partir de una muestra de más de 70 tickets originales.
+\section{Fase 1: Construcción del Conjunto de Datos}
+\label{s:dataset}
+El modelo Donut requiere un aprendizaje supervisado, lo que implica alimentarlo con pares de imágenes y sus correspondientes datos estructurados (\textit{Ground Truth}). Dado que no existía un conjunto de datos público específico para los tickets de la cadena de supermercados Mercadona, se construyó uno propio a partir de 96 tickets digitales reales recogidos entre agosto de 2024 y abril de 2026.
 
-\subsection{Conversión y Extracción de Texto Base}
-El primer paso consistió en homogeneizar el formato de entrada. Los documentos originales, recibidos en formato PDF, fueron rasterizados y convertidos a imágenes JPEG con una resolución adecuada. Paralelamente, para generar la verdad fundamental o \textit{Ground Truth} de forma semi-automática, se utilizó la librería \texttt{pdfplumber} en Python, la cual permite extraer el texto plano manteniendo una aproximación de su disposición espacial original.
+\subsection{Origen de los datos}
+Mercadona entrega sus tickets digitales en formato PDF con texto incrustado. Esta característica se aprovecha para generar el \textit{Ground Truth} de forma automática: el texto se extrae con la librería \texttt{pdfplumber}, mientras que la imagen del ticket se obtiene rasterizando la primera página a 200 ppp. De esta forma el modelo aprende a partir de la \textbf{imagen}, que es lo que recibirá en producción (capturas, escaneos o fotografías), pero las etiquetas proceden del texto exacto del documento.
 
-\subsection{Construcción del \textit{Ground Truth}: La Máquina de Estados}
-Uno de los mayores retos algorítmicos en la fase de preprocesamiento fue la inconsistencia en el formato de las líneas de compra. Mientras que los productos estándar ocupan una única línea de texto, los productos vendidos a granel (por peso) dividen su información en varias líneas consecutivas. Por ejemplo, la lectura de un plátano a granel se distribuye visualmente en tres líneas: el nombre del producto, el desglose de peso y precio unitario, y finalmente el coste total.
+\subsection{Primera versión del \textit{Ground Truth}: la máquina de estados}
+Uno de los mayores retos del preprocesamiento es la inconsistencia en el formato de las líneas de compra. Mientras que los productos estándar ocupan una única línea, los productos vendidos a granel dividen su información en dos líneas: el nombre del producto y, a continuación, el peso, el precio por kilogramo y el importe (por ejemplo, \texttt{1 PEPINO} seguido de \texttt{0,806 kg 1,60 €/kg 1,29}).
 
-Para resolver este problema y generar un archivo \texttt{metadata.jsonl} perfecto para el entrenamiento, se diseñó e implementó un algoritmo basado en una \textbf{Máquina de Estados con Buffer}. Este diseño de ingeniería de software permite que el analizador no evalúe las líneas de forma aislada, sino que mantenga un estado de memoria (\textit{buffer}) que espera a leer las siguientes líneas antes de decidir si un producto está completo o si es un artículo a granel.
+En la primera versión se diseñó un analizador basado en una \textbf{máquina de estados con \textit{buffer}}, que no evalúa las líneas de forma aislada sino que mantiene en memoria el producto en curso hasta saber si está completo. Sin embargo, como se describe en la sección~\ref{s:diagnostico}, este analizador cometía errores sistemáticos al separar la cantidad del nombre y al distinguir el precio unitario del importe.
 
-En el listado~\ref{lst:maquina-estados} se expone el fragmento de código implementado para la resolución de este problema.
+\subsection{Versión definitiva: extracción validada}
+\label{s:extraccion-validada}
+Para la versión definitiva se reescribió el analizador (\texttt{preparar\_dataset.py}) con tres principios:
 
-\begin{lstlisting}[language=python, caption=Implementación de la máquina de estados para la extracción de productos a granel., label=lst:maquina-estados]
-def procesar_lineas_ticket(lineas):
-    productos_extraidos = []
-    buffer_producto = None
-
-    for linea in lineas:
-        # 1. Si la linea es el desglose del peso (ej: "0,850 kg 1,99 /kg")
-        if re.search(r'\d+,\d+\s*kg', linea) and buffer_producto:
-            buffer_producto['peso'] = linea.strip()
-            continue
-            
-        # 2. Si la linea es el precio final del peso (ej: "1,69")
-        if re.match(r'^\d+,\d{2}$', linea.strip()) and buffer_producto:
-            buffer_producto['precio'] = linea.strip()
-            productos_extraidos.append(buffer_producto)
-            buffer_producto = None # Vaciamos el buffer
-            continue
-
-        # 3. Si habia un producto normal en el buffer, lo guardamos
-        if buffer_producto:
-            productos_extraidos.append(buffer_producto)
-            buffer_producto = None
-
-        # 4. Detectamos un nuevo producto (ej: "1 PLATANOS")
-        match_prod = re.match(r'^(\d+)\s+(.+)$', linea)
-        if match_prod:
-            buffer_producto = {
-                "cantidad": match_prod.group(1),
-                "descripcion": match_prod.group(2)
-            }
-
-    # Guardar el ultimo producto si quedo en el buffer al acabar
-    if buffer_producto:
-        productos_extraidos.append(buffer_producto)
-        
-    return productos_extraidos
-\end{lstlisting}
-
-Este enfoque algorítmico garantizó que la estructura anidada del archivo JSON reflejara fielmente la semántica del ticket, independientemente de la longitud o tipo del producto adquirido, estableciendo una base sólida y libre de ruido para el entrenamiento de la Inteligencia Artificial.
-
-\section{Fase 2: Entrenamiento del Modelo de IA (\textit{Fine-tuning})}
-Una vez obtenido el conjunto de datos estructurado en formato \texttt{jsonl} junto con sus respectivas imágenes, se procedió a la fase de entrenamiento o ajuste fino (\textit{fine-tuning}) del modelo neuronal. 
-
-Dado que entrenar un modelo de lenguaje visual desde cero requiere recursos computacionales inmensos y millones de imágenes, se optó por la técnica de transferencia de aprendizaje (\textit{Transfer Learning}). Se seleccionó como base el modelo preentrenado \texttt{naver-clova-ix/donut-base-finetuned-cord-v2}, alojado en el repositorio de \textit{Hugging Face}. Este modelo base ya cuenta con conocimientos previos sobre la estructura general de recibos y facturas (gracias al \textit{dataset} CORD), lo que reduce drásticamente la cantidad de datos necesarios para que aprenda el formato específico de Mercadona.
-
-\subsection{Entorno de Ejecución y Recursos}
-El entrenamiento se llevó a cabo en la plataforma Google Colab, utilizando aceleración por hardware mediante GPUs virtuales (como la NVIDIA T4 o V100). El uso de este entorno en la nube permitió procesar las transformaciones tensoriales complejas del modelo \textit{Vision-Encoder-Decoder} en tiempos de ejecución razonables, evitando cuellos de botella por falta de memoria VRAM en equipos locales.
-
-\subsection{Ajuste de Hiperparámetros y Solución del \textit{Underfitting}}
-El proceso de \textit{fine-tuning} no fue directo y requirió un proceso empírico de prueba y error. En la primera iteración, se configuró el entrenamiento con \textbf{4 épocas (\textit{epochs})}, es decir, el modelo vio el conjunto de datos completo únicamente en 4 ocasiones. 
-
-El resultado de este primer intento fue un modelo que sufría de subajuste (\textit{underfitting}) y colapso de secuencias. Al pasarle una imagen de prueba, el decodificador textual entraba en un bucle infinito, "tartamudeando" y repitiendo el mismo carácter (por ejemplo, múltiples corchetes o llaves) sin llegar a cerrar la estructura del JSON, provocando un error en la deserialización de los datos.
-
-Para solventar esta inestabilidad en la inferencia, se rediseñó la configuración de entrenamiento aplicando los siguientes hiperparámetros definitivos:
-\begin{itemize}
-    \item \textbf{Aumento a 15 \textit{epochs}:} Se incrementó el número de pasadas completas sobre el \textit{dataset}. Al contar con una muestra pequeña de unos 70 documentos, el modelo necesitaba observar la relación entre la imagen y los textos muchas más veces para asimilar la estructura rígida de los recibos objetivo.
-    \item \textbf{Programador de Tasa de Aprendizaje (\textit{Cosine Scheduler}):} Se sustituyó el decaimiento lineal clásico por un \texttt{lr\_scheduler\_type="cosine"}. Esta técnica permite que la tasa de aprendizaje disminuya siguiendo una curva cosenoidal, realizando ajustes grandes en las primeras épocas para asentar los pesos importantes, y ajustes muy finos y suaves hacia el final del entrenamiento para estabilizar la gramática del modelo sin destruir lo aprendido.
-\end{itemize}
-
-Gracias a estas modificaciones, el segundo entrenamiento convergió exitosamente. El modelo dejó de tartamudeer y comenzó a generar estructuras JSON sintácticamente válidas, extrayendo los productos, el total y la tienda con altísima fidelidad temporal y espacial.
-
-\section{Fase 3: Desarrollo del Backend y el Parser Defensivo}
-Una vez obtenido un modelo capaz de generar secuencias de texto precisas, se procedió a su despliegue en un servidor local desarrollado en Python. El objetivo de este \textit{backend} es recibir las imágenes de los clientes, procesarlas a través del modelo neuronal y devolver la información estructurada.
-
-Sin embargo, tal y como se expuso en la revisión bibliográfica, los modelos entrenados bajo el paradigma de escasez de datos (\textit{Few-Shot Learning}) tienden a generar inestabilidades en escenarios de producción. Durante las pruebas de inferencia en el servidor, se detectaron dos problemas críticos:
 \begin{enumerate}
-    \item \textbf{Rotura sintáctica del JSON:} En ocasiones, el modelo generaba correctamente toda la información del ticket pero omitía cerrar llaves o comillas al final de la secuencia, provocando excepciones fatales (\texttt{JSONDecodeError}) que detenían el servidor.
-    \item \textbf{Alucinación numérica (Miopía de la IA):} Debido a la tipografía pequeña de la columna de cantidades en los recibos, la red neuronal infería valores irreales o formatos inventados (ej. \texttt{cnt="7"} o \texttt{cnt="1-4"}) para productos que, en la imagen original, mostraban claramente una sola unidad.
+    \item \textbf{Análisis línea a línea adaptado al formato real.} Cada línea de producto empieza por la cantidad (puede ser negativa en las devoluciones) seguida del nombre. Los importes se identifican siempre por el patrón \texttt{d,dd} y se toman desde el final de la línea: si hay dos, el primero es el precio unitario y el segundo el importe. Si no hay ninguno, el producto es a granel y sus datos se leen de la línea siguiente.
+    \item \textbf{Validación aritmética.} La suma de los importes de todos los productos debe coincidir exactamente con el \texttt{TOTAL} del ticket. Si no cuadra, el ticket se descarta del conjunto de datos. Esta comprobación garantiza que ningún producto falta ni está mal leído.
+    \item \textbf{Deduplicación.} Se calcula un \textit{hash} MD5 de cada PDF y se eliminan las copias exactas (se encontraron 5).
 \end{enumerate}
 
-\subsection{Implementación de la Arquitectura Híbrida}
-Para solventar estos fallos sin necesidad de reentrenar el modelo con miles de imágenes adicionales, se implementó una arquitectura híbrida (neuro-simbólica) en el \textit{backend}. En lugar de confiar ciegamente en analizadores sintácticos estrictos como \texttt{json.loads()}, se desarrolló un \textbf{Parser Defensivo} tolerante a fallos.
+El listado~\ref{lst:parser-dataset} muestra el núcleo del analizador.
 
-Este algoritmo actúa como un "salvavidas": recibe la cadena de texto cruda generada por Donut y utiliza Expresiones Regulares (\textit{Regex}) para bucear en ella, rescatando patrones conocidos (como la tienda, la fecha y los productos) e ignorando las llaves rotas o caracteres espurios generados por las alucinaciones. En el listado~\ref{lst:parser-defensivo} se muestra el núcleo de esta lógica.
+\begin{lstlisting}[language=python, caption=Extracción de productos y validación del \textit{Ground Truth}., label=lst:parser-dataset]
+PRECIO = r"-?\d+,\d{2}"
+RE_PESO = re.compile(r"^(\d+,\d{3})\s*kg\s+(\d+,\d{2})\s*\u20ac/kg\s+(" + PRECIO + r")$")
 
-\begin{lstlisting}[language=python, caption=Implementación del parser defensivo mediante Expresiones Regulares para rescatar datos de JSON corruptos., label=lst:parser-defensivo]
+cnt, resto = RE_ITEM.match(linea).groups()
+tokens = resto.split(" ")
+precios = []
+while tokens and len(precios) < 2 and re.fullmatch(PRECIO, tokens[-1]):
+    precios.insert(0, tokens.pop())
+item = {"cnt": cnt, "nm": " ".join(tokens)}
+if not precios:                      # producto a granel
+    peso, eur_kg, importe = RE_PESO.match(lineas[i + 1]).groups()
+    item.update(weight=f"{peso} kg", unitprice=f"{eur_kg} \u20ac/kg", price=importe)
+elif len(precios) == 2:              # varias unidades
+    item["unitprice"], item["price"] = precios
+else:
+    item["price"] = precios[0]
+
+# Validacion: la suma de importes debe ser igual al TOTAL del ticket
+if sum(centimos(it["price"]) for it in items) != centimos(total):
+    raise ValueError("La suma de importes no cuadra con el TOTAL")
+\end{lstlisting}
+
+Los 91 tickets únicos superaron la validación. El conjunto final contiene 603 productos (6,6 de media por ticket y un máximo de 34), de los cuales 38 son productos a granel y 66 aparecen con varias unidades; incluye además 7 tickets con línea de aparcamiento y 2 devoluciones con importes negativos.
+
+\subsection{División en entrenamiento y validación}
+Para poder medir objetivamente el rendimiento del modelo, el conjunto se dividió de forma aleatoria y reproducible (semilla 42) en \textbf{77 tickets de entrenamiento y 14 de validación}. Los tickets de validación no se usan en ningún momento del entrenamiento, tampoco para generar datos sintéticos.
+
+\section{Fase 2: Primera Iteración del Entrenamiento (modelo v2)}
+Una vez obtenido el conjunto de datos, se procedió al ajuste fino (\textit{fine-tuning}) del modelo. Dado que entrenar un modelo de visión y lenguaje desde cero requiere millones de imágenes, se aplicó \textbf{transferencia de aprendizaje} partiendo del modelo preentrenado \texttt{naver-clova-ix/donut-base-finetuned-cord-v2}, disponible en \textit{Hugging Face}. Este modelo ya había sido ajustado sobre CORD, un conjunto de recibos de tiendas, por lo que conoce la estructura general de un ticket y solo debe aprender el formato de Mercadona.
+
+El entrenamiento se llevó a cabo en Google Colab con una GPU NVIDIA T4. En la primera iteración se entrenó con 4 épocas, y el modelo sufría subajuste (\textit{underfitting}): el decodificador entraba en bucles repitiendo el mismo carácter sin cerrar la estructura de salida. Se aumentó a 15 épocas y se sustituyó el decaimiento lineal de la tasa de aprendizaje por un programador coseno (\texttt{lr\_scheduler\_type="cosine"}). Con estos cambios el modelo comenzó a generar salidas mayoritariamente válidas, pero persistían errores: estructuras JSON sin cerrar, cantidades inventadas y productos omitidos.
+
+Para hacer el sistema utilizable se añadió en el servidor un \textbf{parser defensivo} basado en expresiones regulares, que rescataba la información de las salidas mal formadas, y se forzó la cantidad de cada producto a 1 para evitar las cantidades inventadas por el modelo.
+
+\section{Fase 3: Diagnóstico y Rediseño del Entrenamiento (modelo v3)}
+\label{s:diagnostico}
+Las medidas anteriores ocultaban los síntomas pero no sus causas. Un análisis detallado del conjunto de datos y del proceso de entrenamiento reveló seis problemas, recogidos en la tabla~\ref{tab:diagnostico}.
+
+\begin{table}[htbp]
+    \caption{\label{tab:diagnostico}Problemas detectados en la primera iteración y solución adoptada}
+    \begin{tabularx}{\textwidth}{@{}XX@{}}
+        \toprule
+        \textbf{Problema detectado} & \textbf{Solución en la versión v3} \\
+        \midrule
+        43 de 91 tickets (47\,\%) tenían algún error en el \textit{Ground Truth}; 80 de 603 productos (13\,\%) estaban mal o faltaban & Extracción validada por la suma de importes (sección~\ref{s:extraccion-validada}) \\
+        Salida en JSON como texto plano: 13 tickets superaban el límite de 512 tokens y se truncaban & Formato de tokens especiales de Donut (máximo 628 tokens, límite 768) \\
+        Resolución de entrada de 960$\times$720: en tickets largos la letra quedaba de unos 10 píxeles & Resolución de 1920$\times$720 \\
+        El tokenizador no contiene la letra «Ñ» & Sustitución reversible por «ñ» \\
+        Entrenamiento con todos los tickets, sin conjunto de validación & División 77/14 y métricas por época \\
+        Penalización por repetición en la inferencia & Eliminada: en un ticket se repiten legítimamente precios y productos \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+El hallazgo principal es que el cuello de botella no era el modelo sino la \textbf{calidad de los datos}: el modelo estaba aprendiendo fielmente unas etiquetas incorrectas. Por ejemplo, la línea \texttt{1 P. COLORCOR 7} se etiquetaba con el nombre \texttt{1 P. COLORCOR} y la cantidad 7, y en los productos con varias unidades el campo \texttt{price} contenía unas veces el precio unitario y otras el importe. A continuación se describen los cambios introducidos en el entrenamiento.
+
+\subsection{Formato de salida con tokens especiales}
+Donut está diseñado para generar una secuencia con etiquetas de apertura y cierre que se traduce de forma biunívoca a JSON \parencite{kim2021donut}. En la primera versión, en cambio, el modelo debía escribir el JSON carácter a carácter, con sus llaves, comillas y comas, lo que alargaba las secuencias (297 tokens de media) y favorecía las salidas mal formadas. En la versión v3 cada ticket se representa así:
+
+\begin{lstlisting}[caption=Representación de un ticket con tokens especiales., label=lst:tokens]
+<s_date>21/07/2025</s_date><s_menu>
+  <s_cnt>3</s_cnt><s_nm>LECHE ENTERA</s_nm><s_unitprice>0,97</s_unitprice><s_price>2,91</s_price><sep/>
+  <s_cnt>1</s_cnt><s_nm>LAUREL HOJA</s_nm><s_price>0,85</s_price>
+</s_menu><s_total><s_total_price>36,30</s_total_price></s_total>
+\end{lstlisting}
+
+Cada etiqueta es un único token. Las etiquetas propias de CORD (\texttt{<s\_nm>}, \texttt{<s\_price>}, \texttt{<s\_unitprice>}, etc.) ya existían en el vocabulario y se reutilizan, de modo que el modelo aprovecha lo aprendido; solo se añadieron \texttt{<s\_date>}, \texttt{<s\_weight>} y el token de tarea \texttt{<s\_mercadona>}. Con este formato la secuencia media baja a 143 tokens y la más larga ocupa 628.
+
+Durante esta adaptación se detectó además que el tokenizador de Donut no contiene las letras «Ñ» ni «È», que se convertían en el token desconocido \texttt{<unk>}, cuya generación está prohibida durante la inferencia: productos como \texttt{LASAÑA} o \texttt{PIÑA} eran imposibles de leer. Como el vocabulario sí contiene «ñ» y «è», en las etiquetas se usan las minúsculas y la transformación se deshace al decodificar; al ir los nombres de producto siempre en mayúsculas no existe ambigüedad.
+
+\subsection{Resolución de entrada}
+El procesador de Donut reescala la imagen para que quepa en el tamaño de entrada manteniendo su proporción. Los tickets son estrechos y muy largos (hasta 1.967 puntos de alto frente a 612 de ancho), por lo que el factor limitante es la altura: con 960$\times$720 un ticket largo quedaba reducido a unos 300 píxeles de ancho y la letra a unos 10 píxeles, insuficiente para distinguir dígitos. Se aumentó la resolución a \textbf{1920$\times$720}, el máximo que permite la memoria de la GPU T4, con lo que la letra pasa a medir entre 20 y 24 píxeles.
+
+\subsection{Generación de datos sintéticos}
+Con solo 77 tickets reales de entrenamiento existe el riesgo de que el modelo memorice ejemplos concretos. Los propios autores de Donut proponen generar documentos sintéticos para el preentrenamiento \parencite{kim2021donut}. En este proyecto se aprovecha que todos los tickets digitales de Mercadona comparten la misma maqueta (fuente Times de 20,4 puntos, columnas en posiciones fijas y los mismos logotipos) para generar tickets sintéticos prácticamente indistinguibles de los reales (\texttt{generar\_sinteticos.py}):
+
+\begin{itemize}
+    \item Los nombres de producto proceden de los tickets reales de \textbf{entrenamiento} (nunca de validación) y del catálogo de Mercadona adaptado al estilo del ticket (mayúsculas, sin marca y con un máximo de 20 caracteres).
+    \item Las proporciones de productos a granel, con varias unidades, aparcamientos y devoluciones imitan las de los tickets reales.
+    \item Su \textit{Ground Truth} es exacto por construcción.
+\end{itemize}
+
+Se generaron 800 tickets sintéticos. En cada época el modelo ve los 77 tickets reales repetidos tres veces (por ser la distribución objetivo) y los 800 sintéticos, en total 1.031 muestras.
+
+\subsection{Aumentación de datos}
+Sobre las imágenes de entrenamiento se aplican transformaciones aleatorias que no alteran su contenido: rotaciones de hasta 1,5$^{\circ}$, márgenes y desplazamientos, cambios de escala, desenfoque gaussiano, variaciones de brillo y contraste y compresión JPEG. Estas transformaciones obligan al modelo a reconocer los caracteres en lugar de memorizar píxeles exactos y lo hacen más robusto frente a capturas o escaneos.
+
+\subsection{Configuración del entrenamiento}
+La tabla~\ref{tab:hiperparametros} resume la configuración final. Tras cada época el modelo genera las salidas de los 14 tickets de validación y se calculan las métricas descritas en el capítulo~\ref{ch:resultados}; se conserva el mejor modelo según el F1 de productos y el entrenamiento se detiene si esta métrica no mejora durante tres épocas consecutivas (\textit{early stopping}).
+
+\begin{table}[htbp]
+    \caption{\label{tab:hiperparametros}Configuración del entrenamiento del modelo v3}
+    \begin{tabularx}{\textwidth}{@{}lX@{}}
+        \toprule
+        \textbf{Parámetro} & \textbf{Valor} \\
+        \midrule
+        Modelo base & \texttt{naver-clova-ix/donut-base-finetuned-cord-v2} \\
+        Hardware & Google Colab, GPU NVIDIA T4 (16\,GB) \\
+        Resolución de entrada & 1920$\times$720 píxeles (alto$\times$ancho) \\
+        Longitud máxima de secuencia & 768 tokens \\
+        Épocas & 7 como máximo (\textit{early stopping} con paciencia 3) \\
+        Tamaño de lote & 1, con acumulación de gradiente de 4 (lote efectivo 4) \\
+        Tasa de aprendizaje & $3\cdot10^{-5}$, calentamiento del 5\,\% y decaimiento coseno \\
+        Regularización & \textit{Weight decay} de 0,01 \\
+        Precisión numérica & Media precisión (fp16) con \textit{gradient checkpointing} \\
+        Criterio de selección & Mejor F1 de productos en validación \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\section{Fase 4: Desarrollo del Backend}
+El servidor se ha desarrollado en Python con FastAPI y utiliza MongoDB como base de datos. Su función es recibir los tickets, ejecutar el modelo, post-procesar la salida y gestionar el almacenamiento.
+
+\subsection{Arquitectura híbrida y post-procesado}
+El sistema sigue una arquitectura híbrida (neuro-simbólica) en la que la red neuronal se encarga de la lectura y la programación clásica de la validación y la organización de los datos. La salida del modelo v3 se convierte a JSON mediante el algoritmo \texttt{token2json} de Donut y se transforma al formato de la aplicación (descripción, cantidad y precio unitario). Con el modelo v3 la cantidad leída es fiable y ya no se fuerza a 1. El parser defensivo de la primera versión, cuyo núcleo se muestra en el listado~\ref{lst:parser-defensivo}, se mantiene únicamente como mecanismo de respaldo para el modelo anterior.
+
+\begin{lstlisting}[language=python, caption=Parser defensivo de la primera versión para rescatar datos de salidas mal formadas., label=lst:parser-defensivo]
 def rescatar_json_roto(texto_crudo: str) -> dict:
     tienda = "Desconocida"
     m_tienda = re.search(r'"name":\s*"([^"]+)"', texto_crudo)
     if m_tienda: tienda = m_tienda.group(1)
 
     items = []
-    # Busca bloques de productos, saltando alucinaciones sintacticas
-    patron_productos = re.finditer(r'"nm":\s*"([^"]+)".*?(?:"cnt"|"price"):\s*"([\d,\.\-]+)"', texto_crudo)
-    
-    for match in patron_productos:
+    patron = re.finditer(r'"nm":\s*"([^"]+)".*?(?:"cnt"|"price"):\s*"([\d,\.\-]+)"', texto_crudo)
+    for match in patron:
         nombre = match.group(1).strip()
-        precio_crudo = match.group(2)
-
         try:
-            precio = float(precio_crudo.replace(',', '.'))
-        except:
+            precio = float(match.group(2).replace(',', '.'))
+        except ValueError:
             precio = 0.0
-
-        items.append({
-            "descripcion": nombre,
-            "cantidad": 1,  # Correccion determinista de la alucinacion visual
-            "precio_unitario": precio
-        })
+        items.append({"descripcion": nombre, "cantidad": 1, "precio_unitario": precio})
 
     return {"tienda": tienda, "items": items}
 \end{lstlisting}
 
-\subsection{Reglas de Negocio en el Post-Procesamiento}
-Adicionalmente, la arquitectura híbrida permitió inyectar reglas de negocio deterministas en la fase de extracción. Como se observa en la línea 21 del listado~\ref{lst:parser-defensivo}, se forzó por código el valor de la cantidad a \texttt{1}. Este post-procesamiento corrige instantáneamente el problema de la "miopía" numérica de la IA, apoyándose en la heurística comercial de que el formato de Mercadona lista cada unidad en una línea independiente, salvo excepciones de venta a granel. 
+\subsection{Categorización automática de productos}
+Para que el usuario pueda analizar sus gastos, cada producto se clasifica en una o varias categorías. Mediante un \textit{scraper} de la API pública de la tienda en línea de Mercadona se obtuvo un catálogo de 3.931 productos organizados en 26 categorías y sus subcategorías.
 
-El uso conjunto del modelo visual y la programación tradicional dotó al sistema de una alta tolerancia a fallos, permitiendo extraer un 100\% de información útil en tickets donde el modelo neuronal rompía su propio formato de salida.
+La dificultad reside en que los nombres del ticket están abreviados (\texttt{Q. UNTAR SUAVE}) mientras que los del catálogo son completos (\textit{Queso untar suave de vaca Hacendado}), por lo que no es posible una búsqueda exacta. Se implementó un emparejamiento por palabras que:
+
+\begin{itemize}
+    \item normaliza el texto (minúsculas, sin tildes, sin cantidades ni formatos como \texttt{P6} o \texttt{1KG}) y expande abreviaturas frecuentes;
+    \item admite que una palabra del ticket sea prefijo de una del catálogo (\texttt{ULTRACONG} $\rightarrow$ \textit{ultracongelado}), salvo que ya sea una palabra completa (para evitar \texttt{AGUA} $\rightarrow$ \textit{aguacate});
+    \item pondera cada palabra según su rareza en el catálogo (IDF), de modo que coincidir en \textit{mozzarella} pesa más que coincidir en \textit{queso}.
+\end{itemize}
+
+Un mismo producto puede pertenecer a varias categorías: si en el catálogo aparece en más de una (por ejemplo, el tomate frito figura en \textit{Otras salsas} y en \textit{Tomate}), se le asignan todas. Sobre los 290 nombres de producto distintos del conjunto de datos, el 96\,\% recibe categoría automáticamente. Además, cuando el usuario corrige una categoría, la corrección se guarda y se reutiliza en los siguientes tickets que contengan ese producto.
+
+\subsection{Detección de tickets duplicados}
+Para evitar contar dos veces un mismo gasto, el sistema comprueba si un ticket ya existe en tres momentos: al recibir el archivo, comparando su \textit{hash} SHA-256 (sin necesidad de ejecutar el modelo); tras la lectura, comparando una huella del contenido formada por la fecha, el total y la lista ordenada de productos; y al guardar, con los datos ya revisados por el usuario. Si se detecta un duplicado, se avisa al usuario y el ticket se descarta.
+
+\section{Fase 5: Interfaz Web}
+La interfaz se ha desarrollado en React con Tailwind CSS. Sus funciones principales son:
+
+\begin{itemize}
+    \item \textbf{Revisión humana} (\textit{human-in-the-loop}): antes de guardar, el usuario ve los datos extraídos en una tabla editable en la que puede corregir cualquier campo, añadir productos omitidos, eliminar productos sobrantes y modificar sus categorías. Si la suma de los productos no coincide con el total, se muestra un aviso.
+    \item \textbf{Historial de tickets} ordenado por la fecha de compra, con filtros combinables por categoría, subcategoría, mes y día. Al filtrar por categoría se muestran solo los productos de esa categoría dentro de cada ticket, junto con el gasto correspondiente.
+    \item \textbf{Eliminación} de tickets con confirmación.
+\end{itemize}
