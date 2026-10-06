@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
-import { UploadCloud, Loader2, CheckCircle, Plus, Trash2, X, AlertTriangle, CalendarDays } from 'lucide-react';
+import { UploadCloud, Loader2, CheckCircle, Plus, Trash2, X, AlertTriangle, CalendarDays, Search, ArrowDownWideNarrow, ArrowUpNarrowWide } from 'lucide-react';
 import { toast, Toaster } from 'sonner';
 import ChatAsistente from './components/ChatAsistente';
 import PanelLote from './components/PanelLote';
@@ -23,6 +23,9 @@ export default function App() {
   const [filtroSubcategoria, setFiltroSubcategoria] = useState('');
   const [filtroMes, setFiltroMes] = useState('');      // "YYYY-MM"
   const [filtroDia, setFiltroDia] = useState('');      // "YYYY-MM-DD"
+  const [busqueda, setBusqueda] = useState('');        // búsqueda por nombre del ticket
+  const [ordenCampo, setOrdenCampo] = useState('fecha');   // 'fecha' | 'precio'
+  const [ordenDir, setOrdenDir] = useState('desc');        // 'desc' (mayor a menor) | 'asc'
   const [confirmarBorrado, setConfirmarBorrado] = useState(null);   // id del ticket pendiente de confirmar
   const [borrando, setBorrando] = useState(null);
 
@@ -268,6 +271,28 @@ export default function App() {
     }
   };
 
+  // Cambia el nombre de un producto (aceptar sugerencia / deshacer corrección) y vuelve a categorizarlo
+  const cambiarNombreItem = async (index, descripcion, extra = {}) => {
+    setDraftTicket((prev) => {
+      const newItems = [...prev.items];
+      newItems[index] = { ...newItems[index], descripcion, sugerencia_nombre: null, ...extra };
+      return { ...prev, items: newItems };
+    });
+    if (draftTicket.items[index]?.categoria_manual) return;
+    try {
+      const res = await axios.post(`${API}/categorizar`, { descripcion });
+      setDraftTicket((prev) => {
+        const newItems = [...prev.items];
+        if (newItems[index]?.descripcion !== descripcion) return prev;
+        newItems[index] = { ...newItems[index], categorias: res.data.categorias || [],
+          producto_catalogo: res.data.producto_catalogo, origen_categoria: res.data.origen };
+        return { ...prev, items: newItems };
+      });
+    } catch (e) {
+      console.error('Error categorizando:', e);
+    }
+  };
+
   const handleAddCategoria = (index, valor) => {
     if (!valor) return;
     const [categoria, subcategoria] = valor.split('||');
@@ -334,21 +359,36 @@ export default function App() {
       c.categoria === filtroCategoria && (!filtroSubcategoria || c.subcategoria === filtroSubcategoria));
   };
 
+  const importeItem = (it) => (Number(it.precio_unitario) || 0) * (Number(it.cantidad) || 1);
+
+  // Búsqueda sin distinguir mayúsculas ni tildes ("compra semanal" encuentra "Compra Semanal")
+  const sinTildes = (txt) => String(txt || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+  const nombreTicket = (t) => t.nombre_personalizado || t.tienda || '';
+  const textoBuscado = sinTildes(busqueda);
+  const horaTicket = (t) => (/\s(\d{1,2}):(\d{2})/.exec(t.fecha_compra || '') || []).slice(1).map((x) => x.padStart(2, '0')).join(':');
+
   const ticketsFiltrados = tickets
     .map((t) => ({ ...t, _fecha: fechaISO(t.fecha_compra) }))
     .filter((t) => !filtroMes || t._fecha.startsWith(filtroMes))
     .filter((t) => !filtroDia || t._fecha === filtroDia)
+    .filter((t) => !textoBuscado || sinTildes(nombreTicket(t)).includes(textoBuscado))
     .map((t) => ({ ...t, _items: (t.items || []).filter(productoEnFiltro) }))
     .filter((t) => !filtroCategoria || t._items.length > 0)
-    .sort((a, b) => b._fecha.localeCompare(a._fecha));   // por fecha del ticket, más reciente primero
-
-  const importeItem = (it) => (Number(it.precio_unitario) || 0) * (Number(it.cantidad) || 1);
+    // Importe que se muestra en la tarjeta: con filtro de categoría, solo lo de esa categoría
+    .map((t) => ({ ...t, _importe: filtroCategoria ? t._items.reduce((s, it) => s + importeItem(it), 0) : Number(t.precio_total) || 0,
+                       _orden: `${t._fecha} ${horaTicket(t)}` }))
+    .sort((a, b) => {
+      const signo = ordenDir === 'asc' ? 1 : -1;
+      const porFecha = a._orden.localeCompare(b._orden);
+      if (ordenCampo === 'precio') return signo * ((a._importe - b._importe) || porFecha);
+      return signo * porFecha;
+    });
   const gastoFiltrado = ticketsFiltrados.reduce((acc, t) =>
     acc + (filtroCategoria ? t._items.reduce((s, it) => s + importeItem(it), 0) : Number(t.precio_total) || 0), 0);
 
-  const hayFiltros = filtroCategoria || filtroMes || filtroDia;
+  const hayFiltros = filtroCategoria || filtroMes || filtroDia || busqueda;
   const limpiarFiltros = () => {
-    setFiltroCategoria(''); setFiltroSubcategoria(''); setFiltroMes(''); setFiltroDia('');
+    setFiltroCategoria(''); setFiltroSubcategoria(''); setFiltroMes(''); setFiltroDia(''); setBusqueda('');
   };
   const formatoFecha = (iso) => iso ? iso.split('-').reverse().join('/') : '';
   const claseSelect = 'bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-blue-500';
@@ -590,13 +630,22 @@ export default function App() {
                           autoFocus={item.añadido_manual && !item.descripcion}
                           className="w-full bg-transparent border border-transparent group-hover:border-slate-700 focus:border-blue-500 rounded px-3 py-1.5 text-slate-200 placeholder-slate-600 focus:outline-none focus:bg-slate-950 transition-all"
                         />
+                        {item.correccion_auto && item.descripcion !== item.correccion_auto.original && (
+                          <p className="px-3 text-[11px] text-emerald-400/90 flex flex-wrap items-center gap-x-1.5"
+                             title={`Corregido automáticamente: ${item.correccion_auto.motivo}`}>
+                            <CheckCircle className="w-3 h-3 shrink-0" />
+                            <span>Corregido · se leyó «{item.correccion_auto.original}»</span>
+                            <button
+                              onClick={() => cambiarNombreItem(index, item.correccion_auto.original, { correccion_auto: null })}
+                              className="text-slate-400 hover:text-white underline decoration-dotted"
+                            >
+                              Deshacer
+                            </button>
+                          </p>
+                        )}
                         {item.sugerencia_nombre && item.descripcion !== item.sugerencia_nombre && (
                           <button
-                            onClick={() => setDraftTicket((prev) => {
-                              const newItems = [...prev.items];
-                              newItems[index] = { ...newItems[index], descripcion: item.sugerencia_nombre, sugerencia_nombre: null };
-                              return { ...prev, items: newItems };
-                            })}
+                            onClick={() => cambiarNombreItem(index, item.sugerencia_nombre)}
                             className="px-3 text-[11px] text-amber-400 hover:text-amber-300 underline decoration-dotted text-left"
                             title="Producto parecido que ya has comprado antes"
                           >
@@ -716,6 +765,38 @@ export default function App() {
 
             {/* Barra de filtros */}
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 mb-6 space-y-4">
+              {/* Búsqueda por nombre y orden */}
+              <div className="flex flex-col md:flex-row gap-3">
+                <div className="relative flex-1">
+                  <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="search"
+                    value={busqueda}
+                    onChange={(e) => setBusqueda(e.target.value)}
+                    placeholder="Buscar ticket por nombre…"
+                    aria-label="Buscar ticket por nombre"
+                    className={`${claseSelect} w-full pl-9`}
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <label className="text-xs text-slate-400 whitespace-nowrap" htmlFor="orden-campo">Ordenar por</label>
+                  <select id="orden-campo" value={ordenCampo} onChange={(e) => setOrdenCampo(e.target.value)} className={claseSelect}>
+                    <option value="fecha">Fecha</option>
+                    <option value="precio">Precio</option>
+                  </select>
+                  <button
+                    onClick={() => setOrdenDir((d) => (d === 'desc' ? 'asc' : 'desc'))}
+                    title="Cambiar el sentido del orden"
+                    className={`${claseSelect} inline-flex items-center gap-1.5 whitespace-nowrap hover:border-blue-500 hover:text-white`}
+                  >
+                    {ordenDir === 'desc' ? <ArrowDownWideNarrow className="w-4 h-4" /> : <ArrowUpNarrowWide className="w-4 h-4" />}
+                    {ordenCampo === 'fecha'
+                      ? (ordenDir === 'desc' ? 'Más recientes' : 'Más antiguos')
+                      : (ordenDir === 'desc' ? 'Mayor a menor' : 'Menor a mayor')}
+                  </button>
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 <label className="flex flex-col gap-1 text-xs text-slate-400">
                   Categoría
@@ -787,7 +868,8 @@ export default function App() {
               <div className="text-center py-10 text-slate-500">Cargando datos...</div>
             ) : ticketsFiltrados.length === 0 ? (
               <div className="text-center py-10 text-slate-500 bg-slate-900 rounded-xl border border-slate-800">
-                {tickets.length === 0 ? 'No hay tickets procesados todavía.' : 'Ningún ticket coincide con los filtros.'}
+                {tickets.length === 0 ? 'No hay tickets procesados todavía.'
+                  : busqueda ? `Ningún ticket se llama «${busqueda}» con los filtros actuales.` : 'Ningún ticket coincide con los filtros.'}
               </div>
             ) : (
               <div className="space-y-6">
