@@ -1,7 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
-import { UploadCloud, Loader2, CheckCircle, Plus, Trash2, X, AlertTriangle } from 'lucide-react';
+import { UploadCloud, Loader2, CheckCircle, Plus, Trash2, X, AlertTriangle, CalendarDays } from 'lucide-react';
 import { toast, Toaster } from 'sonner';
+import ChatAsistente from './components/ChatAsistente';
+import PanelLote from './components/PanelLote';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -23,6 +25,12 @@ export default function App() {
   const [filtroDia, setFiltroDia] = useState('');      // "YYYY-MM-DD"
   const [confirmarBorrado, setConfirmarBorrado] = useState(null);   // id del ticket pendiente de confirmar
   const [borrando, setBorrando] = useState(null);
+
+  // --- SUBIDA MÚLTIPLE ---
+  const [lote, setLote] = useState([]);              // [{id, nombre, estado, mensaje, borrador}]
+  const [loteActivo, setLoteActivo] = useState(false);
+  const [revisarTodos, setRevisarTodos] = useState(false);
+  const cancelarLote = useRef(false);
 
   useEffect(() => {
     axios.get(`${API}/categorias`)
@@ -48,48 +56,160 @@ export default function App() {
     fetchTickets();
   }, [fetchTickets]);
 
-  // Lógica de subida adaptada para el flujo de Revisión Humana
+  // ── Subida de tickets ──
+
+  // Envía un archivo al backend junto con su fecha de modificación (sirve para comprobar la fecha leída)
+  const subirArchivo = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    if (file.lastModified) formData.append('ultima_modificacion', String(file.lastModified));
+    const res = await axios.post(`${API}/upload`, formData);
+    return res.data;
+  };
+
+  const borradorDesdeRespuesta = (data) => ({
+    nombre_personalizado: '',
+    tienda: data.tienda || 'Desconocida',
+    fecha_compra: data.fecha_compra || '',
+    fecha_leida: data.fecha_compra || '',
+    items: (data.items || []).map((it) => ({ ...it, categorias: it.categorias || [] })),
+    precio_total: data.precio_total || 0,
+    upload_id: data.upload_id || data.id,
+    archivo_hash: data.archivo_hash,
+    revision_fecha: data.revision_fecha || null,
+  });
+
+  // Explica por qué el backend no ha devuelto productos (error del modelo, extracto bancario, formato…)
+  const motivoSinDatos = (data) => {
+    if (data?.result_type === 'banco') return `Se ha interpretado como extracto bancario (${data.result_count} movimientos), no como ticket`;
+    if (data?.result_type === 'formato_no_soportado') return 'Formato de archivo no soportado';
+    if (data?.status === 'error' && data?.result_type) return `Error al procesar: ${data.result_type}`;
+    return 'No se pudieron extraer los datos del ticket';
+  };
+
+  // Lo que se manda a /save-ticket (sin los campos que solo usa la interfaz)
+  const ticketParaGuardar = ({ revision_fecha, fecha_leida, _loteId, ...resto }) => resto;
+
+  // Motivos por los que un ticket de una subida múltiple no se guarda solo y pasa a revisión
+  const motivosRevision = (b) => {
+    const motivos = [];
+    if (b.revision_fecha?.aviso) motivos.push('fecha dudosa');
+    if (!b.items.length) motivos.push('sin productos');
+    if (b.items.some((it) => !String(it.descripcion || '').trim())) motivos.push('productos sin nombre');
+    const suma = b.items.reduce((acc, it) => acc + (Number(it.precio_unitario) || 0) * (Number(it.cantidad) || 1), 0);
+    if (Math.abs(suma - b.precio_total) > 0.01) motivos.push('el total no cuadra con los productos');
+    return motivos;
+  };
+
   const handleUpload = async (files) => {
-    if (!files.length) return;
-    
-    // Para simplificar la revisión, procesaremos el primer archivo si arrastran varios
+    if (!files.length || isUploading || loteActivo) return;
+    if (files.length > 1) {
+      procesarLote(files);
+      return;
+    }
     setIsUploading(true);
     const file = files[0];
-
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-      
-      const res = await axios.post(`${API}/upload`, formData);
-      
+      const data = await subirArchivo(file);
+
       // Ticket repetido: se avisa y no se abre la revisión
-      if (res.data?.duplicado) {
-        toast.warning('Ticket repetido', { description: res.data.mensaje, duration: 8000 });
+      if (data?.duplicado) {
+        toast.warning('Ticket repetido', { description: data.mensaje, duration: 8000 });
         return;
       }
-
-      // Si el backend nos devuelve los datos extraídos listos para revisar:
-      if (res.data && res.data.items) {
-        toast.success("IA procesada. Por favor, revisa los datos.");
-        // Inicializamos el borrador con los datos de la IA
-        setDraftTicket({
-          nombre_personalizado: "",
-          tienda: res.data.tienda || "Desconocida",
-          fecha_compra: res.data.fecha_compra || "",
-          items: (res.data.items || []).map((it) => ({ ...it, categorias: it.categorias || [] })),
-          precio_total: res.data.precio_total || 0,
-          upload_id: res.data.upload_id || res.data.id,
-          archivo_hash: res.data.archivo_hash
-        });
+      if (data && data.items) {
+        const borrador = borradorDesdeRespuesta(data);
+        if (borrador.revision_fecha?.aviso) {
+          toast.warning('Revisa la fecha del ticket', { description: borrador.revision_fecha.aviso, duration: 8000 });
+        } else {
+          toast.success('IA procesada. Por favor, revisa los datos.');
+        }
+        setDraftTicket(borrador);
       } else {
-        toast.error("No se pudieron extraer los datos del ticket.");
+        toast.error('No se ha podido leer el ticket', { description: motivoSinDatos(data), duration: 10000 });
       }
     } catch (e) {
       console.error(`Error subiendo ${file.name}:`, e);
-      toast.error("Error al comunicarse con la IA.");
+      toast.error('Error al comunicarse con la IA.');
     } finally {
       setIsUploading(false);
     }
+  };
+
+  // Subida múltiple: los archivos se procesan uno a uno. Los tickets sin problemas se guardan solos
+  // (el backend sigue comprobando duplicados con la base de datos, incluidos los guardados en este mismo lote);
+  // los dudosos quedan en la lista para revisarlos.
+  const actualizarLote = (id, cambios) => setLote((prev) => prev.map((x) => (x.id === id ? { ...x, ...cambios } : x)));
+
+  const procesarLote = async (files) => {
+    const entradas = files.map((f, i) => ({ id: `${Date.now()}-${i}`, nombre: f.name, estado: 'pendiente', mensaje: '' }));
+    setLote(entradas);
+    setLoteActivo(true);
+    cancelarLote.current = false;
+    let guardados = 0, repetidos = 0, porRevisar = 0, errores = 0;
+
+    for (let i = 0; i < files.length; i++) {
+      const { id } = entradas[i];
+      if (cancelarLote.current) {
+        actualizarLote(id, { estado: 'cancelado', mensaje: 'Subida detenida' });
+        continue;
+      }
+      actualizarLote(id, { estado: 'procesando' });
+      try {
+        const data = await subirArchivo(files[i]);
+        if (data?.duplicado) {
+          repetidos++;
+          actualizarLote(id, { estado: 'repetido', mensaje: data.mensaje });
+          continue;
+        }
+        if (!data?.items) {
+          errores++;
+          actualizarLote(id, { estado: 'error', mensaje: motivoSinDatos(data) });
+          continue;
+        }
+        const borrador = borradorDesdeRespuesta(data);
+        const motivos = revisarTodos ? ['revisión manual activada'] : motivosRevision(borrador);
+        const resumen = `${borrador.fecha_compra} · ${Number(borrador.precio_total).toFixed(2)} € · ${borrador.items.length} productos`;
+        if (motivos.length) {
+          porRevisar++;
+          actualizarLote(id, { estado: 'revisar', mensaje: `${resumen} — ${motivos.join(', ')}`, borrador });
+          continue;
+        }
+        try {
+          await axios.post(`${API}/save-ticket`, ticketParaGuardar(borrador));
+          guardados++;
+          actualizarLote(id, { estado: 'guardado', mensaje: resumen });
+        } catch (e) {
+          if (e.response?.status !== 409) throw e;
+          repetidos++;
+          actualizarLote(id, { estado: 'repetido', mensaje: e.response.data?.detail });
+        }
+      } catch (e) {
+        console.error(`Error procesando ${files[i].name}:`, e);
+        errores++;
+        actualizarLote(id, { estado: 'error', mensaje: `Error al procesar el archivo${e.response ? ` (HTTP ${e.response.status})` : ' (sin respuesta del servidor)'}` });
+      }
+    }
+
+    setLoteActivo(false);
+    fetchTickets();
+    toast.success('Subida múltiple terminada', {
+      description: `${guardados} guardados, ${repetidos} repetidos omitidos, ${porRevisar} por revisar${errores ? `, ${errores} con error` : ''}.`,
+      duration: 8000,
+    });
+  };
+
+  const revisarDeLote = (x) => setDraftTicket({ ...x.borrador, _loteId: x.id });
+  const descartarDeLote = (x) => actualizarLote(x.id, { estado: 'descartado', borrador: null });
+
+  // Cambiar la fecha en la revisión conservando la hora, si la había ("dd/mm/yyyy HH:MM")
+  const handleFechaChange = (iso) => {
+    if (!iso) return;
+    const [y, m, d] = iso.split('-');
+    setDraftTicket((prev) => {
+      const hora = (/\s(\d{1,2}:\d{2})/.exec(prev.fecha_compra || '') || [])[1];
+      return { ...prev, fecha_compra: `${d}/${m}/${y}${hora ? ' ' + hora : ''}` };
+    });
   };
 
   // --- MANEJADORES DE ESTADO (REVISIÓN HUMANA) ---
@@ -258,10 +378,16 @@ export default function App() {
     setIsSaving(true);
     try {
       // Enviamos el ticket definitivo al nuevo endpoint del backend
-      const response = await axios.post(`${API}/save-ticket`, draftTicket);
+      const response = await axios.post(`${API}/save-ticket`, ticketParaGuardar(draftTicket));
       
       if (response.status === 200 || response.status === 201) {
         toast.success("¡Ticket confirmado y guardado con éxito!");
+        if (draftTicket._loteId) {
+          actualizarLote(draftTicket._loteId, {
+            estado: 'guardado', borrador: null,
+            mensaje: `${draftTicket.fecha_compra} · ${Number(draftTicket.precio_total).toFixed(2)} € · revisado`,
+          });
+        }
         setDraftTicket(null); // Oculta la pantalla de revisión
         fetchTickets(); // Refresca la tabla inferior
       }
@@ -269,6 +395,9 @@ export default function App() {
       if (error.response?.status === 409) {
         // El ticket revisado coincide exactamente con uno ya guardado
         toast.warning('Ticket repetido', { description: error.response.data?.detail, duration: 8000 });
+        if (draftTicket._loteId) {
+          actualizarLote(draftTicket._loteId, { estado: 'repetido', borrador: null, mensaje: error.response.data?.detail });
+        }
         setDraftTicket(null);
         return;
       }
@@ -286,7 +415,7 @@ export default function App() {
     e.preventDefault();
     setIsDragging(false);
     const validFiles = Array.from(e.dataTransfer.files).filter(file => 
-      ['image/jpeg', 'image/png', 'application/pdf'].includes(file.type)
+      ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'].includes(file.type)
     );
     handleUpload(validFiles);
   };
@@ -294,6 +423,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans p-6 md:p-12">
       <Toaster theme="dark" richColors position="top-center" closeButton />
+      {!draftTicket && <ChatAsistente />}
       <div className="max-w-6xl mx-auto space-y-10">
         
         {/* Cabecera */}
@@ -316,21 +446,26 @@ export default function App() {
               onDragOver={onDragOver}
               onDragLeave={onDragLeave}
               onDrop={onDrop}
-              onClick={() => !isUploading && document.getElementById('file-input').click()}
+              onClick={() => !isUploading && !loteActivo && document.getElementById('file-input').click()}
             >
-              {isUploading ? (
+              {isUploading || loteActivo ? (
                 <Loader2 className="w-12 h-12 text-blue-500 animate-spin mb-4" />
               ) : (
                 <UploadCloud className="w-12 h-12 text-blue-500 mb-4" />
               )}
               <p className="text-lg font-medium text-white">
-                {isUploading ? 'La IA está procesando el ticket...' : 'Arrastra tu ticket (PDF, JPG, PNG) aquí'}
+                {isUploading ? 'La IA está procesando el ticket...'
+                  : loteActivo ? 'Procesando la subida múltiple...'
+                  : 'Arrastra tus tickets (PDF, JPG, PNG) aquí'}
               </p>
-              <p className="text-sm text-slate-500 mt-2">O haz clic para seleccionar el archivo</p>
+              <p className="text-sm text-slate-500 mt-2">
+                O haz clic para seleccionarlos. Puedes subir uno o muchos a la vez; los repetidos se omiten.
+              </p>
               <input
                 id="file-input"
                 type="file"
-                accept=".jpg,.jpeg,.png,.pdf"
+                multiple
+                accept=".jpg,.jpeg,.png,.webp,.pdf"
                 className="hidden"
                 onChange={(e) => {
                   handleUpload(Array.from(e.target.files));
@@ -338,6 +473,19 @@ export default function App() {
                 }}
               />
             </div>
+            <label className="mt-3 inline-flex items-center gap-2 text-sm text-slate-400 cursor-pointer select-none">
+              <input type="checkbox" checked={revisarTodos} onChange={(e) => setRevisarTodos(e.target.checked)}
+                className="accent-blue-500" disabled={loteActivo} />
+              En subidas múltiples, revisar todos los tickets a mano (si no, solo se piden revisar los dudosos)
+            </label>
+            <PanelLote
+              lote={lote}
+              activo={loteActivo}
+              onCancelar={() => { cancelarLote.current = true; }}
+              onRevisar={revisarDeLote}
+              onDescartar={descartarDeLote}
+              onCerrar={() => setLote([])}
+            />
           </section>
         ) : (
           <section className="bg-slate-900 border border-slate-800 rounded-xl p-6 md:p-8 shadow-xl animate-fade-up">
@@ -355,6 +503,37 @@ export default function App() {
                   onChange={handleNameChange}
                   className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                 />
+
+                <label className="block text-sm font-medium text-slate-300 mt-4 mb-1">Fecha de compra</label>
+                <div className="flex items-center gap-2">
+                  <CalendarDays className="w-4 h-4 text-slate-500" />
+                  <input
+                    type="date"
+                    value={fechaISO(draftTicket.fecha_compra)}
+                    onChange={(e) => handleFechaChange(e.target.value)}
+                    className="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 [color-scheme:dark]"
+                  />
+                  {/\s\d{1,2}:\d{2}/.test(draftTicket.fecha_compra) && (
+                    <span className="text-xs text-slate-500">{draftTicket.fecha_compra.split(' ').slice(1).join(' ')}</span>
+                  )}
+                </div>
+                {draftTicket.revision_fecha?.aviso && draftTicket.fecha_compra === draftTicket.fecha_leida && (
+                  <div className="mt-2 p-3 rounded-lg border border-amber-500/30 bg-amber-500/10 text-xs text-amber-300 space-y-1.5">
+                    <p className="flex items-start gap-2">
+                      <AlertTriangle className="w-3.5 h-3.5 mt-0.5 shrink-0" />
+                      <span>{draftTicket.revision_fecha.aviso}</span>
+                    </p>
+                    {draftTicket.revision_fecha.fecha_sugerida && (
+                      <button
+                        onClick={() => setDraftTicket((prev) => ({ ...prev, fecha_compra: prev.revision_fecha.fecha_sugerida }))}
+                        className="ml-5 px-2.5 py-1 rounded-md bg-amber-500/20 hover:bg-amber-500/30 text-amber-200"
+                      >
+                        Usar {draftTicket.revision_fecha.fecha_sugerida.split(' ')[0]}
+                        <span className="text-amber-400/70"> ({draftTicket.revision_fecha.motivo_sugerencia})</span>
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
               
               {/* Precio Total (editable) + comprobación con la suma de productos */}
@@ -411,6 +590,19 @@ export default function App() {
                           autoFocus={item.añadido_manual && !item.descripcion}
                           className="w-full bg-transparent border border-transparent group-hover:border-slate-700 focus:border-blue-500 rounded px-3 py-1.5 text-slate-200 placeholder-slate-600 focus:outline-none focus:bg-slate-950 transition-all"
                         />
+                        {item.sugerencia_nombre && item.descripcion !== item.sugerencia_nombre && (
+                          <button
+                            onClick={() => setDraftTicket((prev) => {
+                              const newItems = [...prev.items];
+                              newItems[index] = { ...newItems[index], descripcion: item.sugerencia_nombre, sugerencia_nombre: null };
+                              return { ...prev, items: newItems };
+                            })}
+                            className="px-3 text-[11px] text-amber-400 hover:text-amber-300 underline decoration-dotted text-left"
+                            title="Producto parecido que ya has comprado antes"
+                          >
+                            ¿Quizá «{item.sugerencia_nombre}»?
+                          </button>
+                        )}
                         {item.producto_catalogo && !item.categoria_manual && (
                           <p className="px-3 text-[11px] text-slate-500 truncate" title={item.producto_catalogo}>
                             ≈ {item.producto_catalogo}

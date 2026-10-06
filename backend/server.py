@@ -15,12 +15,15 @@ import torch
 from transformers import DonutProcessor, VisionEncoderDecoderModel
 from PIL import Image
 
-from fastapi import FastAPI, APIRouter, UploadFile, File, HTTPException
+from fastapi import FastAPI, APIRouter, UploadFile, File, Form, HTTPException
 import hashlib
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from categorizador import categorizador, normalizar
+from asistente_gastos import AsistenteGastos
+from traductor_llm import TraductorLLM
+from fechas_ticket import revisar_fecha
 
 # ─── Configuración Inicial e Inicialización de BD ───
 ROOT_DIR = Path(__file__).parent
@@ -298,24 +301,51 @@ def process_bank_csv(csv_bytes: bytes) -> list:
         })
     return transactions
 
+# Textos propios de un ticket (no de un extracto, donde "MERCADONA" puede aparecer como concepto)
+MARCAS_TICKET = ("FACTURA SIMPLIFICADA", "A-46103834", "TOTAL (€)", "TARJETA BANCARIA", "IMPORTE: ")
+MARCAS_BANCO = ("SALDO", "IBAN", "EXTRACTO", "FECHA VALOR", "F. VALOR", "MOVIMIENTOS")
+PATRON_FECHA_CELDA = re.compile(r"^\s*\d{1,2}[/.-]\d{1,2}([/.-]\d{2,4})?\s*$")
+
+
 def process_bank_pdf(pdf_bytes: bytes) -> list:
-    # (Código intacto para PDFs bancarios)
-    transactions = []
+    """Extrae movimientos de un extracto bancario en PDF. Devuelve [] si el PDF no es un extracto.
+
+    Desde agosto de 2025 los tickets PDF de Mercadona se maquetan con una tabla, así que
+    "tener una tabla" ya no basta: antes se comprueba que no sea un ticket de supermercado y
+    que el documento tenga pinta de extracto (saldo, IBAN…), y solo se aceptan filas que
+    empiezan por una fecha."""
     with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
+        texto = "\n".join((page.extract_text() or "") for page in pdf.pages[:2]).upper()
+        if any(m in texto for m in MARCAS_TICKET) or not any(m in texto for m in MARCAS_BANCO):
+            return []
+        transactions = []
         for page in pdf.pages:
-            tables = page.extract_tables()
-            if tables:
-                for table in tables:
-                    for row in table:
-                        if len(row) >= 3 and not any('fecha' in (c or '').lower() for c in row):
-                            transactions.append({
-                                'fecha_oper': row[0],
-                                'concepto': row[1] if len(row) > 1 else '',
-                                'fecha_valor': row[2] if len(row) > 2 else row[0],
-                                'importe': row[3] if len(row) > 3 else '0',
-                                'saldo': row[4] if len(row) > 4 else '0',
-                            })
+            for table in page.extract_tables() or []:
+                for row in table:
+                    if len(row) >= 3 and PATRON_FECHA_CELDA.match(row[0] or ""):
+                        transactions.append({
+                            'fecha_oper': row[0],
+                            'concepto': row[1] if len(row) > 1 else '',
+                            'fecha_valor': row[2] if len(row) > 2 else row[0],
+                            'importe': row[3] if len(row) > 3 else '0',
+                            'saldo': row[4] if len(row) > 4 else '0',
+                        })
     return transactions
+
+
+@app.on_event("startup")
+async def limpiar_tickets_tomados_por_banco():
+    """Los tickets PDF nuevos de Mercadona se guardaban por error como movimientos bancarios.
+    Se borran esos movimientos falsos y la subida se marca como error para poder volver a subirla."""
+    # La cabecera del ticket ("MERCADONA, S.A. A-46103834") acababa en la columna de fecha
+    falsos = await db.bank_transactions.distinct("upload_id", {"fecha_oper": {"$regex": "A-46103834|MERCADONA, S\\.A\\.", "$options": "i"}})
+    if falsos:
+        borrados = await db.bank_transactions.delete_many({"upload_id": {"$in": falsos}})
+        await db.uploads_history.update_many(
+            {"id": {"$in": falsos}},
+            {"$set": {"status": "error", "result_type": "ticket leído como extracto bancario (corregido: vuelve a subirlo)"}})
+        print(f"🧹 {len(falsos)} tickets se habían guardado como movimientos bancarios: "
+              f"{borrados.deleted_count} movimientos falsos eliminados. Vuelve a subir esos tickets.")
 
 # ─── Endpoints de la API ───
 
@@ -373,7 +403,8 @@ async def rellenar_huellas():
 
 
 @api_router.post("/upload")
-async def upload_file(file: UploadFile = File(...)):
+async def upload_file(file: UploadFile = File(...), ultima_modificacion: Optional[str] = Form(None)):
+    """ultima_modificacion: fecha de modificación del archivo según el navegador (ms), para comprobar la fecha leída."""
     content = await file.read()
     archivo_hash = hashlib.sha256(content).hexdigest()
     file_type = detect_file_type(file.filename, file.content_type or '')
@@ -403,7 +434,7 @@ async def upload_file(file: UploadFile = File(...)):
                 upload_record['result_type'] = 'banco'
                 upload_record['result_count'] = len(transactions)
                 
-                await db.uploads_history.insert_one(upload_record)
+                await db.uploads_history.insert_one(dict(upload_record))  # copia: Mongo añade _id al dict
                 return {
                     'id': upload_record['id'],
                     'filename': upload_record['filename'],
@@ -418,7 +449,7 @@ async def upload_file(file: UploadFile = File(...)):
                 existente = await buscar_duplicado(archivo_hash=archivo_hash)
                 if existente:
                     upload_record.update({'status': 'duplicado', 'result_type': 'ticket'})
-                    await db.uploads_history.insert_one(upload_record)
+                    await db.uploads_history.insert_one(dict(upload_record))  # copia: Mongo añade _id al dict
                     return respuesta_duplicado(existente, upload_record)
 
                 raw_donut_data = await asyncio.to_thread(process_receipt_donut, content)
@@ -429,17 +460,21 @@ async def upload_file(file: UploadFile = File(...)):
                     huella=huella_ticket(result['fecha_compra'], result['precio_total'], result.get('items', [])))
                 if existente:
                     upload_record.update({'status': 'duplicado', 'result_type': 'ticket'})
-                    await db.uploads_history.insert_one(upload_record)
+                    await db.uploads_history.insert_one(dict(upload_record))  # copia: Mongo añade _id al dict
                     return respuesta_duplicado(existente, upload_record)
 
                 result['items'] = await categorizar_items(result.get('items', []))
+                # 3) Comprobación de la fecha leída (en fotos Donut a veces intercambia o confunde dígitos)
+                revision_fecha = revisar_fecha(result['fecha_compra'], content, ultima_modificacion)
+                if revision_fecha.get('aviso'):
+                    print(f"📅 {revision_fecha['aviso']} Sugerencia: {revision_fecha.get('fecha_sugerida')}")
                 
                 # Ya NO guardamos en db.tickets aquí. 
                 # Solo registramos la subida como pendiente de revisión.
                 upload_record['status'] = 'pendiente_revision'
                 upload_record['result_type'] = 'ticket'
                 upload_record['result_count'] = len(result.get('items', []))
-                await db.uploads_history.insert_one(upload_record)
+                await db.uploads_history.insert_one(dict(upload_record))  # copia: Mongo añade _id al dict
 
                 # Devolvemos los datos de la IA crudos al Frontend para que el usuario los revise
                 return {
@@ -452,6 +487,7 @@ async def upload_file(file: UploadFile = File(...)):
                     'precio_total': result['precio_total'],
                     'upload_id': upload_record['id'], # Pasamos el ID para enlazarlo luego
                     'archivo_hash': archivo_hash,
+                    'revision_fecha': revision_fecha,
                 }
 
         elif file_type == 'csv':
@@ -466,20 +502,20 @@ async def upload_file(file: UploadFile = File(...)):
             else:
                 upload_record['status'] = 'sin_datos'
                 
-            await db.uploads_history.insert_one(upload_record)
+            await db.uploads_history.insert_one(dict(upload_record))  # copia: Mongo añade _id al dict
             return upload_record
             
         else:
             upload_record['status'] = 'error'
             upload_record['result_type'] = 'formato_no_soportado'
-            await db.uploads_history.insert_one(upload_record)
+            await db.uploads_history.insert_one(dict(upload_record))  # copia: Mongo añade _id al dict
             return upload_record
 
     except Exception as e:
         logger.error(f"Error processing file {file.filename}: {e}")
         upload_record['status'] = 'error'
         upload_record['result_type'] = str(e)[:200]
-        await db.uploads_history.insert_one(upload_record)
+        await db.uploads_history.insert_one(dict(upload_record))  # copia: Mongo añade _id al dict
         return upload_record
 
 # ─── Categorización de productos (catálogo CSV + correcciones del usuario) ───
@@ -506,6 +542,23 @@ async def categorizar_descripcion(descripcion: str) -> dict:
             }
     resultado = await asyncio.to_thread(categorizador.buscar, descripcion)
     resultado["origen"] = "catalogo" if resultado["categorias"] else "sin_categoria"
+    if resultado["categorias"]:
+        return resultado
+
+    # 3º) Sin coincidencia en el catálogo (erratas de impresión, abreviaturas raras): se usa el historial
+    #     de compras agrupado por clustering. Si hay un producto ya comprado casi igual, se propone su nombre.
+    clusters = await clusters_actualizados()
+    vecino = clusters.categorias_por_vecinos(descripcion, umbral=0.5)
+    if vecino:
+        cats, nombre_parecido, similitud = vecino
+        resultado.update({"categorias": cats, "origen": "historial", "confianza": round(similitud, 2)})
+        if normalizar(nombre_parecido) != clave:
+            resultado["sugerencia_nombre"] = nombre_parecido
+        return resultado
+    por_grupo = clusters.categoria_por_grupo(descripcion)
+    if por_grupo:
+        cats, nombre_grupo, similitud = por_grupo
+        resultado.update({"categorias": cats, "origen": "clustering", "confianza": round(similitud, 2), "grupo": nombre_grupo})
     return resultado
 
 async def categorizar_items(items: list) -> list:
@@ -515,7 +568,65 @@ async def categorizar_items(items: list) -> list:
         item["producto_catalogo"] = info["producto_catalogo"]
         item["confianza"] = info["confianza"]
         item["origen_categoria"] = info["origen"]
+        if info.get("sugerencia_nombre"):
+            item["sugerencia_nombre"] = info["sugerencia_nombre"]
     return items
+
+
+# ─── Asistente de gastos (chat) y clustering de productos ───
+
+# El LLM local (Ollama / LM Studio) solo traduce la pregunta a una consulta estructurada;
+# si no está disponible, el asistente usa el motor de reglas.
+traductor = TraductorLLM()
+asistente = AsistenteGastos(categorizador.listar_categorias(), traductor=traductor)
+
+
+async def clusters_actualizados():
+    """Reentrena el clustering solo si los tickets guardados han cambiado desde la última vez."""
+    tickets = await db.tickets.find({}, {"_id": 0}).to_list(20000)
+    await asyncio.to_thread(asistente.preparar, tickets)
+    return asistente.clusters
+
+
+class ChatRequest(BaseModel):
+    mensaje: str
+    historial: List[dict] = []   # últimas preguntas y sus consultas, para entender "¿y el mes pasado?"
+    motor: str = "llm"           # "llm" (IA local, con reglas de respaldo) o "reglas" (solo motor propio)
+
+
+@api_router.post("/chat")
+async def chat(req: ChatRequest):
+    """Responde preguntas en lenguaje natural sobre los gastos guardados."""
+    mensaje = (req.mensaje or "").strip()
+    if not mensaje:
+        raise HTTPException(status_code=400, detail="El mensaje está vacío")
+    tickets = await db.tickets.find({}, {"_id": 0}).to_list(20000)
+    return a_json(await asyncio.to_thread(asistente.responder, mensaje[:500], tickets, None, req.historial[-3:],
+                                         req.motor != "reglas"))
+
+
+def a_json(obj):
+    """Convierte tipos de numpy/pandas a tipos nativos de Python para poder enviarlos como JSON."""
+    return json.loads(json.dumps(obj, default=lambda o: o.item() if hasattr(o, "item") else str(o)))
+
+
+@app.on_event("startup")
+async def calentar_llm():
+    # En segundo plano: el servidor arranca sin esperar a que el modelo se cargue en la GPU
+    asyncio.get_running_loop().run_in_executor(None, traductor.calentar)
+
+
+@api_router.get("/chat/estado")
+async def estado_chat():
+    """Indica si el LLM local está conectado y qué modelo usa."""
+    return await asyncio.to_thread(traductor.estado)
+
+
+@api_router.get("/chat/clusters")
+async def ver_clusters():
+    """Grupos de productos encontrados por el clustering (para inspección y para la memoria)."""
+    clusters = await clusters_actualizados()
+    return a_json(clusters.resumen())
 
 class CategorizarRequest(BaseModel):
     descripcion: str
