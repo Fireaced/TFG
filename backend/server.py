@@ -24,6 +24,7 @@ from categorizador import categorizador, normalizar
 from asistente_gastos import AsistenteGastos
 from traductor_llm import TraductorLLM
 from fechas_ticket import revisar_fecha
+from corrector_nombres import CorrectorNombres, distancia, normalizar_nombre
 
 # ─── Configuración Inicial e Inicialización de BD ───
 ROOT_DIR = Path(__file__).parent
@@ -463,7 +464,8 @@ async def upload_file(file: UploadFile = File(...), ultima_modificacion: Optiona
                     await db.uploads_history.insert_one(dict(upload_record))  # copia: Mongo añade _id al dict
                     return respuesta_duplicado(existente, upload_record)
 
-                result['items'] = await categorizar_items(result.get('items', []))
+                result['items'] = corregir_nombres(result.get('items', []), nombres_del_pdf(content))
+                result['items'] = await categorizar_items(result['items'])
                 # 3) Comprobación de la fecha leída (en fotos Donut a veces intercambia o confunde dígitos)
                 revision_fecha = revisar_fecha(result['fecha_compra'], content, ultima_modificacion)
                 if revision_fecha.get('aviso'):
@@ -524,6 +526,87 @@ class CategoriaModel(BaseModel):
     categoria: str
     subcategoria: Optional[str] = ""
 
+# ─── Corrección automática de nombres mal leídos ───
+
+corrector = CorrectorNombres(categorizador)
+
+
+def nombres_dataset() -> list:
+    """Nombres de producto del dataset etiquetado a mano (dataset-mercadona/metadata.jsonl), si existe."""
+    ruta = ROOT_DIR / "dataset-mercadona" / "metadata.jsonl"
+    if not ruta.exists():
+        return []
+    texto, dec, i, nombres = ruta.read_text(encoding="utf-8"), json.JSONDecoder(), 0, []
+    while i < len(texto):
+        while i < len(texto) and texto[i].isspace():
+            i += 1
+        if i >= len(texto):
+            break
+        try:
+            obj, i = dec.raw_decode(texto, i)
+            gt = json.loads(obj["ground_truth"])["gt_parse"]
+            menu = gt.get("menu", [])
+            nombres += [m.get("nm", "") for m in ([menu] if isinstance(menu, dict) else menu)]
+        except Exception:
+            break
+    return nombres
+
+
+@app.on_event("startup")
+async def cargar_vocabulario_corrector():
+    """Vocabulario del corrector: nombres del dataset, de los tickets guardados y correcciones del usuario."""
+    corrector.añadir_nombres(nombres_dataset())
+    async for t in db.tickets.find({}, {"_id": 0, "items.descripcion": 1}):
+        corrector.añadir_nombres(i.get("descripcion", "") for i in t.get("items", []))
+    pares = [(c["leido"], c["correcto"]) async for c in db.correcciones_nombres.find({}, {"_id": 0})]
+    corrector.añadir_aprendidas(pares)
+    print(f"🔤 Corrector de nombres listo: {len(corrector.nombres)} nombres conocidos, "
+          f"{len(corrector.aprendidas)} correcciones aprendidas.")
+
+
+PATRON_LINEA_PDF = re.compile(r"^-?\d+\s+(.+?)(?:\s+-?\d+,\d{2}){0,2}\s*$")
+
+
+def nombres_del_pdf(contenido: bytes) -> list:
+    """Nombres de producto exactos del texto del PDF (el PDF de Mercadona lleva el texto real)."""
+    if not contenido.startswith(b"%PDF"):
+        return []
+    try:
+        with pdfplumber.open(io.BytesIO(contenido)) as pdf:
+            texto = "\n".join((p.extract_text() or "") for p in pdf.pages)
+    except Exception:
+        return []
+    nombres, dentro = [], False
+    for linea in texto.splitlines():
+        if linea.startswith("Descripción"):
+            dentro = True
+            continue
+        if linea.startswith("TOTAL"):
+            break
+        m = PATRON_LINEA_PDF.match(linea.strip()) if dentro else None
+        if m and re.search(r"[A-ZÑ]{2}", m.group(1)):
+            nombres.append(m.group(1).strip())
+    return nombres
+
+
+def corregir_nombres(items: list, nombres_extra: list = ()) -> list:
+    """Corrige los nombres mal leídos. Si la corrección es segura se aplica directamente
+    (guardando el nombre leído para poder deshacerla); si no, queda como sugerencia."""
+    for item in items:
+        leido = item.get("descripcion", "")
+        item["descripcion_leida"] = leido
+        r = corrector.corregir(leido, nombres_extra)
+        if not r:
+            continue
+        if r["automatica"]:
+            item["descripcion"] = r["nombre"]
+            item["correccion_auto"] = {"original": leido, "motivo": r["motivo"]}
+            print(f"✏️  {leido} -> {r['nombre']} ({r['motivo']})")
+        else:
+            item["sugerencia_nombre"] = r["nombre"]
+    return items
+
+
 async def categorizar_descripcion(descripcion: str) -> dict:
     """
     1º) Si el usuario ya corrigió antes este mismo producto, se reutiliza su elección.
@@ -552,7 +635,8 @@ async def categorizar_descripcion(descripcion: str) -> dict:
     if vecino:
         cats, nombre_parecido, similitud = vecino
         resultado.update({"categorias": cats, "origen": "historial", "confianza": round(similitud, 2)})
-        if normalizar(nombre_parecido) != clave:
+        a, b = normalizar_nombre(descripcion), normalizar_nombre(nombre_parecido)
+        if normalizar(nombre_parecido) != clave and distancia(a, b, 3) <= max(1.0, 0.15 * len(a)):
             resultado["sugerencia_nombre"] = nombre_parecido
         return resultado
     por_grupo = clusters.categoria_por_grupo(descripcion)
@@ -563,7 +647,12 @@ async def categorizar_descripcion(descripcion: str) -> dict:
 
 async def categorizar_items(items: list) -> list:
     for item in items:
-        info = await categorizar_descripcion(item.get("descripcion", ""))
+        if item.get("sugerencia_nombre"):      # ya hay una sugerencia del corrector: no se sustituye
+            info = await categorizar_descripcion(item.get("descripcion", ""))
+            info.pop("sugerencia_nombre", None)
+        else:
+            info = None
+        info = info or await categorizar_descripcion(item.get("descripcion", ""))
         item["categorias"] = info["categorias"]
         item["producto_catalogo"] = info["producto_catalogo"]
         item["confianza"] = info["confianza"]
@@ -652,6 +741,8 @@ class ItemModel(BaseModel):
     producto_catalogo: Optional[str] = None
     categoria_manual: bool = False   # True si el usuario cambió las categorías a mano
     añadido_manual: bool = False     # True si el producto no lo leyó la IA y lo añadió el usuario
+    descripcion_leida: Optional[str] = None   # nombre tal y como lo leyó Donut (antes de corregirlo)
+    correccion_auto: Optional[dict] = None    # {"original", "motivo"} si se corrigió automáticamente
 
 class DraftTicketModel(BaseModel):
     nombre_personalizado: Optional[str] = ""
@@ -712,6 +803,26 @@ async def save_ticket(ticket_data: DraftTicketModel):
                 upsert=True,
             )
     
+    # 2.c Aprendizaje de nombres: lo guardado es correcto (revisado por el usuario) y, si cambió
+    #     el nombre leído por Donut, se recuerda la corrección para aplicarla sola la próxima vez
+    pares = []
+    for item in ticket_data.items:
+        leido = item.descripcion_leida
+        if leido and not item.añadido_manual and normalizar_nombre(leido) != normalizar_nombre(item.descripcion):
+            pares.append((leido, item.descripcion))
+            await db.correcciones_nombres.update_one(
+                {"leido": normalizar_nombre(leido)},
+                {"$set": {"leido": normalizar_nombre(leido), "correcto": item.descripcion,
+                          "updated_at": datetime.now(timezone.utc).isoformat()}},
+                upsert=True)
+        elif leido and normalizar_nombre(leido) in corrector.aprendidas and \
+                normalizar_nombre(leido) == normalizar_nombre(item.descripcion):
+            # El usuario deshizo una corrección aprendida: se olvida
+            corrector.aprendidas.pop(normalizar_nombre(leido), None)
+            await db.correcciones_nombres.delete_one({"leido": normalizar_nombre(leido)})
+    corrector.añadir_nombres(i.descripcion for i in ticket_data.items)
+    corrector.añadir_aprendidas(pares)
+
     # 3. Actualizamos el historial para marcarlo como procesado definitivamente
     if ticket_data.upload_id:
         await db.uploads_history.update_one(

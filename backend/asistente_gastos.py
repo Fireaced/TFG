@@ -351,7 +351,7 @@ class ResolutorConceptos:
             mascara = df.apply(lambda r: self._coincide_destinos(r, CONCEPTOS[k]), axis=1)
             if k in CONCEPTOS_LITERALES:
                 # "leche" no debe incluir la horchata ni las bebidas vegetales de la misma subcategoría
-                patron = rf"\b{CONCEPTOS_LITERALES[k]}"
+                patron = rf"\b{CONCEPTOS_LITERALES[k]}\b(?!\s+(?:condensad|evaporad|en polvo))"
                 literal = (df["nombre_norm"].fillna("").str.contains(patron, case=False, regex=True) |
                            df["catalogo_norm"].fillna("").astype(str).str.contains(patron, case=False, regex=True))
                 if (mascara & literal).any():
