@@ -1,0 +1,150 @@
+\documentclass[%
+    school=etsisi,%
+    type=pfg,%
+    degree=61CI,%
+]{upm-report}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TÍTULO, AUTORES Y DIRECTORES
+%
+\title{Extracción automática de información de tickets de compra mediante el modelo Donut para la gestión de finanzas personales}
+\author{José Miguel Japón Jirón}
+\bibauthor{Japón Jirón, J. M.}
+% TODO: sustituir por el nombre del tutor o tutores
+\director{Nombre del Tutor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% RESUMEN Y ABSTRACT (borrador: revisar al cerrar la memoria)
+%
+\abstract{spanish}{
+    La gestión de las finanzas personales a partir de los tickets de compra sigue siendo una tarea manual que la mayoría de las personas evita. Este \acrlong{pfg} presenta una aplicación web de código abierto que digitaliza automáticamente los tickets de Mercadona, clasifica cada producto por categorías y permite consultar y filtrar los gastos.
+
+    La extracción de la información se realiza con Donut, un modelo \textit{Transformer} de visión y lenguaje que convierte directamente la imagen del documento en datos estructurados sin depender de un motor de reconocimiento óptico de caracteres. El modelo se ha ajustado mediante transferencia de aprendizaje a partir de un conjunto de datos propio de 91 tickets reales, cuyas etiquetas se generan y validan automáticamente comprobando que la suma de los importes coincide con el total, y se ha ampliado con 800 tickets sintéticos que reproducen la maqueta original. Un análisis de una primera versión del sistema permitió identificar que el principal factor limitante era la calidad de las etiquetas, y no la capacidad del modelo.
+
+    Sobre un conjunto de validación de 14 tickets no vistos durante el entrenamiento, el modelo final extrae correctamente la fecha, el total y los 86 productos, superando el objetivo inicial de procesar de forma perfecta entre el 50 y el 60\,\% de los tickets. La aplicación, desarrollada con FastAPI, MongoDB y React, incorpora además la revisión de los datos por parte del usuario, la categorización automática a partir del catálogo de Mercadona y la detección de tickets duplicados.
+}
+\keywords{spanish}{
+    Extracción de información;
+    Donut;
+    Transformers;
+    Comprensión de documentos;
+    Finanzas personales
+}
+
+\abstract{english}{
+    Managing personal finances from shopping receipts is still a manual task that most people avoid. This final degree project presents an open-source web application that automatically digitises Mercadona receipts, assigns each product to one or more categories and allows users to query and filter their expenses.
+
+    Information is extracted with Donut, a vision-language Transformer that maps the document image directly to structured data without relying on an optical character recognition engine. The model was fine-tuned through transfer learning on a custom dataset of 91 real receipts, whose labels are generated and automatically validated by checking that the item amounts add up to the total, and extended with 800 synthetic receipts that reproduce the original layout. An analysis of a first version of the system showed that the main limiting factor was label quality rather than model capacity.
+
+    On a validation set of 14 receipts not seen during training, the final model correctly extracts the date, the total and all 86 products, exceeding the initial goal of processing 50--60\,\% of receipts perfectly. The application, built with FastAPI, MongoDB and React, also provides user review of the extracted data, automatic categorisation based on the Mercadona catalogue and duplicate receipt detection.
+}
+\keywords{english}{
+    Information extraction;
+    Donut;
+    Transformers;
+    Document understanding;
+    Personal finance
+}
+
+% Opcional
+\reportquotation{
+    Oigo y olvido, veo y recuerdo, hago y aprendo.
+}{Confucio}
+
+% Opcional
+\acknowledgements{
+    % TODO: agradecimientos
+    Agradecimientos.
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% GLOSARIO Y ABREVIATURAS
+%
+\newacronym[
+    longplural={inteligencias artificiales}
+    ]{ia}{IA}{inteligencia artificial}
+\newacronym[
+    longplural={proyectos de fin de grado},
+    shortplural={PFG}
+    ]{pfg}{PFG}{proyecto de fin de grado}
+\newacronym[
+    longplural={proyectos de fin de máster},
+    shortplural={PFM}
+    ]{pfm}{PFM}{proyecto de fin de máster}
+\newacronym[
+    description={Del inglés \textit{Optical Character Recognition}}
+    ]{ocr}{OCR}{reconocimiento óptico de caracteres}
+\newacronym[
+    description={Del inglés \textit{Visual Document Understanding}}
+    ]{vdu}{VDU}{comprensión visual de documentos}
+\newacronym[
+    description={Del inglés \textit{Application Programming Interface}}
+    ]{api}{API}{interfaz de programación de aplicaciones}
+\newacronym[
+    description={Del inglés \textit{Graphics Processing Unit}}
+    ]{gpu}{GPU}{unidad de procesamiento gráfico}
+\newacronym[
+    description={Del inglés \textit{Inverse Document Frequency}}
+    ]{idf}{IDF}{frecuencia inversa de documento}
+\newglossaryentry{donut}{
+    name={Donut},
+    description={\textit{Document Understanding Transformer}. Modelo de visión y lenguaje que genera datos estructurados directamente a partir de la imagen de un documento}
+}
+\newglossaryentry{ground-truth}{
+    name={\textit{Ground Truth}},
+    description={Etiqueta correcta asociada a cada ejemplo de entrenamiento o evaluación}
+}
+\newglossaryentry{fine-tuning}{
+    name={ajuste fino},
+    description={Reentrenamiento de un modelo previamente entrenado con datos específicos de una nueva tarea (\textit{fine-tuning})}
+}
+\newglossaryentry{epoca}{
+    name={época},
+    description={Pasada completa del algoritmo de entrenamiento por todos los ejemplos del conjunto de datos}
+}
+
+\begin{document}
+
+\chapter{Introducción}
+\label{ch:introduccion}
+
+La digitalización de los comprobantes de compra es el primer paso para que cualquier persona pueda conocer en qué gasta su dinero. Sin embargo, transcribir manualmente cada ticket es una tarea tediosa que pocas personas mantienen en el tiempo. Este trabajo aborda ese problema mediante una aplicación web que lee automáticamente los tickets de compra con un modelo de \gls{ia}, los organiza por categorías y permite consultarlos de forma sencilla.
+
+\section{Motivación}
+La motivación principal para el desarrollo de este Trabajo de Fin de Grado nace de una doble vertiente: una inquietud tecnológica y un propósito práctico enfocado en el usuario final. Desde el punto de vista tecnológico, el proyecto está impulsado por el interés personal en explorar el aprendizaje automático, concretamente en el desafío de enseñar a modelos neuronales de visión y lenguaje (como Donut) a realizar tareas nuevas de extracción de información. Supone un reto de ingeniería estimulante demostrar empíricamente cómo estos modelos compactos, combinados con programación clásica, pueden superar la rigidez estructural de los sistemas tradicionales.
+
+Desde la perspectiva práctica, la motivación radica en democratizar el control de las finanzas personales. En la actualidad, la gestión de la economía doméstica mediante la digitalización de comprobantes físicos sigue siendo una tarea tediosa que la mayoría de los particulares evita. Los usuarios carentes de familiaridad con herramientas ofimáticas (como complejas hojas de cálculo en Excel) encuentran una barrera de entrada significativa para llevar un registro de sus gastos. Por tanto, dotar a la sociedad de una herramienta automatizada y accesible que elimine esta fricción resulta una contribución altamente motivadora, orientada simplemente a ayudar a la gente a organizarse mejor en su día a día.
+
+\section{Objetivos}
+El objetivo general de este proyecto es diseñar y desarrollar una aplicación web de código abierto que permita a los usuarios automatizar la gestión de sus finanzas personales mediante la extracción de datos de tickets de compra (centrado inicialmente en comprobantes de Mercadona). El sistema utilizará Inteligencia Artificial para la lectura de los documentos, almacenará las compras en una base de datos y proporcionará una interfaz funcional para categorizar los gastos y buscar tickets por fechas.
+
+Para alcanzar este objetivo general, se han definido los siguientes objetivos específicos, planteados bajo criterios de medición y viabilidad propios de un Trabajo Fin de Grado en Ingeniería de Computadores de la Universidad Politécnica de Madrid:
+
+\begin{itemize}
+    \item \textbf{Desarrollo y ajuste del modelo de extracción (Específico y Medible):} Entrenar y adaptar el modelo de IA (Donut) para que alcance una tasa de éxito funcional viable. El criterio de éxito se establece en lograr que la mayoría de los tickets (aproximadamente un 50-60\%) se procesen de forma perfecta, limitando el margen de error en el porcentaje restante a fallos menores y tolerables (tales como la lectura incorrecta de una o dos cantidades o precios por comprobante).
+    \item \textbf{Implementación de la plataforma web (Específico):} Construir una interfaz accesible y conectarla a un sistema de base de datos que permita a usuarios sin conocimientos técnicos ordenar, categorizar y filtrar temporalmente sus gastos.
+    \item \textbf{Ejecución temporal (Acotado en el tiempo y Alcanzable):} Desarrollar la totalidad del sistema (investigación, prueba de concepto, entrenamiento y aplicación final) en un marco temporal aproximado de 9 a 10 meses, habiendo iniciado el proyecto en enero de 2026.
+    \item \textbf{Liberación del software (Relevante):} Publicar el resultado final bajo una filosofía de código abierto, permitiendo que la comunidad pueda auditar, utilizar y expandir el código.
+\end{itemize}
+
+\section{Impacto del Proyecto}
+El interés por desarrollar este proyecto no busca resolver una crisis tecnológica, sino aportar valor real y directo en la calidad de vida y la organización financiera de los individuos. A nivel social, el impacto recae sobre los particulares, quienes raramente llevan un control exhaustivo de en qué gastan su dinero. Según diversos estudios sobre la salud financiera de las familias [Insertar aquí referencia a estudio o artículo periodístico sobre las dificultades de ahorro y control de la economía doméstica en España], la falta de herramientas sencillas es una de las principales causas de la desorganización económica.
+
+Por otro lado, el proyecto presenta una clara motivación medioambiental. Aunque el objetivo no se centra en el sector corporativo, facilitar la digitalización estructurada de los comprobantes físicos promueve indirectamente la reducción de la dependencia del papel. Este enfoque se alinea fuertemente con las iniciativas \textit{Paperless} y las políticas de sostenibilidad [Insertar aquí referencia a directiva europea de reducción de residuos y digitalización, por ejemplo, los objetivos de la Década Digital de la UE], demostrando que pequeñas herramientas tecnológicas pueden sumar al esfuerzo ecológico global.
+
+\section{Justificación}
+La justificación fundamental de este proyecto reside en la necesidad de superar las severas limitaciones técnicas y de mantenibilidad que presentan los sistemas convencionales de digitalización. Tradicionalmente, la extracción de datos en documentos semi-estructurados se ha abordado mediante sistemas de Reconocimiento Óptico de Caracteres (OCR clásico) acoplados a motores de reglas estrictos.
+
+\begin{itemize}
+    \item \textbf{Brecha tecnológica y Relevancia:} El enfoque clásico basado en OCR presenta una rigidez crítica. Cualquier variación mínima en la estructura, formato o diseño del ticket exige una reprogramación manual de las reglas del software. Este proyecto justifica su innovación al demostrar que un sistema de Inteligencia Artificial bien entrenado es intrínsecamente más adaptable. La IA es capaz de moldearse para aceptar múltiples formatos con facilidad y extraer la información correctamente independientemente de cambios visuales, cerrando la brecha de mantenibilidad que penaliza a los sistemas tradicionales.
+    \item \textbf{Contribución práctica:} A diferencia de las soluciones de mercado que dependen de APIs de pago caras —y que obligan a subir datos financieros confidenciales a la nube de terceros corporativos—, este desarrollo aporta una solución de código abierto. Su contribución práctica se materializa en empoderar al usuario final, proporcionándole un entorno privado y automatizado que sustituye las barreras tecnológicas (como el uso avanzado de Excel) por un flujo de trabajo transparente y directo.
+\end{itemize}
+
+\include{sources/estado_del_arte}
+\include{sources/metodologia}
+
+\include{sources/resultados}
+
+% TODO: \include{sources/conclusiones}
+
+\end{document}

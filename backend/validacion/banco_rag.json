@@ -1,0 +1,458 @@
+[
+ {
+  "id": "S01b",
+  "categoria": "parafrasis",
+  "semilla": "S01",
+  "pregunta": "¿En qué ticket me he dejado más pasta este año?",
+  "esperado": {
+   "operacion": "maximo",
+   "agrupar_por": "ticket",
+   "filtros": {
+    "periodo": "este año"
+   }
+  }
+ },
+ {
+  "id": "S02a",
+  "categoria": "parafrasis",
+  "semilla": "S02",
+  "pregunta": "¿Cuál es la media de lo que me gasto mensualmente en la compra?",
+  "esperado": {
+   "operacion": "media",
+   "por": "mes"
+  }
+ },
+ {
+  "id": "S02b",
+  "categoria": "parafrasis",
+  "semilla": "S02",
+  "pregunta": "¿Cuánto sale mes a mes ir al supermercado por término medio?",
+  "esperado": {
+   "operacion": "media",
+   "por": "mes"
+  }
+ },
+ {
+  "id": "S03a",
+  "categoria": "parafrasis",
+  "semilla": "S03",
+  "pregunta": "Sácame los gastos mes a mes de mis compras durante 2025",
+  "esperado": {
+   "operacion": "evolucion",
+   "agrupar_por": "mes",
+   "filtros": {
+    "periodo": "en 2025"
+   }
+  }
+ },
+ {
+  "id": "S03b",
+  "categoria": "parafrasis",
+  "semilla": "S03",
+  "pregunta": "¿Cómo se reparte mes a mes lo que pagué en el súper en 2025?",
+  "esperado": {
+   "operacion": "evolucion",
+   "agrupar_por": "mes",
+   "filtros": {
+    "periodo": "en 2025"
+   }
+  }
+ },
+ {
+  "id": "S04a",
+  "categoria": "parafrasis",
+  "semilla": "S04",
+  "pregunta": "¿Qué productos son los que más meto en la cesta?",
+  "esperado": {
+   "medida": "unidades",
+   "operacion": "ranking",
+   "agrupar_por": "producto"
+  }
+ },
+ {
+  "id": "S04b",
+  "categoria": "parafrasis",
+  "semilla": "S04",
+  "pregunta": "¿Cuáles son los artículos que más repito al hacer la compra?",
+  "esperado": {
+   "medida": "unidades",
+   "operacion": "ranking",
+   "agrupar_por": "producto"
+  }
+ },
+ {
+  "id": "S05a",
+  "categoria": "parafrasis",
+  "semilla": "S05",
+  "pregunta": "¿Cuántas veces fui al Mercadona el mes pasado?",
+  "esperado": {
+   "medida": "compras",
+   "filtros": {
+    "periodo": "el mes pasado"
+   }
+  }
+ },
+ {
+  "id": "S05b",
+  "categoria": "parafrasis",
+  "semilla": "S05",
+  "pregunta": "¿En cuántas ocasiones pasé por el supermercado el mes anterior?",
+  "esperado": {
+   "medida": "compras",
+   "filtros": {
+    "periodo": "el mes pasado"
+   }
+  }
+ },
+ {
+  "id": "S06a",
+  "categoria": "parafrasis",
+  "semilla": "S06",
+  "pregunta": "¿En qué semana de 2025 hice más visitas al súper?",
+  "esperado": {
+   "medida": "compras",
+   "operacion": "maximo",
+   "agrupar_por": "semana",
+   "filtros": {
+    "periodo": "en 2025"
+   }
+  }
+ },
+ {
+  "id": "S06b",
+  "categoria": "parafrasis",
+  "semilla": "S06",
+  "pregunta": "¿Cuál fue la semana del año pasado en la que más veces compré?",
+  "esperado": {
+   "medida": "compras",
+   "operacion": "maximo",
+   "agrupar_por": "semana",
+   "filtros": {
+    "periodo": "en 2025"
+   }
+  }
+ },
+ {
+  "id": "S07a",
+  "categoria": "parafrasis",
+  "semilla": "S07",
+  "pregunta": "¿Qué día de la semana suelo ir habitualmente a hacer la compra?",
+  "esperado": {
+   "medida": "compras",
+   "operacion": "ranking",
+   "agrupar_por": "dia_semana"
+  }
+ },
+ {
+  "id": "S07b",
+  "categoria": "parafrasis",
+  "semilla": "S07",
+  "pregunta": "¿En qué día de la semana recaen normalmente mis visitas al supermercado?",
+  "esperado": {
+   "medida": "compras",
+   "operacion": "ranking",
+   "agrupar_por": "dia_semana"
+  }
+ },
+ {
+  "id": "S08a",
+  "categoria": "parafrasis",
+  "semilla": "S08",
+  "pregunta": "¿Cuánto me he gastado este año en productos de limpieza para casa?",
+  "esperado": {
+   "filtros": {
+    "concepto": "limpieza",
+    "periodo": "este año"
+   }
+  }
+ },
+ {
+  "id": "S08b",
+  "categoria": "parafrasis",
+  "semilla": "S08",
+  "pregunta": "¿Qué llevo invertido en artículos de limpieza doméstica en lo que va de año?",
+  "esperado": {
+   "filtros": {
+    "concepto": "limpieza",
+    "periodo": "este año"
+   }
+  }
+ },
+ {
+  "id": "S09a",
+  "categoria": "parafrasis",
+  "semilla": "S09",
+  "pregunta": "¿Cuál ha sido el ticket más caro que pagué un sábado?",
+  "esperado": {
+   "operacion": "maximo",
+   "agrupar_por": "ticket",
+   "filtros": {
+    "dias_semana": [
+     5
+    ]
+   }
+  }
+ },
+ {
+  "id": "S09b",
+  "categoria": "parafrasis",
+  "semilla": "S09",
+  "pregunta": "¿De cuánto fue la compra más gorda que hice en sábado?",
+  "esperado": {
+   "operacion": "maximo",
+   "agrupar_por": "ticket",
+   "filtros": {
+    "dias_semana": [
+     5
+    ]
+   }
+  }
+ },
+ {
+  "id": "S10a",
+  "categoria": "parafrasis",
+  "semilla": "S10",
+  "pregunta": "¿Cuál es el importe habitual de mis tickets de compra?",
+  "esperado": {
+   "operacion": "media",
+   "por": "compra"
+  }
+ },
+ {
+  "id": "S10b",
+  "categoria": "parafrasis",
+  "semilla": "S10",
+  "pregunta": "¿Cuánto me suelo dejar de media en cada ticket?",
+  "esperado": {
+   "operacion": "media",
+   "por": "compra"
+  }
+ },
+ {
+  "id": "S11a",
+  "categoria": "parafrasis",
+  "semilla": "S11",
+  "pregunta": "¿Qué presupuesto llevo gastado en carne desde septiembre?",
+  "esperado": {
+   "filtros": {
+    "concepto": "carne",
+    "periodo": "desde septiembre"
+   }
+  }
+ },
+ {
+  "id": "S11b",
+  "categoria": "parafrasis",
+  "semilla": "S11",
+  "pregunta": "¿Cuánto me he dejado en la sección de carne desde el mes de septiembre?",
+  "esperado": {
+   "filtros": {
+    "concepto": "carne",
+    "periodo": "desde septiembre"
+   }
+  }
+ },
+ {
+  "id": "S12a",
+  "categoria": "parafrasis",
+  "semilla": "S12",
+  "pregunta": "¿En qué mes acudí menos veces al supermercado?",
+  "esperado": {
+   "medida": "compras",
+   "operacion": "minimo",
+   "agrupar_por": "mes"
+  }
+ },
+ {
+  "id": "S12b",
+  "categoria": "parafrasis",
+  "semilla": "S12",
+  "pregunta": "¿Cuál fue el mes con menor número de visitas para comprar?",
+  "esperado": {
+   "medida": "compras",
+   "operacion": "minimo",
+   "agrupar_por": "mes"
+  }
+ },
+ {
+  "id": "S13a",
+  "categoria": "parafrasis",
+  "semilla": "S13",
+  "pregunta": "¿Cuánto dinero suman los tickets que superan los 50 euros?",
+  "esperado": {
+   "filtros": {
+    "importe_min": 50
+   }
+  }
+ },
+ {
+  "id": "S13b",
+  "categoria": "parafrasis",
+  "semilla": "S13",
+  "pregunta": "¿Qué importe total acumulan mis compras de más de 50 pavos?",
+  "esperado": {
+   "filtros": {
+    "importe_min": 50
+   }
+  }
+ },
+ {
+  "id": "S14a",
+  "categoria": "parafrasis",
+  "semilla": "S14",
+  "pregunta": "¿Cuántas compras exprés de menos de 5 euros he realizado?",
+  "esperado": {
+   "medida": "compras",
+   "filtros": {
+    "importe_max": 5
+   }
+  }
+ },
+ {
+  "id": "S14b",
+  "categoria": "parafrasis",
+  "semilla": "S14",
+  "pregunta": "¿De cuántas compras rápidas, por debajo de 5 euros, hablamos?",
+  "esperado": {
+   "medida": "compras",
+   "filtros": {
+    "importe_max": 5
+   }
+  }
+ },
+ {
+  "id": "S15a",
+  "categoria": "parafrasis",
+  "semilla": "S15",
+  "pregunta": "¿Cómo ha fluctuado mi gasto mensual en yogures?",
+  "esperado": {
+   "operacion": "evolucion",
+   "agrupar_por": "mes",
+   "filtros": {
+    "concepto": "yogures"
+   }
+  }
+ },
+ {
+  "id": "S15b",
+  "categoria": "parafrasis",
+  "semilla": "S15",
+  "pregunta": "¿De qué manera ha ido cambiando lo que pago por yogures cada mes?",
+  "esperado": {
+   "operacion": "evolucion",
+   "agrupar_por": "mes",
+   "filtros": {
+    "concepto": "yogures"
+   }
+  }
+ },
+ {
+  "id": "S16a",
+  "categoria": "parafrasis",
+  "semilla": "S16",
+  "pregunta": "¿Qué subcategoría se lleva la mayor parte del presupuesto?",
+  "esperado": {
+   "operacion": "ranking",
+   "agrupar_por": "subcategoria"
+  }
+ },
+ {
+  "id": "S16b",
+  "categoria": "parafrasis",
+  "semilla": "S16",
+  "pregunta": "¿En qué subcategoría gasto más dinero?",
+  "esperado": {
+   "operacion": "ranking",
+   "agrupar_por": "subcategoria"
+  }
+ },
+ {
+  "id": "S17b",
+  "categoria": "parafrasis",
+  "semilla": "S17",
+  "pregunta": "¿Cuál es el coste unitario medio que pago por la leche?",
+  "esperado": {
+   "medida": "precio",
+   "operacion": "media",
+   "filtros": {
+    "concepto": "leche"
+   }
+  }
+ },
+ {
+  "id": "S18a",
+  "categoria": "parafrasis",
+  "semilla": "S18",
+  "pregunta": "¿Cuál ha sido el producto más barato que he comprado este año?",
+  "esperado": {
+   "medida": "precio",
+   "operacion": "minimo",
+   "agrupar_por": "producto",
+   "filtros": {
+    "periodo": "este año"
+   }
+  }
+ },
+ {
+  "id": "S18b",
+  "categoria": "parafrasis",
+  "semilla": "S18",
+  "pregunta": "¿Qué artículo de menor precio he metido en el carro en lo que va de año?",
+  "esperado": {
+   "medida": "precio",
+   "operacion": "minimo",
+   "agrupar_por": "producto",
+   "filtros": {
+    "periodo": "este año"
+   }
+  }
+ },
+ {
+  "id": "S19a",
+  "categoria": "parafrasis",
+  "semilla": "S19",
+  "pregunta": "¿Cuánto me costó hacer la compra entre semana a lo largo de 2025?",
+  "esperado": {
+   "filtros": {
+    "dias_semana": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "periodo": "en 2025"
+   }
+  }
+ },
+ {
+  "id": "S19b",
+  "categoria": "parafrasis",
+  "semilla": "S19",
+  "pregunta": "¿Qué dinero me dejé en el supermercado los días laborables de 2025?",
+  "esperado": {
+   "filtros": {
+    "dias_semana": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "periodo": "en 2025"
+   }
+  }
+ },
+ {
+  "id": "S20b",
+  "categoria": "parafrasis",
+  "semilla": "S20",
+  "pregunta": "¿Cuáles son los tres productos que más suelo adquirir?",
+  "esperado": {
+   "medida": "unidades",
+   "operacion": "ranking",
+   "agrupar_por": "producto",
+   "limite": 3
+  }
+ }
+]

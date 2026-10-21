@@ -1,0 +1,75 @@
+# Dependencias
+node_modules/
+.pnp
+.pnp.js
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Builds y cachés
+/build
+dist/
+.cache/
+/coverage
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+.ipynb_checkpoints/
+
+# Variables de entorno
+.env
+*.env
+*.env.*
+
+# Modelos entrenados y ficheros grandes
+backend/mi_modelo_mercadona*/
+**/*.zip
+**/*.tar.gz
+**/*.safetensors
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE y sistema
+.idea/
+.vscode/
+.DS_Store
+
+# Archivo local (modelos y datos antiguos) y datos generados que se pueden regenerar
+archivo/
+backend/cache_embeddings/
+backend/validacion/fotos_sinteticas/
+backend/validacion/extractos_sinteticos/
+
+# ── Datos personales (compras reales del autor): NO se publican ──
+# Tickets reales en PDF (incluyen fecha, hora, productos y datos del pago con tarjeta)
+backend/dataset-mercadona/
+entrenamiento/datos_donut_v3/pdfs/
+entrenamiento/datos_donut_v3/dataset_v3/*
+!entrenamiento/datos_donut_v3/dataset_v3/assets/
+# Direcciones y teléfonos de las tiendas donde compra el autor
+entrenamiento/datos_donut_v3/dataset_v3/assets/tiendas.json
+backend/validacion/tickets_nuevos/*
+!backend/validacion/tickets_nuevos/LEEME.txt
+backend/validacion/fotos/*
+!backend/validacion/fotos/LEEME.txt
+# Contenido de los tickets ya leídos (productos, fechas, importes)
+backend/validacion/tickets_prueba.json
+# Resultados en bruto (lecturas de Donut y respuestas del chat con importes reales).
+# Se publican solo los resúmenes .md y las gráficas .png
+backend/validacion/resultados/*.csv
+backend/validacion/resultados/*.jsonl
+backend/validacion/resultados/*.json
+# Documentos internos con el tutor
+Memoria/reuniones_tutor/
+Memoria/plantilla_tutor/
+# Exportaciones o copias de la base de datos
+*.bson
+dump/

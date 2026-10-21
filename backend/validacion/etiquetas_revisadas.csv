@@ -1,0 +1,291 @@
+﻿nombre;categoria;subcategoria;categoria_2;subcategoria_2;revisado;comprobado_usuario;nota
+1/2 VIEJO INTENSO;Charcuteria y quesos;Queso curado, semicurado y tierno;;;si;;
+12 HUEVOS CAMPEROS;Huevos, leche y Mantequilla;Huevos;;;si;si;
+12 HUEVOS GRANDES-L;Huevos, leche y Mantequilla;Huevos;;;si;si;
+32 PASTILLAS ENCENDI;Limpieza y hogar;Menaje y conservación de alimentos;;;si;;corregido (antes: Limpieza y hogar / Limpieza baño y WC)
+6 HUEVOS GRANDES-L;Huevos, leche y Mantequilla;Huevos;;;si;;
+ACEITE V.EXTRA;Aceites, especias y salsas;ACEITES;;;si;;
+ACEITUNA R/ANCHOA P3;Aperitivos;Aceitunas y encurtidos;;;si;;
+ACEITUNA S/HUESO P3;Aperitivos;Aceitunas y encurtidos;;;si;;
+ACEITUNA SIN HUESO;Aperitivos;Aceitunas y encurtidos;;;si;;
+AGUA CITRONELA;Agua y refrescos;Agua;Agua y refrescos;Refresco de te y sin gas;si;si;excluido por dudoso, pero el usuario confirma esta categoría
+AGUA FRIO;Agua y refrescos;Agua;;;si;si;corregido (antes: Agua y refrescos / Agua)
+AGUA MINERAL;Agua y refrescos;Agua;;;si;;
+AGUA PERFUMADA;Bebe;Higiene y cuidado;;;si;;
+AGUACATE;Fruta y verdura;Fruta;;;si;;
+AGUACATE BANDEJA;Fruta y verdura;Fruta;;;si;;
+ALCOHOL DE LIMPIEZA;Limpieza y hogar;Limpiahogar y friegasuelos;Limpieza y hogar;Limpieza muebles y multiusos;si;;
+ALCOHOL ETILICO 96;Fisioterapia y Parafarmacia;Parafarmacia;;;si;si;
+ALMENDRA NATURAL;Aperitivos;Frutos secos y fruta desecada;;;si;;
+AMONIACO C/DETERGENT;Limpieza y hogar;Lejía y líquidos fuertes;;;si;;
+ARCOS DENTALES;Cuidado facial y corporal;Higiene bucal;;;si;;
+ARROZ LARGO;Arroz, legumbres y pasta;Arroz;;;si;;
+ARROZ SOS;Arroz, legumbres y pasta;Arroz;;;si;;sin categoría antes
+ARROZ TRES DELICIAS;Congelados;Arroz y pasta;;;si;;
+ARROZ ULTRACONGELADO;Congelados;Arroz y pasta;;;si;;
+ARÁNDANOS;Fruta y verdura;Fruta;;;si;;
+ATUN OLIVA;Conservas, caldos y cremas;Atún y otras conservas de pescado;;;si;;
+ATÚN CLARO OLIVA PK6;Conservas, caldos y cremas;Atún y otras conservas de pescado;;;si;si;
+AVENA CRUNCHY;Cereales y galletas;Cereales;;;si;si;
+AZUCAR;Azucar, caramelos y chocolate;Azucar y edulcorante;;;si;si;
+BACON LONCHAS;Charcuteria y quesos;Bacón y salchichas;;;si;si;
+BANANA;Fruta y verdura;Fruta;;;si;;
+BARQUILLO NATA;Cereales y galletas;Galletas;;;si;;
+BARRA DE PAN;Panaderia y Pasteleria;Pan de horno;;;si;;
+BASTONCILLO FAMIL;Fisioterapia y Parafarmacia;Parafarmacia;;;si;;
+BEBER F SILVES 0%;Postres y yogures;Yogures líquidos;;;si;;sin categoría antes
+BEBER PIÑA COCO 0%;Postres y yogures;Yogures líquidos;;;si;;
+BEBIDA ENERG.GREEN;Agua y refrescos;Isotonico;;;si;;
+BERBERECHO S 65/100;Conservas, caldos y cremas;Berberechos y mejillones;;;si;;corregido (antes: Marisco y pescado / Marisco)
+BERLINA CACAO 4 UDS;Panaderia y Pasteleria;Bollería de horno;;;si;;
+BOLAS CEREAL CHOCOLA;Cereales y galletas;Cereales;;;si;;corregido (antes: Charcuteria y quesos / Queso curado, semicurado y tierno)
+BOLSA PLASTICO;Limpieza y hogar;Menaje y conservación de alimentos;;;no;;no es un producto (bolsa de la compra)
+BOMBITAS DE MAIZ;;;;;no;;dudoso: cereal o snack
+BURGER AMERICANA;Carne;Hamburguesas y picadas;;;si;si;
+BURGER CERDO;Carne;Hamburguesas y picadas;;;si;si;
+BURGER JAMON CEBOLLA;Carne;Hamburguesas y picadas;;;si;si;
+BURGER VACUNO;Carne;Hamburguesas y picadas;;;si;si;
+BURGER VACUNO CERDO;Carne;Hamburguesas y picadas;;;si;si;
+BÍFIDUS 0% FRUT SILV;Postres y yogures;Bífidus;;;si;si;
+BÍFIDUS FIB CEREAL;Postres y yogures;Bífidus;;;si;si;
+CABECERO LOMO 4 PACK;Charcuteria y quesos;Embutido curado;;;si;;
+CACAHUETE CHOCOLECHE;Aperitivos;Frutos secos y fruta desecada;Azucar, caramelos y chocolate;Chocolate;si;;corregido (antes: Aperitivos / Frutos secos y fruta desecada)
+CACAO SOLUBLE 1KG;Cacao, cafe e infusiones;Cacao soluble y chocolate a la taza;;;si;;
+CAFÉ SOLUBLE CLASSIC;Cacao, cafe e infusiones;Café soluble y otras bebidas;;;si;;
+CAPRICHOS JAMÓN;Congelados;Rebozados;;;si;;
+CEBO TAPAS;Charcuteria y quesos;Jamón serrano;;;si;;
+CEBOLLA CONG ZIP;Congelados;Fruta y verdura;;;si;;sin categoría antes
+CEPILLO + ACTION;Cuidado facial y corporal;Higiene bucal;;;si;;
+CEPILLO PACK-3 MEDIO;Cuidado facial y corporal;Higiene bucal;;;si;;
+CEREAL RELLENO LECHE;Cereales y galletas;Cereales;;;si;si;
+CERVEZA CLASICA LATA;Bodega;Cerveza;;;si;si;
+CERVEZA CLASICA PET;Bodega;Cerveza;;;si;si;
+CERVEZA ESPECIAL;Bodega;Cerveza;;;si;si;
+CHAMPÚ FAMILY;Cuidado del cabello;Champú;;;si;;corregido (antes: Bebe / Higiene y cuidado)
+CHAMPÚ REPARA Y PROT;Cuidado del cabello;Champú;;;si;;
+CHAPATA CRISTAL 4UDS;Panaderia y Pasteleria;Pan de horno;;;si;si;
+CHICLE ORIGINAL;Azucar, caramelos y chocolate;Chicles y caramelos;;;si;si;
+CHOCOIRIS;Azucar, caramelos y chocolate;Chocolate;;;si;si;
+CHOCOMINIS;Cereales y galletas;Galletas;;;si;si;
+CHORIZO PICANT 4 PAC;Charcuteria y quesos;Embutido curado;;;si;;corregido (antes: Carne / Embutido)
+CHULETA AGUJA;Carne;Cerdo;;;si;;
+CINTAS DE BACON;Charcuteria y quesos;Bacón y salchichas;;;si;;
+COCKTAIL RUMBA;Aperitivos;Frutos secos y fruta desecada;;;si;;
+COLA ZERO 2L;Agua y refrescos;Cola;;;si;;
+COLA ZERO LATA;Agua y refrescos;Cola;;;si;;
+COLA ZERO P6 LATAS;Agua y refrescos;Cola;;;si;;
+COLG. TRIPLE ACCION;Cuidado facial y corporal;Higiene bucal;;;si;;corregido (antes: Cuidado del cabello / Champú)
+COLGADOR WC FLORAL;Limpieza y hogar;Limpieza baño y WC;;;si;;
+COMBINADO APERITIVO;Aperitivos;Patatas fritas y snacks;;;si;;
+COMPRIMIDOS DORMIR;Fisioterapia y Parafarmacia;Fitoterapia;;;si;;
+CREMA CACAO 2 SABOR;Azucar, caramelos y chocolate;Chocolate;;;si;;subcategoría dudosa (chocolate o crema para untar)
+CREMA SETAS;Conservas, caldos y cremas;Gazpacho y cremas;;;si;;
+CROQUETA COCIDO;Carne;Empanados y elaborados;Congelados;Rebozados;si;;
+CROQUETA JAMON;Congelados;Rebozados;;;si;;
+CRUNCHY CHICKEN;Carne;Empanados y elaborados;;;si;;corregido (antes: Carne / Hamburguesas y picadas)
+CUQUIS;Aperitivos;Patatas fritas y snacks;;;si;;
+DENTIFRICO BICARBONA;Cuidado facial y corporal;Higiene bucal;;;si;;
+DEO AXE DARK TEMPT.;Cuidado facial y corporal;Desodorante;;;si;;
+DEO SPRAY INV.HOMBRE;Cuidado facial y corporal;Desodorante;;;si;;
+DISCOS DESMA OVAL;Cuidado facial y corporal;Cuidado e higiene facial;;;si;;
+DOCHI BANOFFEE;Congelados;Helados;;;si;;
+DOCHI CHEESECAKE;Congelados;Helados;;;si;;
+DÁTIL SIN HUESO;Aperitivos;Frutos secos y fruta desecada;;;si;;
+EDP ROSE NUDE;Cuidado facial y corporal;Perfume y colonia;;;si;;
+EMPANADA ATUN;Panaderia y Pasteleria;Bollería de horno;;;no;;dudoso: no está en el catálogo
+ENDIBIA;Fruta y verdura;Lechuga y ensalada preparada;;;si;;
+ENERG.ULTRA WHITE;Agua y refrescos;Isotonico;;;si;;
+ESPÁRRAGO MUY GRUESO;Conservas, caldos y cremas;Conservas de verdura y frutas;;;si;;
+ESTROPAJO INOX;Limpieza y hogar;Estropajo, bayeta y guantes;;;si;;
+ESTROPAJO VERDE;Limpieza y hogar;Estropajo, bayeta y guantes;;;si;;
+F. DEHESA 6L;Agua y refrescos;Agua;;;si;;sin categoría antes
+FILETE EXTRA-TIERNO;Carne;Cerdo;;;si;;
+FILETE LOMO FAM;Carne;Cerdo;;;si;;
+FILETE PANGA;Congelados;Pescado;Marisco y pescado;Pescado congelado;si;;
+FILETE PECHUGA FINO;Carne;Aves y pollo;;;si;;
+FLAN VAINILLA;Postres y yogures;Flan y natillas;;;si;;
+FLAUTAS BACON/QUESO;Carne;Cerdo;Carne;Empanados y elaborados;si;;
+FLAUTAS POLLO/QUESO;Carne;Aves y pollo;Carne;Empanados y elaborados;si;;
+FRAMBUESA;Fruta y verdura;Fruta;;;si;;
+FREGONA MICROFIBRA;Limpieza y hogar;Utensilios de limpieza y calzado;;;si;;
+FRESÓN;Fruta y verdura;Fruta;;;si;;sin categoría antes
+FRIZZANTE MELÓN;Bodega;Vino lambrusco y espumoso;;;si;;
+FUENTE DEHESA 1,5L;Agua y refrescos;Agua;;;si;;sin categoría antes
+FUET ESPETEC EXTRA;Charcuteria y quesos;Embutido curado;;;si;;
+FURIOUS ZERO;Agua y refrescos;Isotonico;;;si;;
+GALL RELLENA CHOC 0%;Cereales y galletas;Galletas;;;si;;
+GALLETA CANELA;Cereales y galletas;Galletas;;;si;;
+GALLETA MARIA;Cereales y galletas;Galletas;;;si;;
+GALLETA RELIEVE;Cereales y galletas;Galletas;;;si;;
+GALLETITAS SALADAS;Aperitivos;Patatas fritas y snacks;;;si;;
+GARBANZO M.COCIDO;Arroz, legumbres y pasta;Legumbres;;;si;;
+GARBANZO PEDROSILLAN;Arroz, legumbres y pasta;Legumbres;;;si;;
+GASEOSA BOTELLA 1,5L;Agua y refrescos;Agua;;;si;;
+GEL LIMPIADOR FACIAL;Cuidado facial y corporal;Cuidado e higiene facial;;;si;;
+GEL WC C/ LEJÍA;Limpieza y hogar;Limpieza baño y WC;;;si;;
+GNOCCHI QUESOS;Arroz, legumbres y pasta;Pasta y fideos;;;si;;
+GOLOSINAS MIX BRILLO;Azucar, caramelos y chocolate;Golosinas;;;si;si;
+GOLOSINAS MORAS;Azucar, caramelos y chocolate;Golosinas;;;si;si;
+GOLOSINAS TROPICAL;Azucar, caramelos y chocolate;Golosinas;;;si;si;
+GRAGEA REGALIZ;Azucar, caramelos y chocolate;Golosinas;;;si;si;
+GRIEGO AZUCAR CAÑA;Postres y yogures;Postres de soja / Yogures griegos;;;si;;corregido (antes: Azucar, caramelos y chocolate / Azucar y edulcorante)
+GRIEGO LIGERO NAT;Postres y yogures;Postres de soja / Yogures griegos;;;si;;sin categoría antes
+GYOZA DE POLLO;Congelados;Arroz y pasta;;;si;si;corregido (antes: Congelados / Arroz y pasta)
+HAMBURGUESA BACON;Carne;Hamburguesas y picadas;;;si;si;
+HELADO HUEVO CHOCO;Congelados;Helados;;;si;si;
+HELADO MOCHI MANGO;Congelados;Helados;;;si;si;
+HIELO CUBITO 2KG;Congelados;Hielo;;;si;si;
+HORCHATA FRESCA;Huevos, leche y Mantequilla;Leche y bebidas vegetales;;;si;;
+ICEBERG;Fruta y verdura;Lechuga y ensalada preparada;;;si;;
+INS PERFUMADO;Limpieza y hogar;Insecticida y ambientador;;;si;;
+INTERDENTAL FINO;Cuidado facial y corporal;Higiene bucal;;;si;;
+J.SERRANO PIEZA;Charcuteria y quesos;Jamón serrano;;;si;;
+JAMON S. EXTRA FINO;Charcuteria y quesos;Aves y jamón cocido;;;no;;dudoso: serrano o cocido
+JAMÓN EXTRAFINO;Charcuteria y quesos;Aves y jamón cocido;;;si;;
+JUDÍA REDONDA;Conservas, caldos y cremas;Conservas de verdura y frutas;;;no;;dudoso: fresca, en conserva o congelada
+KÉFIR NATURAL 0%;Postres y yogures;Yogures naturales y sabores;;;si;;
+KÉTCHUP ZERO;Aceites, especias y salsas;Mayonesa, ketchup y mostaza;;;si;;
+LASAÑA BOLOÑESA;Pizzas y platos preparados;Platos preparados calientes;;;si;;
+LASAÑA ESPINACAS;Pizzas y platos preparados;Platos preparados calientes;;;si;;
+LAUREL HOJA;Aceites, especias y salsas;ESPECIAS;;;si;;
+LAVAVAJILLAS ULTRA;Limpieza y hogar;Limpieza vajilla;;;si;;
+LAXSEN;Fisioterapia y Parafarmacia;Fitoterapia;;;si;;corregido (antes: Cacao, cafe e infusiones / Té e infusiones)
+LECHE CONDENSADA ENT;Huevos, leche y Mantequilla;Leche y bebidas vegetales;;;si;;
+LECHE DESN;Huevos, leche y Mantequilla;Leche y bebidas vegetales;;;si;;
+LECHE ENTERA;Huevos, leche y Mantequilla;Leche y bebidas vegetales;;;si;;
+LECHE ENTERA P6;Huevos, leche y Mantequilla;Leche y bebidas vegetales;;;si;;
+LIMON MALLA;Fruta y verdura;Fruta;;;si;;
+LIMONADA LIGHT 1,5L;Agua y refrescos;Refresco de te y sin gas;;;si;;
+LIMPIADOR CON OXIGEN;Limpieza y hogar;Limpieza baño y WC;;;no;;dudoso: limpiador WC o quitamanchas de ropa
+LIMPIADOR DENTADURA;Cuidado facial y corporal;Higiene bucal;;;si;;corregido (antes: Limpieza y hogar / Limpieza baño y WC)
+LIMPIADOR DESINFECTA;Limpieza y hogar;Limpieza baño y WC;;;si;;
+LOMO EMBUCHADO;Charcuteria y quesos;Embutido curado;;;si;;
+LOMO EMBUCHADO 4PACK;Charcuteria y quesos;Embutido curado;;;si;;
+LONCHAS BURGER;Charcuteria y quesos;Queso lonchas, rallado y en porciones;;;si;;
+LONCHAS DE QUESO;Charcuteria y quesos;Queso lonchas, rallado y en porciones;;;si;;
+LONGANIZA PAYES 4PK;Charcuteria y quesos;Embutido curado;;;si;;
+LOTE 3 BAYETAS MICRO;Limpieza y hogar;Estropajo, bayeta y guantes;;;si;;sin categoría antes
+M.CROISS MANTEQUILLA;Panaderia y Pasteleria;Bollería de horno;;;si;;
+MACARRON;Arroz, legumbres y pasta;Pasta y fideos;;;si;;
+MAIZ DULCE P-3;Conservas, caldos y cremas;Conservas de verdura y frutas;;;si;si;
+MANDARINA 2 KG;Fruta y verdura;Fruta;;;si;si;
+MANGO;Fruta y verdura;Fruta;;;si;si;
+MANTEQUILLA PAST.CON;Huevos, leche y Mantequilla;Mantequilla y margarina;;;si;;
+MANTEQUILLA PAST.SIN;Huevos, leche y Mantequilla;Mantequilla y margarina;;;si;;
+MASCARILLA QUIRÚR.;Fisioterapia y Parafarmacia;Parafarmacia;;;si;;
+MAXI HAMBURGUESA;Carne;Hamburguesas y picadas;;;si;;corregido (antes: Charcuteria y quesos / Aves y jamón cocido)
+MAXI PAVO FL;Charcuteria y quesos;Aves y jamón cocido;;;si;;
+MAXI YORK LONCHAS;Charcuteria y quesos;Aves y jamón cocido;;;si;;
+MAYONESA 460ML;Aceites, especias y salsas;Mayonesa, ketchup y mostaza;;;si;;
+MEJILLONES ESCABECHE;Conservas, caldos y cremas;Berberechos y mejillones;;;si;;
+MELON SAPO PARTIDO;Fruta y verdura;Fruta;;;si;;
+MIEL STARS;Cereales y galletas;Cereales;;;si;;
+MIGAS;Pizzas y platos preparados;Platos preparados calientes;;;si;;
+MINI BOMBONES 12 UNI;Congelados;Helados;;;si;;
+MINI RELLENO LECHE;Cereales y galletas;Cereales;;;si;;
+MIX FRUTOS ROJOS;Congelados;Fruta y verdura;;;si;;
+MOZZARELLA FRESCA;Charcuteria y quesos;Queso untable, fresco y especialidades;;;si;;
+NARANJA;Fruta y verdura;Fruta;;;si;;
+NARANJA NORMAL 2L;Zumos;Naranja;;;si;;corregido (antes: Fruta y verdura / Fruta)
+NATA PARA COCINAR;Huevos, leche y Mantequilla;Mantequilla y margarina;;;si;;"no está en el catálogo; categoría por similitud"
+NATILLAS VAINILLA;Postres y yogures;Flan y natillas;;;si;;
+NUGGETS DE POLLO;Carne;Empanados y elaborados;Congelados;Rebozados;si;si;
+P. COLORCOR 7;Cuidado del cabello;Coloración cabello;;;si;;
+P. PAV RED. SAL BIPA;Charcuteria y quesos;Aves y jamón cocido;;;si;;
+PACK-4 SALCH.FRANKF;Charcuteria y quesos;Bacón y salchichas;;;si;;
+PALETA CURADA LONCHA;Charcuteria y quesos;Jamón serrano;;;si;si;
+PALITO FRUTOS SECOS;Panaderia y Pasteleria;Picos, rosquilletas y picatostes;;;si;;
+PALOMITAS SAL PACK 3;Aperitivos;Frutos secos y fruta desecada;;;si;;
+PAN BLANCO;Panaderia y Pasteleria;Pan de molde y otras especialidades;;;si;si;
+PAN BLANCO FAMILIAR;Panaderia y Pasteleria;Pan de molde y otras especialidades;;;si;si;
+PAN DE PUEBLO;Panaderia y Pasteleria;Pan de horno;;;si;si;
+PAN H BRIOCHE;Panaderia y Pasteleria;Pan de molde y otras especialidades;;;si;si;
+PAN QUESO 18%;Panaderia y Pasteleria;Picos, rosquilletas y picatostes;;;si;si;excluido por dudoso, pero el usuario confirma esta categoría
+PAN RALLADO;Panaderia y Pasteleria;Pan tostado y rallado;;;si;si;
+PANCETA SIN CORTEZA;Carne;Cerdo;;;si;;
+PAPEL HIGIENICO 4 CA;Limpieza y hogar;Papel higiénico y celulosa;;;si;;
+PARKING;;;;;no;;no es un producto (parking)
+PASAS SULTANAS;Aperitivos;Frutos secos y fruta desecada;;;si;;
+PASTILLAS DESINFECT;Limpieza y hogar;Lejía y líquidos fuertes;;;si;;
+PAT. CLASSICAS;Aperitivos;Patatas fritas y snacks;;;si;;corregido (antes: Fruta y verdura / Verdura)
+PATATA QUESO/CEBOLLA;Aperitivos;Patatas fritas y snacks;;;si;;
+PATATAS CAMPESTRES;Aperitivos;Patatas fritas y snacks;;;si;;
+PATATAS GAJO;Congelados;Fruta y verdura;;;si;;
+PATATAS HORNO;Congelados;Fruta y verdura;;;si;;
+PATATAS LIGHT;Aperitivos;Patatas fritas y snacks;;;si;;
+PATATAS ONDULADAS;Aperitivos;Patatas fritas y snacks;;;si;;
+PECHU.POLLO BRASEADA;Charcuteria y quesos;Aves y jamón cocido;;;si;;
+PECHUGA EXTRA T;Carne;Aves y pollo;;;si;;
+PEPINO;Fruta y verdura;Verdura;;;si;;
+PIADINA;Panaderia y Pasteleria;Pan de molde y otras especialidades;;;si;;
+PICOS CAMPERO;Panaderia y Pasteleria;Picos, rosquilletas y picatostes;;;si;;
+PICOS NORMALES;Panaderia y Pasteleria;Picos, rosquilletas y picatostes;;;si;;
+PILA ALCALINA LR03;Limpieza y hogar;Pilas y bolsas de basura;;;si;;
+PILA ALCALINA LR6;Limpieza y hogar;Pilas y bolsas de basura;;;si;;
+PIPAS GIRASOL NATURA;Aperitivos;Frutos secos y fruta desecada;;;si;;
+PIZZA BARBACOA/BACON;Pizzas y platos preparados;Pizzas;;;si;si;
+PIZZA CARBONARA FAM;Pizzas y platos preparados;Pizzas;;;si;si;
+PIZZA FAM 4 QUESOS;Pizzas y platos preparados;Pizzas;;;si;si;
+PIZZA JAMON Y QUESO;Pizzas y platos preparados;Pizzas;;;si;si;
+PIZZA JAMON/QUESO;Pizzas y platos preparados;Pizzas;;;si;si;
+PIZZA PEPPERONI;Pizzas y platos preparados;Pizzas;;;si;si;
+PLATO GRANDE;Limpieza y hogar;Menaje y conservación de alimentos;;;si;si;
+PORCIONES DE MERLUZA;Marisco y pescado;Pescado congelado;Congelados;Pescado;si;;corregido (antes: Marisco y pescado / Pescado fresco)
+Q RALLADO FUNDIR;Charcuteria y quesos;Queso lonchas, rallado y en porciones;;;si;;
+Q. UNTAR SUAVE;Charcuteria y quesos;Queso untable, fresco y especialidades;;;si;;
+QUESO BRIE PORCION;Charcuteria y quesos;Queso untable, fresco y especialidades;;;si;;
+QUESO CHEDDAR;Charcuteria y quesos;Queso lonchas, rallado y en porciones;;;si;;
+QUESO FETA;Charcuteria y quesos;Queso untable, fresco y especialidades;;;si;;
+QUESO HAVARTI LIGHT;Charcuteria y quesos;Queso lonchas, rallado y en porciones;;;si;;
+QUESO OVEJA SEMI;Charcuteria y quesos;Queso curado, semicurado y tierno;;;si;;
+QUESO RALLADO PIZZA;Charcuteria y quesos;Queso lonchas, rallado y en porciones;;;si;;
+QUESO UNTAR LIGHT;Charcuteria y quesos;Queso untable, fresco y especialidades;;;si;;
+REC AUTO INFANTIL;Limpieza y hogar;Insecticida y ambientador;;;si;;
+REC.ELECT.BRISA AZUL;Limpieza y hogar;Insecticida y ambientador;;;si;;
+REGAÑA;Panaderia y Pasteleria;Picos, rosquilletas y picatostes;;;si;;
+RELLENO KEBAB POLLO;Congelados;Rebozados;;;no;;dudoso: no está en el catálogo
+REXONA ANTIMANCHAS;Cuidado facial y corporal;Desodorante;;;si;;
+ROLLO HOGAR DOBLE;Limpieza y hogar;Papel higiénico y celulosa;;;si;;
+RON AÑEJO;Bodega;Licores;;;si;;
+RULITO CABRA;Charcuteria y quesos;Queso untable, fresco y especialidades;;;si;;corregido (antes: Fruta y verdura / Lechuga y ensalada preparada)
+SAL LAVAVAJILLAS;Limpieza y hogar;Limpieza vajilla;;;si;;
+SALCHICHON 4PACK;Charcuteria y quesos;Embutido curado;;;si;;
+SALSA LIGERA TD;;;;;no;;dudoso: producto no identificado
+SALTEADO DE SETAS;Congelados;Fruta y verdura;;;si;;
+SALTEADO DE VERDURAS;Congelados;Fruta y verdura;;;si;;
+SANDÍA PARTIDA B/S;Fruta y verdura;Fruta;;;si;;
+SARTA DULCE;Charcuteria y quesos;Embutido curado;;;si;;
+SARTA PICANTE;Charcuteria y quesos;Embutido curado;;;si;;
+SECRETO;Carne;Cerdo;;;si;;
+SERRANITO;Bodega;Sidra y cava;;;no;;dudoso: producto no identificado
+SOJA ARÁNDANOS ALPRO;Postres y yogures;Postres de soja / Yogures griegos;;;si;;
+SOLOMILLO DE POLLO;Carne;Aves y pollo;;;si;;
+SPAGHETTI;Arroz, legumbres y pasta;Pasta y fideos;;;si;;
+STARS MANTEQUILLA;Aperitivos;Patatas fritas y snacks;;;si;;
+STEVIA GRANULADA;Azucar, caramelos y chocolate;Azucar y edulcorante;;;si;;
+STICKS CON VEGETALES;Aperitivos;Patatas fritas y snacks;;;si;;
+STICKS DE PATATA;Aperitivos;Patatas fritas y snacks;;;si;;
+SUAVIZANTE TALCO;Limpieza y hogar;Detergente y suavizante ropa;;;si;;
+T CHOCO CRUJIENTE;Azucar, caramelos y chocolate;Chocolate;;;si;;sin categoría antes
+T. 100%INTEGRALES;Panaderia y Pasteleria;Pan tostado y rallado;;;si;;corregido (antes: Fruta y verdura / Verdura)
+T.CHERRY 500 GR;Fruta y verdura;Verdura;;;si;;
+TINTO VERANO LIMON;Bodega;Tinto de verano y sangría;;;si;;
+TOMATE CANARIO;Fruta y verdura;Verdura;;;si;;
+TOMATE FRITO BRICK;Aceites, especias y salsas;Otras salsas;Conservas, caldos y cremas;Tomate;si;;
+TOMATE TROCEADO;Conservas, caldos y cremas;Tomate;;;si;;
+TORTILLA PAT C/CEB;Pizzas y platos preparados;Platos preparados calientes;;;si;;
+TORTILLA PATATA;Pizzas y platos preparados;Platos preparados calientes;;;si;;
+TORTILLA TRIGO 6 UN;Panaderia y Pasteleria;Pan de molde y otras especialidades;;;si;;
+TORTILLAS MEXICANAS;Panaderia y Pasteleria;Pan de molde y otras especialidades;;;si;;
+TORTITA MAIZ C/CHOCO;Cereales y galletas;Tortitas;;;si;;
+TORTITA MAÍZ SERRANO;Cereales y galletas;Tortitas;;;si;;
+TORTITAS ARROZ YOGUR;Cereales y galletas;Tortitas;;;si;;
+VODKA;Bodega;Licores;;;si;;
+WOK;Congelados;Fruta y verdura;;;si;si;
+XUXES TOP TEN;Azucar, caramelos y chocolate;Golosinas;;;si;;
+YOGUR GRIEGO LIGERO;Postres y yogures;Yogures naturales y sabores;;;si;;
+YOGUR LIQUIDO FRESA;Postres y yogures;Yogures líquidos;;;si;;
+YOGUR SABORES 16;Postres y yogures;Yogures naturales y sabores;;;si;;
+Z. MARACUYA CHIA;Zumos;Fruta variada;;;si;;
+ZANAHORIA 500 G;Fruta y verdura;Verdura;;;si;;
+ZUMO DE PIÑA;Zumos;Melocotón y piña;;;si;;

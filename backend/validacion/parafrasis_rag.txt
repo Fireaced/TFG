@@ -1,0 +1,41 @@
+# Revisadas por Claude (13/10/2026). Las líneas que empiezan por # no se usan.
+# DESCARTADA (ambigua: "mi mayor gasto" puede ser el producto o la categoría, no el ticket): S01a | ¿Cuál ha sido mi mayor gasto en el súper en lo que va de año?
+S01b | ¿En qué ticket me he dejado más pasta este año?
+S02a | ¿Cuál es la media de lo que me gasto mensualmente en la compra?
+S02b | ¿Cuánto sale mes a mes ir al supermercado por término medio?
+S03a | Sácame los gastos mes a mes de mis compras durante 2025
+S03b | ¿Cómo se reparte mes a mes lo que pagué en el súper en 2025?
+S04a | ¿Qué productos son los que más meto en la cesta?
+S04b | ¿Cuáles son los artículos que más repito al hacer la compra?
+S05a | ¿Cuántas veces fui al Mercadona el mes pasado?
+S05b | ¿En cuántas ocasiones pasé por el supermercado el mes anterior?
+S06a | ¿En qué semana de 2025 hice más visitas al súper?
+S06b | ¿Cuál fue la semana del año pasado en la que más veces compré?
+S07a | ¿Qué día de la semana suelo ir habitualmente a hacer la compra?
+S07b | ¿En qué día de la semana recaen normalmente mis visitas al supermercado?
+S08a | ¿Cuánto me he gastado este año en productos de limpieza para casa?
+S08b | ¿Qué llevo invertido en artículos de limpieza doméstica en lo que va de año?
+S09a | ¿Cuál ha sido el ticket más caro que pagué un sábado?
+S09b | ¿De cuánto fue la compra más gorda que hice en sábado?
+S10a | ¿Cuál es el importe habitual de mis tickets de compra?
+S10b | ¿Cuánto me suelo dejar de media en cada ticket?
+S11a | ¿Qué presupuesto llevo gastado en carne desde septiembre?
+S11b | ¿Cuánto me he dejado en la sección de carne desde el mes de septiembre?
+S12a | ¿En qué mes acudí menos veces al supermercado?
+S12b | ¿Cuál fue el mes con menor número de visitas para comprar?
+S13a | ¿Cuánto dinero suman los tickets que superan los 50 euros?
+S13b | ¿Qué importe total acumulan mis compras de más de 50 pavos?
+S14a | ¿Cuántas compras exprés de menos de 5 euros he realizado?
+S14b | ¿De cuántas compras rápidas, por debajo de 5 euros, hablamos?
+S15a | ¿Cómo ha fluctuado mi gasto mensual en yogures?
+S15b | ¿De qué manera ha ido cambiando lo que pago por yogures cada mes?
+S16a | ¿Qué subcategoría se lleva la mayor parte del presupuesto?
+S16b | ¿En qué subcategoría gasto más dinero?
+# DESCARTADA (cambia el significado: precio por litro, no por unidad comprada): S17a | ¿A qué precio medio me sale el litro de leche?
+S17b | ¿Cuál es el coste unitario medio que pago por la leche?
+S18a | ¿Cuál ha sido el producto más barato que he comprado este año?
+S18b | ¿Qué artículo de menor precio he metido en el carro en lo que va de año?
+S19a | ¿Cuánto me costó hacer la compra entre semana a lo largo de 2025?
+S19b | ¿Qué dinero me dejé en el supermercado los días laborables de 2025?
+# DESCARTADA (casi idéntica a la semilla ("Dime las 3 cosas que más compro")): S20a | Dime los 3 artículos que más compro
+S20b | ¿Cuáles son los tres productos que más suelo adquirir?

@@ -1,0 +1,3 @@
+Pon aquí las fotos de tickets en papel. Cada foto debe llamarse igual que su PDF
+(p. ej. "20260413 Mercadona 16,46 €.jpg") y el PDF estar aquí, en dataset-mercadona o en tickets_nuevos.
+Uso: python -m validacion.evaluar_donut --fotos validacion/fotos

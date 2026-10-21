@@ -1,0 +1,31 @@
+BORRADOR v1 DE LA MEMORIA — metodología y diseño de la validación (13/10/2026)
+
+Qué hay aquí
+  metodologia.tex   Capítulo de metodología. Las fases 1-3 (dataset y entrenamiento de Donut) son tu texto
+                    sin cambios salvo el párrafo inicial; las fases 4-7 son nuevas (servidor y tratamiento de
+                    la lectura, categorización con clustering, asistente con LLM y RAG, interfaz web).
+  validacion.tex    Capítulo nuevo «Diseño de la validación» (va entre metodología y resultados).
+  references.bib    Tus referencias + 16 nuevas (bge-m3, Qwen2.5, RAG, K-Means, Ward, HDBSCAN, Wilson,
+                    McNemar...). Revisa que los datos de cada una estén bien antes de entregar.
+  figuras/          Diagramas (flujo_subida.pdf, arquitectura_asistente.pdf), ejemplo de fotos simuladas
+                    y las gráficas de resultados (chat_acierto, donut_degradacion, clustering_metodos,
+                    hibrido_umbral), que usaré en el capítulo de resultados.
+  diagramas/        Código TikZ de los dos diagramas, por si quieres retocarlos (se compilan con XeLaTeX).
+
+Cómo subirlo a Overleaf
+  1. Sube metodologia.tex y validacion.tex a la carpeta sources/ (sustituye la metodología antigua).
+  2. Sustituye references.bib.
+  3. Sube el contenido de figuras/ a la carpeta figuras/.
+  4. En report.tex, añade el capítulo después de la metodología:
+        \include{sources/metodologia}
+        \include{sources/validacion}
+        \include{sources/resultados}
+  5. En report.tex, junto a las demás siglas (antes de \begin{document}), añade:
+        \newacronym[description={Del inglés \textit{Large Language Model}}]{llm}{LLM}{modelo de lenguaje de gran tamaño}
+        \newacronym[description={Del inglés \textit{Retrieval-Augmented Generation}}]{rag}{RAG}{generación aumentada por recuperación}
+        \newacronym[description={Del inglés \textit{Character Error Rate}}]{cer}{CER}{tasa de error de caracteres}
+
+Gráficas
+  Se generan con backend/validacion/generar_figuras.py a partir de validacion/resultados:
+      python -m validacion.generar_figuras
+  (las escribe en Memoria/figuras). Si repites una validación, actualiza los nombres de fichero de FUENTES.

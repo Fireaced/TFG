@@ -1,0 +1,3931 @@
+{
+"train": [
+{
+"origen": "20250922 Mercadona 2,08 €.pdf",
+"ticket": "ticket_015.jpg",
+"date": "22/09/2025",
+"total": "2,08",
+"menu": [
+[
+"PALITO FRUTOS SECOS",
+"2,08"
+]
+],
+"nombres": [
+"PALITO FRUTOS SECOS"
+]
+},
+{
+"origen": "20250822 Mercadona 44,55 €.pdf",
+"ticket": "ticket_016.jpg",
+"date": "22/08/2025",
+"total": "44,55",
+"menu": [
+[
+"SANDÍA PARTIDA B/S",
+"4,18"
+],
+[
+"FLAN VAINILLA",
+"2,10"
+],
+[
+"FRIZZANTE MELÓN",
+"2,50"
+],
+[
+"MINI BOMBONES 12 UNI",
+"3,00"
+],
+[
+"SARTA DULCE",
+"2,49"
+],
+[
+"SALCHICHON 4PACK",
+"2,05"
+],
+[
+"LONGANIZA PAYES 4PK",
+"2,07"
+],
+[
+"BACON LONCHAS",
+"2,30"
+],
+[
+"PIZZA PEPPERONI",
+"2,90"
+],
+[
+"PIZZA JAMON/QUESO",
+"3,40"
+],
+[
+"NATILLAS VAINILLA",
+"1,05"
+],
+[
+"CINTAS DE BACON",
+"2,30"
+],
+[
+"QUESO OVEJA SEMI",
+"4,29"
+],
+[
+"LECHE ENTERA P6",
+"5,82"
+],
+[
+"MANGO",
+"2,94"
+],
+[
+"PEPINO",
+"1,16"
+]
+],
+"nombres": [
+"SANDÍA PARTIDA B/S",
+"FLAN VAINILLA",
+"FRIZZANTE MELÓN",
+"MINI BOMBONES 12 UNI",
+"SARTA DULCE",
+"SALCHICHON 4PACK",
+"LONGANIZA PAYES 4PK",
+"BACON LONCHAS",
+"PIZZA PEPPERONI",
+"PIZZA JAMON/QUESO",
+"NATILLAS VAINILLA",
+"CINTAS DE BACON",
+"QUESO OVEJA SEMI",
+"LECHE ENTERA P6",
+"MANGO",
+"PEPINO"
+]
+},
+{
+"origen": "20251001 Mercadona 2,08 €.pdf",
+"ticket": "ticket_017.jpg",
+"date": "01/10/2025",
+"total": "2,08",
+"menu": [
+[
+"PALITO FRUTOS SECOS",
+"2,08"
+]
+],
+"nombres": [
+"PALITO FRUTOS SECOS"
+]
+},
+{
+"origen": "20251103 Mercadona 1,02 €.pdf",
+"ticket": "ticket_018.jpg",
+"date": "03/11/2025",
+"total": "1,02",
+"menu": [
+[
+"BANANA",
+"1,02"
+]
+],
+"nombres": [
+"BANANA"
+]
+},
+{
+"origen": "20250730 Mercadona 6,45 €.pdf",
+"ticket": "ticket_019.jpg",
+"date": "30/07/2025",
+"total": "6,45",
+"menu": [
+[
+"CROQUETA COCIDO",
+"2,00"
+],
+[
+"CAPRICHOS JAMÓN",
+"2,85"
+],
+[
+"CREMA SETAS",
+"1,60"
+]
+],
+"nombres": [
+"CROQUETA COCIDO",
+"CAPRICHOS JAMÓN",
+"CREMA SETAS"
+]
+},
+{
+"origen": "20250828 Mercadona 89,45 €.pdf",
+"ticket": "ticket_020.jpg",
+"date": "28/08/2025",
+"total": "89,45",
+"menu": [
+[
+"ACEITE V.EXTRA",
+"13,70"
+],
+[
+"ATUN OLIVA",
+"7,70"
+],
+[
+"BURGER VACUNO CERDO",
+"4,50"
+],
+[
+"1/2 VIEJO INTENSO",
+"15,00"
+],
+[
+"CROQUETA JAMON",
+"2,80"
+],
+[
+"FILETE PANGA",
+"4,80"
+],
+[
+"PAN BLANCO FAMILIAR",
+"1,18"
+],
+[
+"CHULETA AGUJA",
+"4,75"
+],
+[
+"CHULETA AGUJA",
+"4,29"
+],
+[
+"NUGGETS DE POLLO",
+"2,70"
+],
+[
+"YOGUR LIQUIDO FRESA",
+"1,95"
+],
+[
+"SALCHICHON 4PACK",
+"2,05"
+],
+[
+"MAXI YORK LONCHAS",
+"2,40"
+],
+[
+"SPAGHETTI",
+"1,20"
+],
+[
+"CEPILLO PACK-3 MEDIO",
+"1,10"
+],
+[
+"INTERDENTAL FINO",
+"1,50"
+],
+[
+"SANDÍA PARTIDA B/S",
+"3,44"
+],
+[
+"CHAMPÚ FAMILY",
+"1,50"
+],
+[
+"PICOS NORMALES",
+"0,80"
+],
+[
+"GALLETA MARIA",
+"2,80"
+],
+[
+"MAXI HAMBURGUESA",
+"0,85"
+],
+[
+"MELON SAPO PARTIDO",
+"2,19"
+],
+[
+"PEPINO",
+"1,29"
+],
+[
+"TOMATE CANARIO",
+"1,57"
+],
+[
+"MANGO",
+"2,08"
+],
+[
+"BANANA",
+"1,31"
+],
+[
+"PARKING",
+"0,00"
+]
+],
+"nombres": [
+"ACEITE V.EXTRA",
+"ATUN OLIVA",
+"BURGER VACUNO CERDO",
+"1/2 VIEJO INTENSO",
+"CROQUETA JAMON",
+"FILETE PANGA",
+"PAN BLANCO FAMILIAR",
+"CHULETA AGUJA",
+"CHULETA AGUJA",
+"NUGGETS DE POLLO",
+"YOGUR LIQUIDO FRESA",
+"SALCHICHON 4PACK",
+"MAXI YORK LONCHAS",
+"SPAGHETTI",
+"CEPILLO PACK-3 MEDIO",
+"INTERDENTAL FINO",
+"SANDÍA PARTIDA B/S",
+"CHAMPÚ FAMILY",
+"PICOS NORMALES",
+"GALLETA MARIA",
+"MAXI HAMBURGUESA",
+"MELON SAPO PARTIDO",
+"PEPINO",
+"TOMATE CANARIO",
+"MANGO",
+"BANANA",
+"PARKING"
+]
+},
+{
+"origen": "20250728 Mercadona 27,20 €.pdf",
+"ticket": "ticket_021.jpg",
+"date": "28/07/2025",
+"total": "27,20",
+"menu": [
+[
+"GALLETA MARIA",
+"2,80"
+],
+[
+"PIZZA JAMON/QUESO",
+"3,40"
+],
+[
+"PIZZA PEPPERONI",
+"2,90"
+],
+[
+"PAN BLANCO",
+"0,80"
+],
+[
+"BURGER VACUNO CERDO",
+"4,50"
+],
+[
+"LECHE CONDENSADA ENT",
+"7,30"
+],
+[
+"12 HUEVOS GRANDES-L",
+"2,80"
+],
+[
+"MACARRON",
+"1,20"
+],
+[
+"GALLETA CANELA",
+"1,50"
+]
+],
+"nombres": [
+"GALLETA MARIA",
+"PIZZA JAMON/QUESO",
+"PIZZA PEPPERONI",
+"PAN BLANCO",
+"BURGER VACUNO CERDO",
+"LECHE CONDENSADA ENT",
+"12 HUEVOS GRANDES-L",
+"MACARRON",
+"GALLETA CANELA"
+]
+},
+{
+"origen": "20260317 Mercadona 3,70 €.pdf",
+"ticket": "ticket_022.jpg",
+"date": "17/03/2026",
+"total": "3,70",
+"menu": [
+[
+"MIEL STARS",
+"2,10"
+],
+[
+"PAN DE PUEBLO",
+"1,60"
+]
+],
+"nombres": [
+"MIEL STARS",
+"PAN DE PUEBLO"
+]
+},
+{
+"origen": "20251216 Mercadona 3,24 €.pdf",
+"ticket": "ticket_023.jpg",
+"date": "16/12/2025",
+"total": "3,24",
+"menu": [
+[
+"TORTITA MAÍZ SERRANO",
+"1,75"
+],
+[
+"BANANA",
+"1,49"
+]
+],
+"nombres": [
+"TORTITA MAÍZ SERRANO",
+"BANANA"
+]
+},
+{
+"origen": "20251008 Mercadona 2,08 €.pdf",
+"ticket": "ticket_024.jpg",
+"date": "08/10/2025",
+"total": "2,08",
+"menu": [
+[
+"PALITO FRUTOS SECOS",
+"2,08"
+]
+],
+"nombres": [
+"PALITO FRUTOS SECOS"
+]
+},
+{
+"origen": "20250509 Mercadona 15,43 €.pdf",
+"ticket": "ticket_025.jpg",
+"date": "09/05/2025",
+"total": "15,43",
+"menu": [
+[
+"PIZZA PEPPERONI",
+"2,90"
+],
+[
+"PIZZA JAMON/QUESO",
+"3,40"
+],
+[
+"CAPRICHOS JAMÓN",
+"2,85"
+],
+[
+"CHULETA AGUJA",
+"4,48"
+],
+[
+"PALOMITAS SAL PACK 3",
+"1,00"
+],
+[
+"BOMBITAS DE MAIZ",
+"0,80"
+]
+],
+"nombres": [
+"PIZZA PEPPERONI",
+"PIZZA JAMON/QUESO",
+"CAPRICHOS JAMÓN",
+"CHULETA AGUJA",
+"PALOMITAS SAL PACK 3",
+"BOMBITAS DE MAIZ"
+]
+},
+{
+"origen": "20240912 Mercadona 35,65 €.pdf",
+"ticket": "ticket_026.jpg",
+"date": "12/09/2024",
+"total": "35,65",
+"menu": [
+[
+"12 HUEVOS GRANDES-L",
+"2,20"
+],
+[
+"CREMA SETAS",
+"1,60"
+],
+[
+"MOZZARELLA FRESCA",
+"0,95"
+],
+[
+"PIZZA PEPPERONI",
+"2,90"
+],
+[
+"PIZZA JAMON/QUESO",
+"3,40"
+],
+[
+"FUET ESPETEC EXTRA",
+"2,57"
+],
+[
+"QUESO FETA",
+"2,30"
+],
+[
+"GARBANZO PEDROSILLAN",
+"3,18"
+],
+[
+"LASAÑA ESPINACAS",
+"2,85"
+],
+[
+"CAFÉ SOLUBLE CLASSIC",
+"3,40"
+],
+[
+"NUGGETS DE POLLO",
+"2,70"
+],
+[
+"QUESO HAVARTI LIGHT",
+"2,75"
+],
+[
+"REC AUTO INFANTIL",
+"1,80"
+],
+[
+"ZANAHORIA 500 G",
+"0,85"
+],
+[
+"CINTAS DE BACON",
+"2,20"
+],
+[
+"PARKING",
+"0,00"
+]
+],
+"nombres": [
+"12 HUEVOS GRANDES-L",
+"CREMA SETAS",
+"MOZZARELLA FRESCA",
+"PIZZA PEPPERONI",
+"PIZZA JAMON/QUESO",
+"FUET ESPETEC EXTRA",
+"QUESO FETA",
+"GARBANZO PEDROSILLAN",
+"LASAÑA ESPINACAS",
+"CAFÉ SOLUBLE CLASSIC",
+"NUGGETS DE POLLO",
+"QUESO HAVARTI LIGHT",
+"REC AUTO INFANTIL",
+"ZANAHORIA 500 G",
+"CINTAS DE BACON",
+"PARKING"
+]
+},
+{
+"origen": "20250528 Mercadona 7,39 €.pdf",
+"ticket": "ticket_027.jpg",
+"date": "28/05/2025",
+"total": "7,39",
+"menu": [
+[
+"BURGER AMERICANA",
+"3,10"
+],
+[
+"PECHUGA EXTRA T",
+"4,29"
+]
+],
+"nombres": [
+"BURGER AMERICANA",
+"PECHUGA EXTRA T"
+]
+},
+{
+"origen": "20251117 Mercadona 11,81 €.pdf",
+"ticket": "ticket_028.jpg",
+"date": "17/11/2025",
+"total": "11,81",
+"menu": [
+[
+"AZUCAR",
+"1,00"
+],
+[
+"AMONIACO C/DETERGENT",
+"0,95"
+],
+[
+"GALLETITAS SALADAS",
+"1,20"
+],
+[
+"PECHUGA EXTRA T",
+"3,88"
+],
+[
+"AVENA CRUNCHY",
+"1,90"
+],
+[
+"PEPINO",
+"1,36"
+],
+[
+"TOMATE CANARIO",
+"1,52"
+]
+],
+"nombres": [
+"AZUCAR",
+"AMONIACO C/DETERGENT",
+"GALLETITAS SALADAS",
+"PECHUGA EXTRA T",
+"AVENA CRUNCHY",
+"PEPINO",
+"TOMATE CANARIO"
+]
+},
+{
+"origen": "20250411 Mercadona 105,00 €.pdf",
+"ticket": "ticket_029.jpg",
+"date": "11/04/2025",
+"total": "105,00",
+"menu": [
+[
+"COLA ZERO 2L",
+"3,00"
+],
+[
+"BOLSA PLASTICO",
+"0,75"
+],
+[
+"NARANJA NORMAL 2L",
+"1,90"
+],
+[
+"TORTILLA TRIGO 6 UN",
+"1,51"
+],
+[
+"CERVEZA CLASICA PET",
+"0,90"
+],
+[
+"RON AÑEJO",
+"18,15"
+],
+[
+"VODKA",
+"13,40"
+],
+[
+"FILETE LOMO FAM",
+"7,48"
+],
+[
+"CERVEZA CLASICA LATA",
+"3,72"
+],
+[
+"FURIOUS ZERO",
+"1,00"
+],
+[
+"TINTO VERANO LIMON",
+"3,00"
+],
+[
+"ICEBERG",
+"1,03"
+],
+[
+"CINTAS DE BACON",
+"2,30"
+],
+[
+"FRESÓN",
+"2,11"
+],
+[
+"ARROZ LARGO",
+"1,41"
+],
+[
+"MACARRON",
+"1,25"
+],
+[
+"NATA PARA COCINAR",
+"1,45"
+],
+[
+"TORTITA MAÍZ SERRANO",
+"1,75"
+],
+[
+"GRIEGO AZUCAR CAÑA",
+"1,51"
+],
+[
+"YOGUR GRIEGO LIGERO",
+"2,94"
+],
+[
+"PAN H BRIOCHE",
+"2,20"
+],
+[
+"PIZZA JAMON/QUESO",
+"10,20"
+],
+[
+"PIZZA BARBACOA/BACON",
+"3,40"
+],
+[
+"MAXI HAMBURGUESA",
+"0,85"
+],
+[
+"BOLAS CEREAL CHOCOLA",
+"2,65"
+],
+[
+"LONCHAS BURGER",
+"1,95"
+],
+[
+"BURGER CERDO",
+"2,90"
+],
+[
+"T.CHERRY 500 GR",
+"1,98"
+],
+[
+"MINI RELLENO LECHE",
+"1,95"
+],
+[
+"BANANA",
+"2,21"
+],
+[
+"MANGO",
+"4,15"
+]
+],
+"nombres": [
+"COLA ZERO 2L",
+"BOLSA PLASTICO",
+"NARANJA NORMAL 2L",
+"TORTILLA TRIGO 6 UN",
+"CERVEZA CLASICA PET",
+"RON AÑEJO",
+"VODKA",
+"FILETE LOMO FAM",
+"CERVEZA CLASICA LATA",
+"FURIOUS ZERO",
+"TINTO VERANO LIMON",
+"ICEBERG",
+"CINTAS DE BACON",
+"FRESÓN",
+"ARROZ LARGO",
+"MACARRON",
+"NATA PARA COCINAR",
+"TORTITA MAÍZ SERRANO",
+"GRIEGO AZUCAR CAÑA",
+"YOGUR GRIEGO LIGERO",
+"PAN H BRIOCHE",
+"PIZZA JAMON/QUESO",
+"PIZZA BARBACOA/BACON",
+"MAXI HAMBURGUESA",
+"BOLAS CEREAL CHOCOLA",
+"LONCHAS BURGER",
+"BURGER CERDO",
+"T.CHERRY 500 GR",
+"MINI RELLENO LECHE",
+"BANANA",
+"MANGO"
+]
+},
+{
+"origen": "20250623 Mercadona 4,00 €.pdf",
+"ticket": "ticket_030.jpg",
+"date": "23/06/2025",
+"total": "4,00",
+"menu": [
+[
+"DEO SPRAY INV.HOMBRE",
+"2,50"
+],
+[
+"CEPILLO + ACTION",
+"1,50"
+]
+],
+"nombres": [
+"DEO SPRAY INV.HOMBRE",
+"CEPILLO + ACTION"
+]
+},
+{
+"origen": "20250925 Mercadona 4,35 €.pdf",
+"ticket": "ticket_031.jpg",
+"date": "25/09/2025",
+"total": "4,35",
+"menu": [
+[
+"GYOZA DE POLLO",
+"2,15"
+],
+[
+"FLAUTAS POLLO/QUESO",
+"2,20"
+]
+],
+"nombres": [
+"GYOZA DE POLLO",
+"FLAUTAS POLLO/QUESO"
+]
+},
+{
+"origen": "20250620 Mercadona 64,91 €.pdf",
+"ticket": "ticket_032.jpg",
+"date": "20/06/2025",
+"total": "64,91",
+"menu": [
+[
+"MAIZ DULCE P-3",
+"1,25"
+],
+[
+"ATÚN CLARO OLIVA PK6",
+"4,90"
+],
+[
+"PATATAS ONDULADAS",
+"1,10"
+],
+[
+"CUQUIS",
+"0,70"
+],
+[
+"ARCOS DENTALES",
+"1,80"
+],
+[
+"BERBERECHO S 65/100",
+"5,60"
+],
+[
+"GALLETITAS SALADAS",
+"1,20"
+],
+[
+"GOLOSINAS MIX BRILLO",
+"1,60"
+],
+[
+"BURGER VACUNO CERDO",
+"4,50"
+],
+[
+"LECHE ENTERA P6",
+"5,82"
+],
+[
+"TOMATE TROCEADO",
+"1,60"
+],
+[
+"QUESO OVEJA SEMI",
+"4,36"
+],
+[
+"BASTONCILLO FAMIL",
+"0,90"
+],
+[
+"ACEITUNA S/HUESO P3",
+"1,70"
+],
+[
+"COCKTAIL RUMBA",
+"1,60"
+],
+[
+"CINTAS DE BACON",
+"2,30"
+],
+[
+"ESTROPAJO VERDE",
+"1,80"
+],
+[
+"SECRETO",
+"4,36"
+],
+[
+"YOGUR SABORES 16",
+"2,35"
+],
+[
+"BACON LONCHAS",
+"2,20"
+],
+[
+"SAL LAVAVAJILLAS",
+"0,95"
+],
+[
+"MEJILLONES ESCABECHE",
+"5,00"
+],
+[
+"STEVIA GRANULADA",
+"3,05"
+],
+[
+"12 HUEVOS GRANDES-L",
+"2,80"
+],
+[
+"TOMATE CANARIO",
+"1,47"
+],
+[
+"PARKING",
+"0,00"
+]
+],
+"nombres": [
+"MAIZ DULCE P-3",
+"ATÚN CLARO OLIVA PK6",
+"PATATAS ONDULADAS",
+"CUQUIS",
+"ARCOS DENTALES",
+"BERBERECHO S 65/100",
+"GALLETITAS SALADAS",
+"GOLOSINAS MIX BRILLO",
+"BURGER VACUNO CERDO",
+"LECHE ENTERA P6",
+"TOMATE TROCEADO",
+"QUESO OVEJA SEMI",
+"BASTONCILLO FAMIL",
+"ACEITUNA S/HUESO P3",
+"COCKTAIL RUMBA",
+"CINTAS DE BACON",
+"ESTROPAJO VERDE",
+"SECRETO",
+"YOGUR SABORES 16",
+"BACON LONCHAS",
+"SAL LAVAVAJILLAS",
+"MEJILLONES ESCABECHE",
+"STEVIA GRANULADA",
+"12 HUEVOS GRANDES-L",
+"TOMATE CANARIO",
+"PARKING"
+]
+},
+{
+"origen": "20250605 Mercadona 17,49 €.pdf",
+"ticket": "ticket_033.jpg",
+"date": "05/06/2025",
+"total": "17,49",
+"menu": [
+[
+"HORCHATA FRESCA",
+"2,10"
+],
+[
+"PAN QUESO 18%",
+"0,94"
+],
+[
+"BERLINA CACAO 4 UDS",
+"1,55"
+],
+[
+"TORTILLA PAT C/CEB",
+"2,60"
+],
+[
+"CERVEZA CLASICA PET",
+"0,90"
+],
+[
+"JAMON S. EXTRA FINO",
+"4,70"
+],
+[
+"CERVEZA ESPECIAL",
+"1,70"
+],
+[
+"DOCHI CHEESECAKE",
+"3,00"
+]
+],
+"nombres": [
+"HORCHATA FRESCA",
+"PAN QUESO 18%",
+"BERLINA CACAO 4 UDS",
+"TORTILLA PAT C/CEB",
+"CERVEZA CLASICA PET",
+"JAMON S. EXTRA FINO",
+"CERVEZA ESPECIAL",
+"DOCHI CHEESECAKE"
+]
+},
+{
+"origen": "20260413 Mercadona 16,46 €.pdf",
+"ticket": "ticket_034.jpg",
+"date": "13/04/2026",
+"total": "16,46",
+"menu": [
+[
+"LECHE DESN",
+"2,46"
+],
+[
+"COLA ZERO P6 LATAS",
+"2,10"
+],
+[
+"JUDÍA REDONDA",
+"1,20"
+],
+[
+"SALSA LIGERA TD",
+"1,35"
+],
+[
+"KÉTCHUP ZERO",
+"1,60"
+],
+[
+"GYOZA DE POLLO",
+"2,15"
+],
+[
+"PATATAS HORNO",
+"2,10"
+],
+[
+"MIX FRUTOS ROJOS",
+"1,90"
+],
+[
+"PAN DE PUEBLO",
+"1,60"
+]
+],
+"nombres": [
+"LECHE DESN",
+"COLA ZERO P6 LATAS",
+"JUDÍA REDONDA",
+"SALSA LIGERA TD",
+"KÉTCHUP ZERO",
+"GYOZA DE POLLO",
+"PATATAS HORNO",
+"MIX FRUTOS ROJOS",
+"PAN DE PUEBLO"
+]
+},
+{
+"origen": "20250721 Mercadona 36,30 €.pdf",
+"ticket": "ticket_035.jpg",
+"date": "21/07/2025",
+"total": "36,30",
+"menu": [
+[
+"LECHE ENTERA",
+"2,91"
+],
+[
+"LAUREL HOJA",
+"0,85"
+],
+[
+"LIMONADA LIGHT 1,5L",
+"1,10"
+],
+[
+"GEL WC C/ LEJÍA",
+"0,95"
+],
+[
+"FRIZZANTE MELÓN",
+"2,50"
+],
+[
+"ALCOHOL ETILICO 96",
+"0,75"
+],
+[
+"INS PERFUMADO",
+"4,50"
+],
+[
+"AGUA CITRONELA",
+"1,35"
+],
+[
+"ACEITUNA S/HUESO P3",
+"1,70"
+],
+[
+"PASTILLAS DESINFECT",
+"1,60"
+],
+[
+"ATÚN CLARO OLIVA PK6",
+"4,90"
+],
+[
+"MAIZ DULCE P-3",
+"1,25"
+],
+[
+"SAL LAVAVAJILLAS",
+"0,95"
+],
+[
+"LAXSEN",
+"1,05"
+],
+[
+"DENTIFRICO BICARBONA",
+"1,85"
+],
+[
+"PILA ALCALINA LR6",
+"1,70"
+],
+[
+"PILA ALCALINA LR03",
+"1,65"
+],
+[
+"PAN DE PUEBLO",
+"4,74"
+]
+],
+"nombres": [
+"LECHE ENTERA",
+"LAUREL HOJA",
+"LIMONADA LIGHT 1,5L",
+"GEL WC C/ LEJÍA",
+"FRIZZANTE MELÓN",
+"ALCOHOL ETILICO 96",
+"INS PERFUMADO",
+"AGUA CITRONELA",
+"ACEITUNA S/HUESO P3",
+"PASTILLAS DESINFECT",
+"ATÚN CLARO OLIVA PK6",
+"MAIZ DULCE P-3",
+"SAL LAVAVAJILLAS",
+"LAXSEN",
+"DENTIFRICO BICARBONA",
+"PILA ALCALINA LR6",
+"PILA ALCALINA LR03",
+"PAN DE PUEBLO"
+]
+},
+{
+"origen": "20251219 Mercadona 13,30 €.pdf",
+"ticket": "ticket_036.jpg",
+"date": "19/12/2025",
+"total": "13,30",
+"menu": [
+[
+"GALLETA MARIA",
+"1,40"
+],
+[
+"6 HUEVOS GRANDES-L",
+"1,80"
+],
+[
+"12 HUEVOS GRANDES-L",
+"3,30"
+],
+[
+"Q. UNTAR SUAVE",
+"5,80"
+],
+[
+"AZUCAR",
+"1,00"
+]
+],
+"nombres": [
+"GALLETA MARIA",
+"6 HUEVOS GRANDES-L",
+"12 HUEVOS GRANDES-L",
+"Q. UNTAR SUAVE",
+"AZUCAR"
+]
+},
+{
+"origen": "20241009 Mercadona 19,19 €.pdf",
+"ticket": "ticket_037.jpg",
+"date": "09/10/2024",
+"total": "19,19",
+"menu": [
+[
+"ACEITUNA SIN HUESO",
+"2,60"
+],
+[
+"RULITO CABRA",
+"2,30"
+],
+[
+"ALMENDRA NATURAL",
+"2,09"
+],
+[
+"AGUA PERFUMADA",
+"3,20"
+],
+[
+"EDP ROSE NUDE",
+"9,00"
+]
+],
+"nombres": [
+"ACEITUNA SIN HUESO",
+"RULITO CABRA",
+"ALMENDRA NATURAL",
+"AGUA PERFUMADA",
+"EDP ROSE NUDE"
+]
+},
+{
+"origen": "20250519 Mercadona 26,37 €.pdf",
+"ticket": "ticket_038.jpg",
+"date": "19/05/2025",
+"total": "26,37",
+"menu": [
+[
+"ARROZ ULTRACONGELADO",
+"4,00"
+],
+[
+"CINTAS DE BACON",
+"2,30"
+],
+[
+"GNOCCHI QUESOS",
+"2,00"
+],
+[
+"YOGUR GRIEGO LIGERO",
+"3,00"
+],
+[
+"PIZZA PEPPERONI",
+"2,90"
+],
+[
+"PIZZA JAMON/QUESO",
+"3,40"
+],
+[
+"BACON LONCHAS",
+"2,20"
+],
+[
+"PAN BLANCO",
+"0,80"
+],
+[
+"MAXI HAMBURGUESA",
+"0,85"
+],
+[
+"GALLETA MARIA",
+"1,40"
+],
+[
+"TORTILLA TRIGO 6 UN",
+"1,51"
+],
+[
+"PEPINO",
+"0,81"
+],
+[
+"TOMATE CANARIO",
+"1,20"
+]
+],
+"nombres": [
+"ARROZ ULTRACONGELADO",
+"CINTAS DE BACON",
+"GNOCCHI QUESOS",
+"YOGUR GRIEGO LIGERO",
+"PIZZA PEPPERONI",
+"PIZZA JAMON/QUESO",
+"BACON LONCHAS",
+"PAN BLANCO",
+"MAXI HAMBURGUESA",
+"GALLETA MARIA",
+"TORTILLA TRIGO 6 UN",
+"PEPINO",
+"TOMATE CANARIO"
+]
+},
+{
+"origen": "20250310 Mercadona 22,48 €.pdf",
+"ticket": "ticket_039.jpg",
+"date": "10/03/2025",
+"total": "22,48",
+"menu": [
+[
+"ARROZ ULTRACONGELADO",
+"2,03"
+],
+[
+"RELLENO KEBAB POLLO",
+"3,25"
+],
+[
+"Q RALLADO FUNDIR",
+"2,40"
+],
+[
+"SOLOMILLO DE POLLO",
+"2,93"
+],
+[
+"TORTILLA TRIGO 6 UN",
+"1,51"
+],
+[
+"CINTAS DE BACON",
+"2,30"
+],
+[
+"CRUNCHY CHICKEN",
+"1,90"
+],
+[
+"CABECERO LOMO 4 PACK",
+"4,60"
+],
+[
+"T. 100%INTEGRALES",
+"1,56"
+]
+],
+"nombres": [
+"ARROZ ULTRACONGELADO",
+"RELLENO KEBAB POLLO",
+"Q RALLADO FUNDIR",
+"SOLOMILLO DE POLLO",
+"TORTILLA TRIGO 6 UN",
+"CINTAS DE BACON",
+"CRUNCHY CHICKEN",
+"CABECERO LOMO 4 PACK",
+"T. 100%INTEGRALES"
+]
+},
+{
+"origen": "20241228 Mercadona 18,31 €.pdf",
+"ticket": "ticket_040.jpg",
+"date": "28/12/2024",
+"total": "18,31",
+"menu": [
+[
+"PIZZA JAMON Y QUESO",
+"2,50"
+],
+[
+"PIZZA JAMON/QUESO",
+"3,40"
+],
+[
+"COLG. TRIPLE ACCION",
+"2,15"
+],
+[
+"GARBANZO M.COCIDO",
+"1,50"
+],
+[
+"LECHE ENTERA P6",
+"5,52"
+],
+[
+"AZUCAR",
+"1,10"
+],
+[
+"DÁTIL SIN HUESO",
+"2,14"
+]
+],
+"nombres": [
+"PIZZA JAMON Y QUESO",
+"PIZZA JAMON/QUESO",
+"COLG. TRIPLE ACCION",
+"GARBANZO M.COCIDO",
+"LECHE ENTERA P6",
+"AZUCAR",
+"DÁTIL SIN HUESO"
+]
+},
+{
+"origen": "20251015 Mercadona 3,70 €.pdf",
+"ticket": "ticket_041.jpg",
+"date": "15/10/2025",
+"total": "3,70",
+"menu": [
+[
+"LOMO EMBUCHADO",
+"2,70"
+],
+[
+"PAN QUESO 18%",
+"1,00"
+]
+],
+"nombres": [
+"LOMO EMBUCHADO",
+"PAN QUESO 18%"
+]
+},
+{
+"origen": "20251024 Mercadona 17,85 €.pdf",
+"ticket": "ticket_042.jpg",
+"date": "24/10/2025",
+"total": "17,85",
+"menu": [
+[
+"ACEITUNA R/ANCHOA P3",
+"3,15"
+],
+[
+"PATATAS LIGHT",
+"1,30"
+],
+[
+"PAT. CLASSICAS",
+"1,90"
+],
+[
+"VODKA",
+"6,70"
+],
+[
+"NARANJA NORMAL 2L",
+"0,95"
+],
+[
+"ZUMO DE PIÑA",
+"1,75"
+],
+[
+"STARS MANTEQUILLA",
+"0,80"
+],
+[
+"HIELO CUBITO 2KG",
+"1,15"
+],
+[
+"BOLSA PLASTICO",
+"0,15"
+]
+],
+"nombres": [
+"ACEITUNA R/ANCHOA P3",
+"PATATAS LIGHT",
+"PAT. CLASSICAS",
+"VODKA",
+"NARANJA NORMAL 2L",
+"ZUMO DE PIÑA",
+"STARS MANTEQUILLA",
+"HIELO CUBITO 2KG",
+"BOLSA PLASTICO"
+]
+},
+{
+"origen": "20250801 Mercadona 5,80 €.pdf",
+"ticket": "ticket_043.jpg",
+"date": "01/08/2025",
+"total": "5,80",
+"menu": [
+[
+"HELADO MOCHI MANGO",
+"2,80"
+],
+[
+"DOCHI CHEESECAKE",
+"2,85"
+],
+[
+"BOLSA PLASTICO",
+"0,15"
+]
+],
+"nombres": [
+"HELADO MOCHI MANGO",
+"DOCHI CHEESECAKE",
+"BOLSA PLASTICO"
+]
+},
+{
+"origen": "20240907 Mercadona 17,75 €.pdf",
+"ticket": "ticket_044.jpg",
+"date": "07/09/2024",
+"total": "17,75",
+"menu": [
+[
+"GASEOSA BOTELLA 1,5L",
+"2,00"
+],
+[
+"LECHE ENTERA P6",
+"5,40"
+],
+[
+"ALCOHOL DE LIMPIEZA",
+"2,30"
+],
+[
+"TOMATE FRITO BRICK",
+"1,40"
+],
+[
+"LECHE CONDENSADA ENT",
+"3,85"
+],
+[
+"MAXI HAMBURGUESA",
+"0,90"
+],
+[
+"CHOCOIRIS",
+"1,90"
+]
+],
+"nombres": [
+"GASEOSA BOTELLA 1,5L",
+"LECHE ENTERA P6",
+"ALCOHOL DE LIMPIEZA",
+"TOMATE FRITO BRICK",
+"LECHE CONDENSADA ENT",
+"MAXI HAMBURGUESA",
+"CHOCOIRIS"
+]
+},
+{
+"origen": "20250509 Mercadona 39,25 €.pdf",
+"ticket": "ticket_045.jpg",
+"date": "09/05/2025",
+"total": "39,25",
+"menu": [
+[
+"BURGER AMERICANA",
+"2,90"
+],
+[
+"BURGER VACUNO",
+"5,30"
+],
+[
+"BOLSA PLASTICO",
+"0,15"
+],
+[
+"32 PASTILLAS ENCENDI",
+"1,05"
+],
+[
+"CEPILLO + ACTION",
+"1,50"
+],
+[
+"BACON LONCHAS",
+"2,20"
+],
+[
+"SARTA PICANTE",
+"2,49"
+],
+[
+"BARRA DE PAN",
+"0,50"
+],
+[
+"PATATAS LIGHT",
+"1,30"
+],
+[
+"PLATO GRANDE",
+"3,10"
+],
+[
+"FRESÓN",
+"2,36"
+],
+[
+"DOCHI BANOFFEE",
+"3,00"
+],
+[
+"COLA ZERO 2L",
+"1,50"
+],
+[
+"TINTO VERANO LIMON",
+"4,50"
+],
+[
+"MAXI HAMBURGUESA",
+"0,85"
+],
+[
+"PILA ALCALINA LR6",
+"3,40"
+],
+[
+"ACEITUNA R/ANCHOA P3",
+"3,15"
+],
+[
+"PARKING",
+"0,00"
+]
+],
+"nombres": [
+"BURGER AMERICANA",
+"BURGER VACUNO",
+"BOLSA PLASTICO",
+"32 PASTILLAS ENCENDI",
+"CEPILLO + ACTION",
+"BACON LONCHAS",
+"SARTA PICANTE",
+"BARRA DE PAN",
+"PATATAS LIGHT",
+"PLATO GRANDE",
+"FRESÓN",
+"DOCHI BANOFFEE",
+"COLA ZERO 2L",
+"TINTO VERANO LIMON",
+"MAXI HAMBURGUESA",
+"PILA ALCALINA LR6",
+"ACEITUNA R/ANCHOA P3",
+"PARKING"
+]
+},
+{
+"origen": "20251124 Mercadona 1,09 €.pdf",
+"ticket": "ticket_046.jpg",
+"date": "24/11/2025",
+"total": "1,09",
+"menu": [
+[
+"BANANA",
+"1,09"
+]
+],
+"nombres": [
+"BANANA"
+]
+},
+{
+"origen": "20240829 Mercadona 37,42 €.pdf",
+"ticket": "ticket_047.jpg",
+"date": "29/08/2024",
+"total": "37,42",
+"menu": [
+[
+"PACK-4 SALCH.FRANKF",
+"1,75"
+],
+[
+"PATATAS GAJO",
+"1,80"
+],
+[
+"MINI BOMBONES 12 UNI",
+"2,50"
+],
+[
+"GALLETITAS SALADAS",
+"2,40"
+],
+[
+"PICOS CAMPERO",
+"1,05"
+],
+[
+"BACON LONCHAS",
+"4,20"
+],
+[
+"SALCHICHON 4PACK",
+"4,10"
+],
+[
+"MACARRON",
+"1,24"
+],
+[
+"PATATAS LIGHT",
+"1,30"
+],
+[
+"LIMPIADOR CON OXIGEN",
+"1,35"
+],
+[
+"PIZZA PEPPERONI",
+"2,90"
+],
+[
+"PIZZA JAMON/QUESO",
+"3,40"
+],
+[
+"PAN BLANCO FAMILIAR",
+"1,25"
+],
+[
+"MAXI YORK LONCHAS",
+"2,38"
+],
+[
+"PAPEL HIGIENICO 4 CA",
+"3,55"
+],
+[
+"ROLLO HOGAR DOBLE",
+"2,25"
+]
+],
+"nombres": [
+"PACK-4 SALCH.FRANKF",
+"PATATAS GAJO",
+"MINI BOMBONES 12 UNI",
+"GALLETITAS SALADAS",
+"PICOS CAMPERO",
+"BACON LONCHAS",
+"SALCHICHON 4PACK",
+"MACARRON",
+"PATATAS LIGHT",
+"LIMPIADOR CON OXIGEN",
+"PIZZA PEPPERONI",
+"PIZZA JAMON/QUESO",
+"PAN BLANCO FAMILIAR",
+"MAXI YORK LONCHAS",
+"PAPEL HIGIENICO 4 CA",
+"ROLLO HOGAR DOBLE"
+]
+},
+{
+"origen": "20241129 Mercadona 22,16 €.pdf",
+"ticket": "ticket_048.jpg",
+"date": "29/11/2024",
+"total": "22,16",
+"menu": [
+[
+"CREMA CACAO 2 SABOR",
+"1,95"
+],
+[
+"SOJA ARÁNDANOS ALPRO",
+"1,95"
+],
+[
+"PALOMITAS SAL PACK 3",
+"1,00"
+],
+[
+"T CHOCO CRUJIENTE",
+"1,95"
+],
+[
+"STICKS DE PATATA",
+"0,80"
+],
+[
+"BOMBITAS DE MAIZ",
+"0,75"
+],
+[
+"MANDARINA 2 KG",
+"3,00"
+],
+[
+"M.CROISS MANTEQUILLA",
+"2,00"
+],
+[
+"GALLETA RELIEVE",
+"1,45"
+],
+[
+"MOZZARELLA FRESCA",
+"0,95"
+],
+[
+"BACON LONCHAS",
+"2,10"
+],
+[
+"NARANJA",
+"1,10"
+],
+[
+"AGUACATE",
+"0,92"
+],
+[
+"TOMATE CANARIO",
+"2,24"
+]
+],
+"nombres": [
+"CREMA CACAO 2 SABOR",
+"SOJA ARÁNDANOS ALPRO",
+"PALOMITAS SAL PACK 3",
+"T CHOCO CRUJIENTE",
+"STICKS DE PATATA",
+"BOMBITAS DE MAIZ",
+"MANDARINA 2 KG",
+"M.CROISS MANTEQUILLA",
+"GALLETA RELIEVE",
+"MOZZARELLA FRESCA",
+"BACON LONCHAS",
+"NARANJA",
+"AGUACATE",
+"TOMATE CANARIO"
+]
+},
+{
+"origen": "20250603 Mercadona 2,00 €.pdf",
+"ticket": "ticket_049.jpg",
+"date": "03/06/2025",
+"total": "2,00",
+"menu": [
+[
+"CHOCOIRIS",
+"2,00"
+]
+],
+"nombres": [
+"CHOCOIRIS"
+]
+},
+{
+"origen": "20250730 Mercadona 2,80 €.pdf",
+"ticket": "ticket_050.jpg",
+"date": "30/07/2025",
+"total": "2,80",
+"menu": [
+[
+"HELADO MOCHI MANGO",
+"2,80"
+]
+],
+"nombres": [
+"HELADO MOCHI MANGO"
+]
+},
+{
+"origen": "20250224 Mercadona 4,15 €.pdf",
+"ticket": "ticket_051.jpg",
+"date": "24/02/2025",
+"total": "4,15",
+"menu": [
+[
+"CACAHUETE CHOCOLECHE",
+"2,45"
+],
+[
+"MIGAS",
+"1,70"
+]
+],
+"nombres": [
+"CACAHUETE CHOCOLECHE",
+"MIGAS"
+]
+},
+{
+"origen": "20251219 Mercadona 28,95 €.pdf",
+"ticket": "ticket_052.jpg",
+"date": "19/12/2025",
+"total": "28,95",
+"menu": [
+[
+"PIZZA FAM 4 QUESOS",
+"3,40"
+],
+[
+"PIZZA CARBONARA FAM",
+"3,40"
+],
+[
+"PIZZA BARBACOA/BACON",
+"3,40"
+],
+[
+"BOLSA PLASTICO",
+"0,15"
+],
+[
+"FUENTE DEHESA 1,5L",
+"0,78"
+],
+[
+"FILETE EXTRA-TIERNO",
+"3,33"
+],
+[
+"FILETE EXTRA-TIERNO",
+"3,33"
+],
+[
+"VODKA",
+"6,70"
+],
+[
+"COLA ZERO 2L",
+"0,80"
+],
+[
+"BARRA DE PAN",
+"0,50"
+],
+[
+"PAN DE PUEBLO",
+"3,16"
+]
+],
+"nombres": [
+"PIZZA FAM 4 QUESOS",
+"PIZZA CARBONARA FAM",
+"PIZZA BARBACOA/BACON",
+"BOLSA PLASTICO",
+"FUENTE DEHESA 1,5L",
+"FILETE EXTRA-TIERNO",
+"FILETE EXTRA-TIERNO",
+"VODKA",
+"COLA ZERO 2L",
+"BARRA DE PAN",
+"PAN DE PUEBLO"
+]
+},
+{
+"origen": "20250315 Mercadona 18,98 €.pdf",
+"ticket": "ticket_053.jpg",
+"date": "15/03/2025",
+"total": "18,98",
+"menu": [
+[
+"ARROZ ULTRACONGELADO",
+"2,03"
+],
+[
+"NUGGETS DE POLLO",
+"2,70"
+],
+[
+"12 HUEVOS GRANDES-L",
+"2,80"
+],
+[
+"RELLENO KEBAB POLLO",
+"3,25"
+],
+[
+"CINTAS DE BACON",
+"2,30"
+],
+[
+"BACON LONCHAS",
+"2,20"
+],
+[
+"MAXI HAMBURGUESA",
+"0,85"
+],
+[
+"TORTILLA TRIGO 6 UN",
+"1,51"
+],
+[
+"TOMATE CANARIO",
+"1,34"
+]
+],
+"nombres": [
+"ARROZ ULTRACONGELADO",
+"NUGGETS DE POLLO",
+"12 HUEVOS GRANDES-L",
+"RELLENO KEBAB POLLO",
+"CINTAS DE BACON",
+"BACON LONCHAS",
+"MAXI HAMBURGUESA",
+"TORTILLA TRIGO 6 UN",
+"TOMATE CANARIO"
+]
+},
+{
+"origen": "20240831 Mercadona 3,90 €.pdf",
+"ticket": "ticket_054.jpg",
+"date": "31/08/2024",
+"total": "3,90",
+"menu": [
+[
+"P. COLORCOR 7",
+"3,90"
+]
+],
+"nombres": [
+"P. COLORCOR 7"
+]
+},
+{
+"origen": "20240906 Mercadona 10,85 €.pdf",
+"ticket": "ticket_055.jpg",
+"date": "06/09/2024",
+"total": "10,85",
+"menu": [
+[
+"SOJA ARÁNDANOS ALPRO",
+"1,95"
+],
+[
+"LECHE CONDENSADA ENT",
+"3,85"
+],
+[
+"REXONA ANTIMANCHAS",
+"2,25"
+],
+[
+"PASTILLAS DESINFECT",
+"1,60"
+],
+[
+"TORTILLAS MEXICANAS",
+"1,20"
+]
+],
+"nombres": [
+"SOJA ARÁNDANOS ALPRO",
+"LECHE CONDENSADA ENT",
+"REXONA ANTIMANCHAS",
+"PASTILLAS DESINFECT",
+"TORTILLAS MEXICANAS"
+]
+},
+{
+"origen": "20250924 Mercadona 3,35 €.pdf",
+"ticket": "ticket_056.jpg",
+"date": "24/09/2025",
+"total": "3,35",
+"menu": [
+[
+"DEO AXE DARK TEMPT.",
+"3,35"
+]
+],
+"nombres": [
+"DEO AXE DARK TEMPT."
+]
+},
+{
+"origen": "20250728 Mercadona 15,91 €.pdf",
+"ticket": "ticket_057.jpg",
+"date": "28/07/2025",
+"total": "15,91",
+"menu": [
+[
+"CEBO TAPAS",
+"5,77"
+],
+[
+"CEBO TAPAS",
+"6,24"
+],
+[
+"CHAPATA CRISTAL 4UDS",
+"1,30"
+],
+[
+"GOLOSINAS TROPICAL",
+"1,60"
+],
+[
+"CHICLE ORIGINAL",
+"1,00"
+]
+],
+"nombres": [
+"CEBO TAPAS",
+"CEBO TAPAS",
+"CHAPATA CRISTAL 4UDS",
+"GOLOSINAS TROPICAL",
+"CHICLE ORIGINAL"
+]
+},
+{
+"origen": "20260211 Mercadona 4,50 €.pdf",
+"ticket": "ticket_058.jpg",
+"date": "11/02/2026",
+"total": "4,50",
+"menu": [
+[
+"SERRANITO",
+"4,50"
+]
+],
+"nombres": [
+"SERRANITO"
+]
+},
+{
+"origen": "20240916 Mercadona 24,45 €.pdf",
+"ticket": "ticket_059.jpg",
+"date": "16/09/2024",
+"total": "24,45",
+"menu": [
+[
+"LECHE ENTERA P6",
+"5,40"
+],
+[
+"YOGUR LIQUIDO FRESA",
+"2,05"
+],
+[
+"LAVAVAJILLAS ULTRA",
+"1,90"
+],
+[
+"CEBOLLA CONG ZIP",
+"1,00"
+],
+[
+"BACON LONCHAS",
+"4,20"
+],
+[
+"CINTAS DE BACON",
+"2,20"
+],
+[
+"LECHE CONDENSADA ENT",
+"7,70"
+]
+],
+"nombres": [
+"LECHE ENTERA P6",
+"YOGUR LIQUIDO FRESA",
+"LAVAVAJILLAS ULTRA",
+"CEBOLLA CONG ZIP",
+"BACON LONCHAS",
+"CINTAS DE BACON",
+"LECHE CONDENSADA ENT"
+]
+},
+{
+"origen": "20260226 Mercadona 6,85 €.pdf",
+"ticket": "ticket_060.jpg",
+"date": "26/02/2026",
+"total": "6,85",
+"menu": [
+[
+"BEBER PIÑA COCO 0%",
+"1,50"
+],
+[
+"KÉFIR NATURAL 0%",
+"0,90"
+],
+[
+"YOGUR GRIEGO LIGERO",
+"1,55"
+],
+[
+"FRAMBUESA",
+"2,90"
+]
+],
+"nombres": [
+"BEBER PIÑA COCO 0%",
+"KÉFIR NATURAL 0%",
+"YOGUR GRIEGO LIGERO",
+"FRAMBUESA"
+]
+},
+{
+"origen": "20250222 Mercadona 21,45 €.pdf",
+"ticket": "ticket_061.jpg",
+"date": "22/02/2025",
+"total": "21,45",
+"menu": [
+[
+"LECHE ENTERA P6",
+"5,64"
+],
+[
+"ESPÁRRAGO MUY GRUESO",
+"3,00"
+],
+[
+"LOTE 3 BAYETAS MICRO",
+"1,75"
+],
+[
+"LONCHAS DE QUESO",
+"2,40"
+],
+[
+"YOGUR SABORES 16",
+"2,36"
+],
+[
+"MAXI HAMBURGUESA",
+"0,90"
+],
+[
+"STICKS DE PATATA",
+"0,80"
+],
+[
+"COMBINADO APERITIVO",
+"1,55"
+],
+[
+"GALL RELLENA CHOC 0%",
+"1,40"
+],
+[
+"T. 100%INTEGRALES",
+"1,65"
+]
+],
+"nombres": [
+"LECHE ENTERA P6",
+"ESPÁRRAGO MUY GRUESO",
+"LOTE 3 BAYETAS MICRO",
+"LONCHAS DE QUESO",
+"YOGUR SABORES 16",
+"MAXI HAMBURGUESA",
+"STICKS DE PATATA",
+"COMBINADO APERITIVO",
+"GALL RELLENA CHOC 0%",
+"T. 100%INTEGRALES"
+]
+},
+{
+"origen": "20260115 Mercadona 5,55 €.pdf",
+"ticket": "ticket_062.jpg",
+"date": "15/01/2026",
+"total": "5,55",
+"menu": [
+[
+"ARROZ TRES DELICIAS",
+"2,85"
+],
+[
+"SOLOMILLO DE POLLO",
+"2,70"
+]
+],
+"nombres": [
+"ARROZ TRES DELICIAS",
+"SOLOMILLO DE POLLO"
+]
+},
+{
+"origen": "20250712 Mercadona 8,95 €.pdf",
+"ticket": "ticket_063.jpg",
+"date": "12/07/2025",
+"total": "8,95",
+"menu": [
+[
+"TORTILLA PAT C/CEB",
+"2,60"
+],
+[
+"TORTILLA PATATA",
+"2,60"
+],
+[
+"HELADO HUEVO CHOCO",
+"3,75"
+]
+],
+"nombres": [
+"TORTILLA PAT C/CEB",
+"TORTILLA PATATA",
+"HELADO HUEVO CHOCO"
+]
+},
+{
+"origen": "20250117 Mercadona 6,27 €.pdf",
+"ticket": "ticket_064.jpg",
+"date": "17/01/2025",
+"total": "6,27",
+"menu": [
+[
+"ENERG.ULTRA WHITE",
+"1,45"
+],
+[
+"LASAÑA BOLOÑESA",
+"4,82"
+]
+],
+"nombres": [
+"ENERG.ULTRA WHITE",
+"LASAÑA BOLOÑESA"
+]
+},
+{
+"origen": "20240821 Mercadona 20,80 €.pdf",
+"ticket": "ticket_065.jpg",
+"date": "21/08/2024",
+"total": "20,80",
+"menu": [
+[
+"MINI BOMBONES 12 UNI",
+"2,50"
+],
+[
+"SALCHICHON 4PACK",
+"2,05"
+],
+[
+"LECHE ENTERA P6",
+"5,46"
+],
+[
+"MAXI PAVO FL",
+"2,65"
+],
+[
+"YOGUR LIQUIDO FRESA",
+"2,05"
+],
+[
+"BEBER F SILVES 0%",
+"1,45"
+],
+[
+"SPAGHETTI",
+"1,24"
+],
+[
+"CAFÉ SOLUBLE CLASSIC",
+"3,40"
+]
+],
+"nombres": [
+"MINI BOMBONES 12 UNI",
+"SALCHICHON 4PACK",
+"LECHE ENTERA P6",
+"MAXI PAVO FL",
+"YOGUR LIQUIDO FRESA",
+"BEBER F SILVES 0%",
+"SPAGHETTI",
+"CAFÉ SOLUBLE CLASSIC"
+]
+},
+{
+"origen": "20260408 Mercadona 1,45 €.pdf",
+"ticket": "ticket_066.jpg",
+"date": "08/04/2026",
+"total": "1,45",
+"menu": [
+[
+"YOGUR GRIEGO LIGERO",
+"1,45"
+]
+],
+"nombres": [
+"YOGUR GRIEGO LIGERO"
+]
+},
+{
+"origen": "20250909 Mercadona 6,80 €.pdf",
+"ticket": "ticket_067.jpg",
+"date": "09/09/2025",
+"total": "6,80",
+"menu": [
+[
+"CHOCOIRIS",
+"2,00"
+],
+[
+"CEREAL RELLENO LECHE",
+"4,80"
+]
+],
+"nombres": [
+"CHOCOIRIS",
+"CEREAL RELLENO LECHE"
+]
+},
+{
+"origen": "20260316 Mercadona 16,54 €.pdf",
+"ticket": "ticket_068.jpg",
+"date": "16/03/2026",
+"total": "16,54",
+"menu": [
+[
+"YOGUR GRIEGO LIGERO",
+"1,55"
+],
+[
+"PATATAS LIGHT",
+"1,30"
+],
+[
+"GEL LIMPIADOR FACIAL",
+"2,50"
+],
+[
+"P. PAV RED. SAL BIPA",
+"3,95"
+],
+[
+"FRESÓN",
+"3,37"
+],
+[
+"PECHU.POLLO BRASEADA",
+"2,30"
+],
+[
+"BANANA",
+"1,57"
+]
+],
+"nombres": [
+"YOGUR GRIEGO LIGERO",
+"PATATAS LIGHT",
+"GEL LIMPIADOR FACIAL",
+"P. PAV RED. SAL BIPA",
+"FRESÓN",
+"PECHU.POLLO BRASEADA",
+"BANANA"
+]
+},
+{
+"origen": "20250811 Mercadona 52,18 €.pdf",
+"ticket": "ticket_069.jpg",
+"date": "11/08/2025",
+"total": "52,18",
+"menu": [
+[
+"LECHE ENTERA P6",
+"5,82"
+],
+[
+"PAN BLANCO FAMILIAR",
+"1,18"
+],
+[
+"DOCHI CHEESECAKE",
+"2,85"
+],
+[
+"CHULETA AGUJA",
+"4,83"
+],
+[
+"CHULETA AGUJA",
+"4,71"
+],
+[
+"LOTE 3 BAYETAS MICRO",
+"1,75"
+],
+[
+"CREMA SETAS",
+"1,60"
+],
+[
+"YOGUR LIQUIDO FRESA",
+"1,95"
+],
+[
+"TOMATE FRITO BRICK",
+"1,35"
+],
+[
+"SANDÍA PARTIDA B/S",
+"4,23"
+],
+[
+"BÍFIDUS 0% FRUT SILV",
+"1,25"
+],
+[
+"MAXI YORK LONCHAS",
+"2,40"
+],
+[
+"LONCHAS DE QUESO",
+"2,45"
+],
+[
+"FLAN VAINILLA",
+"1,05"
+],
+[
+"PASTILLAS DESINFECT",
+"1,60"
+],
+[
+"ARROZ SOS",
+"1,88"
+],
+[
+"PORCIONES DE MERLUZA",
+"4,90"
+],
+[
+"12 HUEVOS GRANDES-L",
+"2,80"
+],
+[
+"PEPINO",
+"1,00"
+],
+[
+"MANGO",
+"2,58"
+],
+[
+"PARKING",
+"0,00"
+]
+],
+"nombres": [
+"LECHE ENTERA P6",
+"PAN BLANCO FAMILIAR",
+"DOCHI CHEESECAKE",
+"CHULETA AGUJA",
+"CHULETA AGUJA",
+"LOTE 3 BAYETAS MICRO",
+"CREMA SETAS",
+"YOGUR LIQUIDO FRESA",
+"TOMATE FRITO BRICK",
+"SANDÍA PARTIDA B/S",
+"BÍFIDUS 0% FRUT SILV",
+"MAXI YORK LONCHAS",
+"LONCHAS DE QUESO",
+"FLAN VAINILLA",
+"PASTILLAS DESINFECT",
+"ARROZ SOS",
+"PORCIONES DE MERLUZA",
+"12 HUEVOS GRANDES-L",
+"PEPINO",
+"MANGO",
+"PARKING"
+]
+},
+{
+"origen": "20260204 Mercadona 3,25 €.pdf",
+"ticket": "ticket_070.jpg",
+"date": "04/02/2026",
+"total": "3,25",
+"menu": [
+[
+"TORTITA MAÍZ SERRANO",
+"1,75"
+],
+[
+"BEBER F SILVES 0%",
+"1,50"
+]
+],
+"nombres": [
+"TORTITA MAÍZ SERRANO",
+"BEBER F SILVES 0%"
+]
+},
+{
+"origen": "20250318 Mercadona 8,00 €.pdf",
+"ticket": "ticket_071.jpg",
+"date": "18/03/2025",
+"total": "8,00",
+"menu": [
+[
+"QUESO BRIE PORCION",
+"1,75"
+],
+[
+"GALLETA MARIA",
+"1,45"
+],
+[
+"BÍFIDUS FIB CEREAL",
+"1,23"
+],
+[
+"MANDARINA 2 KG",
+"3,57"
+]
+],
+"nombres": [
+"QUESO BRIE PORCION",
+"GALLETA MARIA",
+"BÍFIDUS FIB CEREAL",
+"MANDARINA 2 KG"
+]
+},
+{
+"origen": "20251112 Mercadona 0,64 €.pdf",
+"ticket": "ticket_072.jpg",
+"date": "12/11/2025",
+"total": "0,64",
+"menu": [
+[
+"BANANA",
+"0,64"
+]
+],
+"nombres": [
+"BANANA"
+]
+},
+{
+"origen": "20251218 Mercadona 3,50 €.pdf",
+"ticket": "ticket_073.jpg",
+"date": "18/12/2025",
+"total": "3,50",
+"menu": [
+[
+"JAMÓN EXTRAFINO",
+"2,50"
+],
+[
+"PAN QUESO 18%",
+"1,00"
+]
+],
+"nombres": [
+"JAMÓN EXTRAFINO",
+"PAN QUESO 18%"
+]
+},
+{
+"origen": "20251008 Mercadona 2,85 €.pdf",
+"ticket": "ticket_074.jpg",
+"date": "08/10/2025",
+"total": "2,85",
+"menu": [
+[
+"DOCHI CHEESECAKE",
+"2,85"
+]
+],
+"nombres": [
+"DOCHI CHEESECAKE"
+]
+},
+{
+"origen": "20250409 Mercadona 0,62 €.pdf",
+"ticket": "ticket_075.jpg",
+"date": "09/04/2025",
+"total": "0,62",
+"menu": [
+[
+"BANANA",
+"0,62"
+]
+],
+"nombres": [
+"BANANA"
+]
+},
+{
+"origen": "20250331 Mercadona 26,76 €.pdf",
+"ticket": "ticket_076.jpg",
+"date": "31/03/2025",
+"total": "26,76",
+"menu": [
+[
+"RELLENO KEBAB POLLO",
+"6,50"
+],
+[
+"GRIEGO LIGERO NAT",
+"2,27"
+],
+[
+"FRAMBUESA",
+"2,50"
+],
+[
+"FILETE PECHUGA FINO",
+"5,05"
+],
+[
+"PANCETA SIN CORTEZA",
+"3,96"
+],
+[
+"BURGER JAMON CEBOLLA",
+"5,20"
+],
+[
+"BANANA",
+"1,28"
+]
+],
+"nombres": [
+"RELLENO KEBAB POLLO",
+"GRIEGO LIGERO NAT",
+"FRAMBUESA",
+"FILETE PECHUGA FINO",
+"PANCETA SIN CORTEZA",
+"BURGER JAMON CEBOLLA",
+"BANANA"
+]
+},
+{
+"origen": "20260415 Mercadona 7,20 €.pdf",
+"ticket": "ticket_077.jpg",
+"date": "15/04/2026",
+"total": "7,20",
+"menu": [
+[
+"BEBER F SILVES 0%",
+"1,50"
+],
+[
+"TORTITAS ARROZ YOGUR",
+"5,70"
+]
+],
+"nombres": [
+"BEBER F SILVES 0%",
+"TORTITAS ARROZ YOGUR"
+]
+},
+{
+"origen": "20260408 Mercadona 1,90 €.pdf",
+"ticket": "ticket_078.jpg",
+"date": "08/04/2026",
+"total": "1,90",
+"menu": [
+[
+"TORTITAS ARROZ YOGUR",
+"1,90"
+]
+],
+"nombres": [
+"TORTITAS ARROZ YOGUR"
+]
+},
+{
+"origen": "20240831 Mercadona 19,55 €.pdf",
+"ticket": "ticket_079.jpg",
+"date": "31/08/2024",
+"total": "19,55",
+"menu": [
+[
+"MAXI PAVO FL",
+"2,65"
+],
+[
+"MAXI YORK LONCHAS",
+"2,38"
+],
+[
+"12 HUEVOS CAMPEROS",
+"2,62"
+],
+[
+"P. COLORCOR 7",
+"3,90"
+],
+[
+"LONCHAS DE QUESO",
+"2,20"
+],
+[
+"COLG. TRIPLE ACCION",
+"3,90"
+],
+[
+"MANTEQUILLA PAST.CON",
+"1,90"
+]
+],
+"nombres": [
+"MAXI PAVO FL",
+"MAXI YORK LONCHAS",
+"12 HUEVOS CAMPEROS",
+"P. COLORCOR 7",
+"LONCHAS DE QUESO",
+"COLG. TRIPLE ACCION",
+"MANTEQUILLA PAST.CON"
+]
+},
+{
+"origen": "20250819 Mercadona 9,65 €.pdf",
+"ticket": "ticket_080.jpg",
+"date": "19/08/2025",
+"total": "9,65",
+"menu": [
+[
+"JUDÍA REDONDA",
+"1,25"
+],
+[
+"AGUACATE BANDEJA",
+"3,54"
+],
+[
+"EMPANADA ATUN",
+"3,60"
+],
+[
+"MANGO",
+"1,26"
+]
+],
+"nombres": [
+"JUDÍA REDONDA",
+"AGUACATE BANDEJA",
+"EMPANADA ATUN",
+"MANGO"
+]
+},
+{
+"origen": "20251201 Mercadona 3,07 €.pdf",
+"ticket": "ticket_081.jpg",
+"date": "01/12/2025",
+"total": "3,07",
+"menu": [
+[
+"MIEL STARS",
+"2,10"
+],
+[
+"BOLSA PLASTICO",
+"0,15"
+],
+[
+"BANANA",
+"0,82"
+]
+],
+"nombres": [
+"MIEL STARS",
+"BOLSA PLASTICO",
+"BANANA"
+]
+},
+{
+"origen": "20240918 Mercadona 17,17 €.pdf",
+"ticket": "ticket_082.jpg",
+"date": "18/09/2024",
+"total": "17,17",
+"menu": [
+[
+"SOJA ARÁNDANOS ALPRO",
+"1,95"
+],
+[
+"COLGADOR WC FLORAL",
+"1,30"
+],
+[
+"LECHE ENTERA",
+"0,90"
+],
+[
+"BACON LONCHAS",
+"2,10"
+],
+[
+"CHAMPÚ REPARA Y PROT",
+"2,95"
+],
+[
+"ESTROPAJO INOX",
+"1,20"
+],
+[
+"MANGO",
+"4,90"
+],
+[
+"AGUACATE",
+"1,87"
+]
+],
+"nombres": [
+"SOJA ARÁNDANOS ALPRO",
+"COLGADOR WC FLORAL",
+"LECHE ENTERA",
+"BACON LONCHAS",
+"CHAMPÚ REPARA Y PROT",
+"ESTROPAJO INOX",
+"MANGO",
+"AGUACATE"
+]
+},
+{
+"origen": "20251027 Mercadona 0,48 €.pdf",
+"ticket": "ticket_083.jpg",
+"date": "27/10/2025",
+"total": "0,48",
+"menu": [
+[
+"BANANA",
+"0,48"
+]
+],
+"nombres": [
+"BANANA"
+]
+},
+{
+"origen": "20241102 Mercadona 76,47 €.pdf",
+"ticket": "ticket_084.jpg",
+"date": "02/11/2024",
+"total": "76,47",
+"menu": [
+[
+"MAXI HAMBURGUESA",
+"0,90"
+],
+[
+"LAXSEN",
+"1,05"
+],
+[
+"CREMA SETAS",
+"1,60"
+],
+[
+"STEVIA GRANULADA",
+"3,45"
+],
+[
+"QUESO OVEJA SEMI",
+"9,50"
+],
+[
+"ENDIBIA",
+"1,05"
+],
+[
+"J.SERRANO PIEZA",
+"58,00"
+],
+[
+"PEPINO",
+"0,92"
+]
+],
+"nombres": [
+"MAXI HAMBURGUESA",
+"LAXSEN",
+"CREMA SETAS",
+"STEVIA GRANULADA",
+"QUESO OVEJA SEMI",
+"ENDIBIA",
+"J.SERRANO PIEZA",
+"PEPINO"
+]
+},
+{
+"origen": "20241219 Mercadona 14,80 €.pdf",
+"ticket": "ticket_085.jpg",
+"date": "19/12/2024",
+"total": "14,80",
+"menu": [
+[
+"ROLLO HOGAR DOBLE",
+"2,35"
+],
+[
+"BACON LONCHAS",
+"4,20"
+],
+[
+"RULITO CABRA",
+"2,30"
+],
+[
+"TOMATE FRITO BRICK",
+"1,35"
+],
+[
+"JUDÍA REDONDA",
+"1,25"
+],
+[
+"MANTEQUILLA PAST.CON",
+"2,30"
+],
+[
+"PICOS CAMPERO",
+"1,05"
+]
+],
+"nombres": [
+"ROLLO HOGAR DOBLE",
+"BACON LONCHAS",
+"RULITO CABRA",
+"TOMATE FRITO BRICK",
+"JUDÍA REDONDA",
+"MANTEQUILLA PAST.CON",
+"PICOS CAMPERO"
+]
+},
+{
+"origen": "20250407 Mercadona 25,87 €.pdf",
+"ticket": "ticket_086.jpg",
+"date": "07/04/2025",
+"total": "25,87",
+"menu": [
+[
+"ARROZ ULTRACONGELADO",
+"2,00"
+],
+[
+"RELLENO KEBAB POLLO",
+"3,50"
+],
+[
+"FILETE PECHUGA FINO",
+"4,62"
+],
+[
+"FILETE LOMO FAM",
+"6,65"
+],
+[
+"BURGER AMERICANA",
+"5,80"
+],
+[
+"BACON LONCHAS",
+"2,20"
+],
+[
+"BANANA",
+"1,10"
+]
+],
+"nombres": [
+"ARROZ ULTRACONGELADO",
+"RELLENO KEBAB POLLO",
+"FILETE PECHUGA FINO",
+"FILETE LOMO FAM",
+"BURGER AMERICANA",
+"BACON LONCHAS",
+"BANANA"
+]
+},
+{
+"origen": "20250419 Mercadona 33,42 €.pdf",
+"ticket": "ticket_087.jpg",
+"date": "19/04/2025",
+"total": "33,42",
+"menu": [
+[
+"BOLSA PLASTICO",
+"0,30"
+],
+[
+"BACON LONCHAS",
+"2,20"
+],
+[
+"CHULETA AGUJA",
+"4,77"
+],
+[
+"CINTAS DE BACON",
+"2,30"
+],
+[
+"ARROZ ULTRACONGELADO",
+"2,00"
+],
+[
+"RELLENO KEBAB POLLO",
+"3,50"
+],
+[
+"HELADO HUEVO CHOCO",
+"3,75"
+],
+[
+"BURGER VACUNO CERDO",
+"3,20"
+],
+[
+"FRESÓN",
+"1,95"
+],
+[
+"SECRETO",
+"4,02"
+],
+[
+"FILETE PECHUGA FINO",
+"5,43"
+]
+],
+"nombres": [
+"BOLSA PLASTICO",
+"BACON LONCHAS",
+"CHULETA AGUJA",
+"CINTAS DE BACON",
+"ARROZ ULTRACONGELADO",
+"RELLENO KEBAB POLLO",
+"HELADO HUEVO CHOCO",
+"BURGER VACUNO CERDO",
+"FRESÓN",
+"SECRETO",
+"FILETE PECHUGA FINO"
+]
+},
+{
+"origen": "20250519 Mercadona -2,00 €.pdf",
+"ticket": "ticket_088.jpg",
+"date": "19/05/2025",
+"total": "-2,00",
+"menu": [
+[
+"ARROZ ULTRACONGELADO",
+"-2,00"
+]
+],
+"nombres": [
+"ARROZ ULTRACONGELADO"
+]
+},
+{
+"origen": "20240831 Mercadona -3,90 €.pdf",
+"ticket": "ticket_089.jpg",
+"date": "31/08/2024",
+"total": "-3,90",
+"menu": [
+[
+"P. COLORCOR 7",
+"-3,90"
+]
+],
+"nombres": [
+"P. COLORCOR 7"
+]
+},
+{
+"origen": "20241111 Mercadona 0,90 €.pdf",
+"ticket": "ticket_090.jpg",
+"date": "11/11/2024",
+"total": "0,90",
+"menu": [
+[
+"PAN QUESO 18%",
+"0,90"
+]
+],
+"nombres": [
+"PAN QUESO 18%"
+]
+},
+{
+"origen": "20260129 Mercadona 71,18 €.pdf",
+"ticket": "ticket_091.jpg",
+"date": "29/01/2026",
+"total": "71,18",
+"menu": [
+[
+"ROLLO HOGAR DOBLE",
+"2,30"
+],
+[
+"FRIZZANTE MELÓN",
+"2,50"
+],
+[
+"AMONIACO C/DETERGENT",
+"0,95"
+],
+[
+"WOK",
+"1,85"
+],
+[
+"LIMPIADOR DENTADURA",
+"2,45"
+],
+[
+"SALTEADO DE VERDURAS",
+"1,45"
+],
+[
+"SALTEADO DE SETAS",
+"1,61"
+],
+[
+"MANDARINA 2 KG",
+"3,90"
+],
+[
+"FILETE PANGA",
+"4,65"
+],
+[
+"NUGGETS DE POLLO",
+"2,70"
+],
+[
+"FREGONA MICROFIBRA",
+"3,50"
+],
+[
+"QUESO UNTAR LIGHT",
+"1,45"
+],
+[
+"PIADINA",
+"2,20"
+],
+[
+"PIZZA JAMON/QUESO",
+"3,40"
+],
+[
+"QUESO CHEDDAR",
+"3,30"
+],
+[
+"QUESO RALLADO PIZZA",
+"1,65"
+],
+[
+"PATATAS CAMPESTRES",
+"1,20"
+],
+[
+"PICOS NORMALES",
+"0,80"
+],
+[
+"REGAÑA",
+"1,04"
+],
+[
+"PATATA QUESO/CEBOLLA",
+"1,20"
+],
+[
+"LECHE CONDENSADA ENT",
+"3,70"
+],
+[
+"STICKS CON VEGETALES",
+"1,20"
+],
+[
+"PIZZA PEPPERONI",
+"2,90"
+],
+[
+"PAN BLANCO FAMILIAR",
+"1,18"
+],
+[
+"GALLETA MARIA",
+"1,40"
+],
+[
+"STEVIA GRANULADA",
+"3,05"
+],
+[
+"MASCARILLA QUIRÚR.",
+"1,50"
+],
+[
+"BACON LONCHAS",
+"2,30"
+],
+[
+"QUESO BRIE PORCION",
+"1,65"
+],
+[
+"LONCHAS BURGER",
+"1,90"
+],
+[
+"MANTEQUILLA PAST.SIN",
+"2,10"
+],
+[
+"MAXI YORK LONCHAS",
+"2,35"
+],
+[
+"NARANJA",
+"1,85"
+],
+[
+"PARKING",
+"0,00"
+]
+],
+"nombres": [
+"ROLLO HOGAR DOBLE",
+"FRIZZANTE MELÓN",
+"AMONIACO C/DETERGENT",
+"WOK",
+"LIMPIADOR DENTADURA",
+"SALTEADO DE VERDURAS",
+"SALTEADO DE SETAS",
+"MANDARINA 2 KG",
+"FILETE PANGA",
+"NUGGETS DE POLLO",
+"FREGONA MICROFIBRA",
+"QUESO UNTAR LIGHT",
+"PIADINA",
+"PIZZA JAMON/QUESO",
+"QUESO CHEDDAR",
+"QUESO RALLADO PIZZA",
+"PATATAS CAMPESTRES",
+"PICOS NORMALES",
+"REGAÑA",
+"PATATA QUESO/CEBOLLA",
+"LECHE CONDENSADA ENT",
+"STICKS CON VEGETALES",
+"PIZZA PEPPERONI",
+"PAN BLANCO FAMILIAR",
+"GALLETA MARIA",
+"STEVIA GRANULADA",
+"MASCARILLA QUIRÚR.",
+"BACON LONCHAS",
+"QUESO BRIE PORCION",
+"LONCHAS BURGER",
+"MANTEQUILLA PAST.SIN",
+"MAXI YORK LONCHAS",
+"NARANJA",
+"PARKING"
+]
+}
+],
+"validacion": [
+{
+"origen": "20250915 Mercadona 2,08 €.pdf",
+"ticket": "ticket_001.jpg",
+"date": "15/09/2025",
+"total": "2,08",
+"menu": [
+[
+"PALITO FRUTOS SECOS",
+"2,08"
+]
+],
+"nombres": [
+"PALITO FRUTOS SECOS"
+]
+},
+{
+"origen": "20240918 Mercadona 10,63 €.pdf",
+"ticket": "ticket_002.jpg",
+"date": "18/09/2024",
+"total": "10,63",
+"menu": [
+[
+"BEBIDA ENERG.GREEN",
+"1,79"
+],
+[
+"COLA ZERO LATA",
+"0,32"
+],
+[
+"PAN DE PUEBLO",
+"1,60"
+],
+[
+"PALETA CURADA LONCHA",
+"2,20"
+],
+[
+"LOMO EMBUCHADO 4PACK",
+"2,30"
+],
+[
+"CHORIZO PICANT 4 PAC",
+"2,42"
+]
+],
+"nombres": [
+"BEBIDA ENERG.GREEN",
+"COLA ZERO LATA",
+"PAN DE PUEBLO",
+"PALETA CURADA LONCHA",
+"LOMO EMBUCHADO 4PACK",
+"CHORIZO PICANT 4 PAC"
+]
+},
+{
+"origen": "20250621 Mercadona 3,00 €.pdf",
+"ticket": "ticket_003.jpg",
+"date": "21/06/2025",
+"total": "3,00",
+"menu": [
+[
+"HORCHATA FRESCA",
+"2,10"
+],
+[
+"AGUA FRIO",
+"0,90"
+]
+],
+"nombres": [
+"HORCHATA FRESCA",
+"AGUA FRIO"
+]
+},
+{
+"origen": "20240823 Mercadona 16,25 €.pdf",
+"ticket": "ticket_004.jpg",
+"date": "23/08/2024",
+"total": "16,25",
+"menu": [
+[
+"HAMBURGUESA BACON",
+"2,65"
+],
+[
+"PATATAS GAJO",
+"1,80"
+],
+[
+"GALL RELLENA CHOC 0%",
+"1,40"
+],
+[
+"LOMO EMBUCHADO 4PACK",
+"2,30"
+],
+[
+"PALETA CURADA LONCHA",
+"2,20"
+],
+[
+"MAYONESA 460ML",
+"2,50"
+],
+[
+"TORTITA MAIZ C/CHOCO",
+"3,40"
+]
+],
+"nombres": [
+"HAMBURGUESA BACON",
+"PATATAS GAJO",
+"GALL RELLENA CHOC 0%",
+"LOMO EMBUCHADO 4PACK",
+"PALETA CURADA LONCHA",
+"MAYONESA 460ML",
+"TORTITA MAIZ C/CHOCO"
+]
+},
+{
+"origen": "20251119 Mercadona 3,20 €.pdf",
+"ticket": "ticket_005.jpg",
+"date": "19/11/2025",
+"total": "3,20",
+"menu": [
+[
+"PAN QUESO 18%",
+"0,50"
+],
+[
+"LOMO EMBUCHADO",
+"2,70"
+]
+],
+"nombres": [
+"PAN QUESO 18%",
+"LOMO EMBUCHADO"
+]
+},
+{
+"origen": "20251018 Mercadona 16,15 €.pdf",
+"ticket": "ticket_006.jpg",
+"date": "18/10/2025",
+"total": "16,15",
+"menu": [
+[
+"CEREAL RELLENO LECHE",
+"7,20"
+],
+[
+"DEO SPRAY INV.HOMBRE",
+"2,95"
+],
+[
+"CUQUIS",
+"0,75"
+],
+[
+"LIMPIADOR DESINFECTA",
+"1,95"
+],
+[
+"DISCOS DESMA OVAL",
+"1,50"
+],
+[
+"SUAVIZANTE TALCO",
+"1,80"
+]
+],
+"nombres": [
+"CEREAL RELLENO LECHE",
+"DEO SPRAY INV.HOMBRE",
+"CUQUIS",
+"LIMPIADOR DESINFECTA",
+"DISCOS DESMA OVAL",
+"SUAVIZANTE TALCO"
+]
+},
+{
+"origen": "20241116 Mercadona 16,06 €.pdf",
+"ticket": "ticket_007.jpg",
+"date": "16/11/2024",
+"total": "16,06",
+"menu": [
+[
+"LECHE ENTERA P6",
+"5,52"
+],
+[
+"YOGUR SABORES 16",
+"2,50"
+],
+[
+"BACON LONCHAS",
+"4,20"
+],
+[
+"TORTILLA TRIGO 6 UN",
+"1,60"
+],
+[
+"Q RALLADO FUNDIR",
+"2,24"
+]
+],
+"nombres": [
+"LECHE ENTERA P6",
+"YOGUR SABORES 16",
+"BACON LONCHAS",
+"TORTILLA TRIGO 6 UN",
+"Q RALLADO FUNDIR"
+]
+},
+{
+"origen": "20250328 Mercadona 36,52 €.pdf",
+"ticket": "ticket_008.jpg",
+"date": "28/03/2025",
+"total": "36,52",
+"menu": [
+[
+"ACEITUNA SIN HUESO",
+"2,80"
+],
+[
+"JUDÍA REDONDA",
+"1,25"
+],
+[
+"AGUA MINERAL",
+"0,92"
+],
+[
+"LECHE ENTERA P6",
+"11,28"
+],
+[
+"CREMA SETAS",
+"1,60"
+],
+[
+"F. DEHESA 6L",
+"1,28"
+],
+[
+"Z. MARACUYA CHIA",
+"1,60"
+],
+[
+"12 HUEVOS GRANDES-L",
+"2,80"
+],
+[
+"PIPAS GIRASOL NATURA",
+"1,24"
+],
+[
+"SARTA DULCE",
+"2,49"
+],
+[
+"PAN RALLADO",
+"0,85"
+],
+[
+"BARQUILLO NATA",
+"1,00"
+],
+[
+"BÍFIDUS FIB CEREAL",
+"1,23"
+],
+[
+"REC.ELECT.BRISA AZUL",
+"1,60"
+],
+[
+"PICOS NORMALES",
+"0,80"
+],
+[
+"MANGO",
+"1,60"
+],
+[
+"TOMATE CANARIO",
+"1,42"
+],
+[
+"PEPINO",
+"0,76"
+],
+[
+"PARKING",
+"0,00"
+]
+],
+"nombres": [
+"ACEITUNA SIN HUESO",
+"JUDÍA REDONDA",
+"AGUA MINERAL",
+"LECHE ENTERA P6",
+"CREMA SETAS",
+"F. DEHESA 6L",
+"Z. MARACUYA CHIA",
+"12 HUEVOS GRANDES-L",
+"PIPAS GIRASOL NATURA",
+"SARTA DULCE",
+"PAN RALLADO",
+"BARQUILLO NATA",
+"BÍFIDUS FIB CEREAL",
+"REC.ELECT.BRISA AZUL",
+"PICOS NORMALES",
+"MANGO",
+"TOMATE CANARIO",
+"PEPINO",
+"PARKING"
+]
+},
+{
+"origen": "20250611 Mercadona 7,40 €.pdf",
+"ticket": "ticket_009.jpg",
+"date": "11/06/2025",
+"total": "7,40",
+"menu": [
+[
+"FLAUTAS BACON/QUESO",
+"2,20"
+],
+[
+"HELADO HUEVO CHOCO",
+"3,75"
+],
+[
+"GRAGEA REGALIZ",
+"1,45"
+]
+],
+"nombres": [
+"FLAUTAS BACON/QUESO",
+"HELADO HUEVO CHOCO",
+"GRAGEA REGALIZ"
+]
+},
+{
+"origen": "20250507 Mercadona 21,81 €.pdf",
+"ticket": "ticket_010.jpg",
+"date": "07/05/2025",
+"total": "21,81",
+"menu": [
+[
+"EMPANADA ATUN",
+"3,60"
+],
+[
+"BÍFIDUS 0% FRUT SILV",
+"1,25"
+],
+[
+"YOGUR GRIEGO LIGERO",
+"1,50"
+],
+[
+"CAPRICHOS JAMÓN",
+"2,85"
+],
+[
+"LIMON MALLA",
+"2,35"
+],
+[
+"TORTILLA TRIGO 6 UN",
+"1,51"
+],
+[
+"XUXES TOP TEN",
+"1,25"
+],
+[
+"LECHE CONDENSADA ENT",
+"3,65"
+],
+[
+"PASAS SULTANAS",
+"1,80"
+],
+[
+"SALCHICHON 4PACK",
+"2,05"
+]
+],
+"nombres": [
+"EMPANADA ATUN",
+"BÍFIDUS 0% FRUT SILV",
+"YOGUR GRIEGO LIGERO",
+"CAPRICHOS JAMÓN",
+"LIMON MALLA",
+"TORTILLA TRIGO 6 UN",
+"XUXES TOP TEN",
+"LECHE CONDENSADA ENT",
+"PASAS SULTANAS",
+"SALCHICHON 4PACK"
+]
+},
+{
+"origen": "20250715 Mercadona 1,10 €.pdf",
+"ticket": "ticket_011.jpg",
+"date": "15/07/2025",
+"total": "1,10",
+"menu": [
+[
+"GOLOSINAS MORAS",
+"1,10"
+]
+],
+"nombres": [
+"GOLOSINAS MORAS"
+]
+},
+{
+"origen": "20250722 Mercadona 34,30 €.pdf",
+"ticket": "ticket_012.jpg",
+"date": "22/07/2025",
+"total": "34,30",
+"menu": [
+[
+"HELADO HUEVO CHOCO",
+"3,75"
+],
+[
+"YOGUR SABORES 16",
+"2,35"
+],
+[
+"MINI BOMBONES 12 UNI",
+"3,00"
+],
+[
+"CACAO SOLUBLE 1KG",
+"4,85"
+],
+[
+"LONCHAS BURGER",
+"1,95"
+],
+[
+"PACK-4 SALCH.FRANKF",
+"1,90"
+],
+[
+"CINTAS DE BACON",
+"4,60"
+],
+[
+"BACON LONCHAS",
+"4,60"
+],
+[
+"STICKS DE PATATA",
+"0,80"
+],
+[
+"PALOMITAS SAL PACK 3",
+"1,00"
+],
+[
+"GALL RELLENA CHOC 0%",
+"1,40"
+],
+[
+"PATATAS LIGHT",
+"1,30"
+],
+[
+"CHOCOMINIS",
+"1,95"
+],
+[
+"MAXI HAMBURGUESA",
+"0,85"
+]
+],
+"nombres": [
+"HELADO HUEVO CHOCO",
+"YOGUR SABORES 16",
+"MINI BOMBONES 12 UNI",
+"CACAO SOLUBLE 1KG",
+"LONCHAS BURGER",
+"PACK-4 SALCH.FRANKF",
+"CINTAS DE BACON",
+"BACON LONCHAS",
+"STICKS DE PATATA",
+"PALOMITAS SAL PACK 3",
+"GALL RELLENA CHOC 0%",
+"PATATAS LIGHT",
+"CHOCOMINIS",
+"MAXI HAMBURGUESA"
+]
+},
+{
+"origen": "20251022 Mercadona 0,21 €.pdf",
+"ticket": "ticket_013.jpg",
+"date": "22/10/2025",
+"total": "0,21",
+"menu": [
+[
+"BANANA",
+"0,21"
+]
+],
+"nombres": [
+"BANANA"
+]
+},
+{
+"origen": "20250111 Mercadona 23,98 €.pdf",
+"ticket": "ticket_014.jpg",
+"date": "11/01/2025",
+"total": "23,98",
+"menu": [
+[
+"COMBINADO APERITIVO",
+"1,55"
+],
+[
+"ARÁNDANOS",
+"2,15"
+],
+[
+"TOMATE FRITO BRICK",
+"1,35"
+],
+[
+"DÁTIL SIN HUESO",
+"2,18"
+],
+[
+"CAFÉ SOLUBLE CLASSIC",
+"7,90"
+],
+[
+"CREMA CACAO 2 SABOR",
+"1,95"
+],
+[
+"GALLETITAS SALADAS",
+"1,20"
+],
+[
+"COMPRIMIDOS DORMIR",
+"3,95"
+],
+[
+"PACK-4 SALCH.FRANKF",
+"1,75"
+]
+],
+"nombres": [
+"COMBINADO APERITIVO",
+"ARÁNDANOS",
+"TOMATE FRITO BRICK",
+"DÁTIL SIN HUESO",
+"CAFÉ SOLUBLE CLASSIC",
+"CREMA CACAO 2 SABOR",
+"GALLETITAS SALADAS",
+"COMPRIMIDOS DORMIR",
+"PACK-4 SALCH.FRANKF"
+]
+}
+]
+}

@@ -1,0 +1,35 @@
+Te paso 20 preguntas que un usuario hace a una aplicación que analiza sus tickets del supermercado
+(Mercadona). Para CADA una, escribe 2 formas distintas de preguntar EXACTAMENTE lo mismo, como lo diría
+una persona normal en español de España, de forma natural y algo coloquial.
+
+Reglas:
+- Debe pedirse la misma información: mismo producto, mismo periodo de tiempo ("este año", "el mes pasado",
+  "en 2025", "desde septiembre"...), mismos días, importes y número de resultados.
+- Cambia el vocabulario y la estructura: no repitas más de 2-3 palabras de la pregunta original
+  (salvo el producto, las fechas y las cifras).
+- Las 2 versiones deben ser diferentes entre sí.
+- Responde SOLO con líneas en este formato exacto, sin nada más:
+S01a | primera versión
+S01b | segunda versión
+
+Preguntas:
+S01: ¿Cuál ha sido mi compra gorda de este año?
+S02: ¿Cuánto me sale el súper cada mes, de media?
+S03: Hazme un desglose mensual de lo que llevo gastado en 2025
+S04: ¿Qué es lo que más echo al carro?
+S05: ¿Cuántas veces he pisado el Mercadona el mes pasado?
+S06: ¿Cuál fue la semana de 2025 en la que más veces fui a comprar?
+S07: ¿Qué día de la semana suelo hacer la compra?
+S08: ¿Qué me ha costado la limpieza de casa este año?
+S09: ¿Cuál es el ticket más gordo que he pagado un sábado?
+S10: ¿Cuánto suelo gastarme por ticket?
+S11: ¿Cuánto he invertido en carne desde septiembre?
+S12: ¿En qué mes he ido menos veces a comprar?
+S13: ¿Cuánto dinero se me ha ido en tickets de más de 50 pavos?
+S14: ¿Cuántas compras rápidas, de menos de 5 euros, he hecho?
+S15: ¿Cómo ha variado lo que me gasto en yogures cada mes?
+S16: ¿Qué subcategoría se lleva más dinero?
+S17: ¿Qué precio medio pago por la leche?
+S18: ¿Cuál es la cosa más barata que he metido en el carro este año?
+S19: ¿Cuánto me gasté en el súper entre semana en 2025?
+S20: Dime las 3 cosas que más compro

@@ -1,0 +1,2 @@
+Pon aquí PDF de tickets de Mercadona que NO se usaron para entrenar Donut
+(cualquier compra posterior al 15/04/2026). Son el conjunto de prueba limpio de evaluar_donut.py.

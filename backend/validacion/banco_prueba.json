@@ -1,0 +1,499 @@
+[
+ {
+  "id": 117,
+  "categoria": "basica",
+  "pregunta": "¿Cuánto llevo gastado este año en total?",
+  "esperado": {
+   "filtros": {
+    "periodo": "este año"
+   }
+  }
+ },
+ {
+  "id": 118,
+  "categoria": "basica",
+  "pregunta": "¿Cuántas veces fui a comprar en 2024?",
+  "esperado": {
+   "medida": "compras",
+   "filtros": {
+    "periodo": "en 2024"
+   }
+  }
+ },
+ {
+  "id": 119,
+  "categoria": "basica",
+  "pregunta": "¿Qué ticket tuvo el importe más alto en 2025?",
+  "esperado": {
+   "operacion": "maximo",
+   "agrupar_por": "ticket",
+   "filtros": {
+    "periodo": "en 2025"
+   }
+  }
+ },
+ {
+  "id": 120,
+  "categoria": "basica",
+  "pregunta": "¿Cuánto he gastado en queso?",
+  "esperado": {
+   "filtros": {
+    "concepto": "queso"
+   }
+  }
+ },
+ {
+  "id": 121,
+  "categoria": "basica",
+  "pregunta": "¿Cuántos paquetes de bacon he comprado?",
+  "esperado": {
+   "medida": "unidades",
+   "filtros": {
+    "concepto": "bacon"
+   }
+  }
+ },
+ {
+  "id": 122,
+  "categoria": "basica",
+  "pregunta": "¿Cuánto me cuesta de media ir a comprar?",
+  "esperado": {
+   "operacion": "media",
+   "por": "compra"
+  }
+ },
+ {
+  "id": 123,
+  "categoria": "basica",
+  "pregunta": "¿Cuánto me dejo al mes en el súper?",
+  "esperado": {
+   "operacion": "media",
+   "por": "mes"
+  }
+ },
+ {
+  "id": 124,
+  "categoria": "basica",
+  "pregunta": "¿En qué categoría me dejo más pasta?",
+  "esperado": {
+   "operacion": "ranking",
+   "agrupar_por": "categoria"
+  }
+ },
+ {
+  "id": 125,
+  "categoria": "basica",
+  "pregunta": "¿Cuánto gasté en marzo de 2025?",
+  "esperado": {
+   "filtros": {
+    "periodo": "en marzo de 2025"
+   }
+  }
+ },
+ {
+  "id": 126,
+  "categoria": "combinada",
+  "pregunta": "¿En qué mes de 2024 gasté menos?",
+  "esperado": {
+   "operacion": "minimo",
+   "agrupar_por": "mes",
+   "filtros": {
+    "periodo": "en 2024"
+   }
+  }
+ },
+ {
+  "id": 127,
+  "categoria": "combinada",
+  "pregunta": "Dime las 3 categorías en las que más unidades compro",
+  "esperado": {
+   "medida": "unidades",
+   "operacion": "ranking",
+   "agrupar_por": "categoria",
+   "limite": 3
+  }
+ },
+ {
+  "id": 128,
+  "categoria": "combinada",
+  "pregunta": "¿Cuál es el mes en el que más gasté en carne?",
+  "esperado": {
+   "operacion": "maximo",
+   "agrupar_por": "mes",
+   "filtros": {
+    "concepto": "carne"
+   }
+  }
+ },
+ {
+  "id": 129,
+  "categoria": "combinada",
+  "pregunta": "¿Cómo evoluciona lo que gasto en carne?",
+  "esperado": {
+   "operacion": "evolucion",
+   "agrupar_por": "mes",
+   "filtros": {
+    "concepto": "carne"
+   }
+  }
+ },
+ {
+  "id": 130,
+  "categoria": "combinada",
+  "pregunta": "¿Cuánto pago de media por un yogur?",
+  "esperado": {
+   "medida": "precio",
+   "operacion": "media",
+   "filtros": {
+    "concepto": "yogur"
+   }
+  }
+ },
+ {
+  "id": 131,
+  "categoria": "combinada",
+  "pregunta": "¿Qué semana gasté más en 2026?",
+  "esperado": {
+   "operacion": "maximo",
+   "agrupar_por": "semana",
+   "filtros": {
+    "periodo": "en 2026"
+   }
+  }
+ },
+ {
+  "id": 132,
+  "categoria": "combinada",
+  "pregunta": "Los 4 productos que más dinero me cuestan",
+  "esperado": {
+   "operacion": "ranking",
+   "agrupar_por": "producto",
+   "limite": 4
+  }
+ },
+ {
+  "id": 133,
+  "categoria": "combinada",
+  "pregunta": "¿Cuántos plátanos compro al mes?",
+  "esperado": {
+   "medida": "unidades",
+   "operacion": "media",
+   "por": "mes",
+   "filtros": {
+    "concepto": "banana"
+   }
+  }
+ },
+ {
+  "id": 134,
+  "categoria": "filtros",
+  "pregunta": "¿Cuánto gasté en total los sábados?",
+  "esperado": {
+   "filtros": {
+    "dias_semana": [
+     5
+    ]
+   }
+  }
+ },
+ {
+  "id": 135,
+  "categoria": "filtros",
+  "pregunta": "¿Cuánto gasto de media cada martes que voy al súper?",
+  "esperado": {
+   "operacion": "media",
+   "por": "compra",
+   "filtros": {
+    "dias_semana": [
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": 136,
+  "categoria": "filtros",
+  "pregunta": "Enséñame los tickets de más de 40 euros de 2025",
+  "esperado": {
+   "medida": "compras",
+   "operacion": "lista",
+   "agrupar_por": "ticket",
+   "filtros": {
+    "importe_min": 40,
+    "periodo": "en 2025"
+   }
+  }
+ },
+ {
+  "id": 137,
+  "categoria": "filtros",
+  "pregunta": "¿Cuántos tickets por debajo de 3 euros tengo?",
+  "esperado": {
+   "medida": "compras",
+   "filtros": {
+    "importe_max": 3
+   }
+  }
+ },
+ {
+  "id": 138,
+  "categoria": "filtros",
+  "pregunta": "¿Cuál fue la devolución más reciente?",
+  "esperado": {
+   "medida": "compras",
+   "operacion": "ultimo",
+   "filtros": {
+    "tipo_ticket": "devoluciones"
+   }
+  }
+ },
+ {
+  "id": 139,
+  "categoria": "filtros",
+  "pregunta": "¿Cuánto dinero me devolvieron en 2024?",
+  "esperado": {
+   "filtros": {
+    "tipo_ticket": "devoluciones",
+    "periodo": "en 2024"
+   }
+  }
+ },
+ {
+  "id": 140,
+  "categoria": "filtros",
+  "pregunta": "¿Cuál es mi compra más pequeña sin contar las devoluciones?",
+  "esperado": {
+   "operacion": "minimo",
+   "agrupar_por": "ticket",
+   "filtros": {
+    "tipo_ticket": "compras"
+   }
+  }
+ },
+ {
+  "id": 141,
+  "categoria": "filtros",
+  "pregunta": "¿Cuántas veces compré entre semana en 2025?",
+  "esperado": {
+   "medida": "compras",
+   "filtros": {
+    "dias_semana": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "periodo": "en 2025"
+   }
+  }
+ },
+ {
+  "id": 142,
+  "categoria": "filtros",
+  "pregunta": "¿Qué frutas distintas he comprado?",
+  "esperado": {
+   "medida": "unidades",
+   "operacion": "lista",
+   "agrupar_por": "producto",
+   "filtros": {
+    "concepto": "fruta"
+   }
+  }
+ },
+ {
+  "id": 143,
+  "categoria": "filtros",
+  "pregunta": "¿Cuánto me dejé en carne los fines de semana?",
+  "esperado": {
+   "filtros": {
+    "concepto": "carne",
+    "dias_semana": [
+     5,
+     6
+    ]
+   }
+  }
+ },
+ {
+  "id": 144,
+  "categoria": "periodos",
+  "pregunta": "¿Cuánto gasté en la segunda quincena de julio de 2025?",
+  "esperado": {
+   "filtros": {
+    "desde": "2025-07-16",
+    "hasta": "2025-07-31"
+   }
+  }
+ },
+ {
+  "id": 145,
+  "categoria": "periodos",
+  "pregunta": "¿Cuánto gasté el invierno pasado?",
+  "esperado": {
+   "filtros": {
+    "desde": "2025-12-21",
+    "hasta": "2026-03-19"
+   }
+  }
+ },
+ {
+  "id": 146,
+  "categoria": "periodos",
+  "pregunta": "¿Qué compré el 29 de enero?",
+  "esperado": {
+   "medida": "unidades",
+   "operacion": "lista",
+   "agrupar_por": "producto",
+   "filtros": {
+    "desde": "2026-01-29",
+    "hasta": "2026-01-29"
+   }
+  }
+ },
+ {
+  "id": 147,
+  "categoria": "periodos",
+  "pregunta": "¿Cuánto gasté en la primavera de 2025?",
+  "esperado": {
+   "filtros": {
+    "desde": "2025-03-20",
+    "hasta": "2025-06-20"
+   }
+  }
+ },
+ {
+  "id": 148,
+  "categoria": "periodos",
+  "pregunta": "¿Cuántas compras hice en los últimos 2 meses?",
+  "esperado": {
+   "medida": "compras",
+   "filtros": {
+    "periodo": "los últimos 2 meses"
+   }
+  }
+ },
+ {
+  "id": 149,
+  "categoria": "periodos",
+  "pregunta": "¿Cuánto he gastado desde marzo de 2025?",
+  "esperado": {
+   "filtros": {
+    "periodo": "desde marzo de 2025"
+   }
+  }
+ },
+ {
+  "id": 150,
+  "categoria": "continuacion",
+  "pregunta": "¿y en 2024?",
+  "esperado": {
+   "filtros": {
+    "concepto": "carne",
+    "periodo": "en 2024"
+   }
+  },
+  "historial": [
+   {
+    "pregunta": "¿Cuánto gasté en carne en 2025?",
+    "consulta": {
+     "filtros": {
+      "concepto": "carne",
+      "periodo": "en 2025"
+     }
+    }
+   }
+  ]
+ },
+ {
+  "id": 151,
+  "categoria": "continuacion",
+  "pregunta": "¿y los jueves?",
+  "esperado": {
+   "operacion": "media",
+   "por": "compra",
+   "filtros": {
+    "dias_semana": [
+     3
+    ]
+   }
+  },
+  "historial": [
+   {
+    "pregunta": "¿Cuánto gasto de media por compra los lunes?",
+    "consulta": {
+     "operacion": "media",
+     "por": "compra",
+     "filtros": {
+      "dias_semana": [
+       0
+      ]
+     }
+    }
+   }
+  ]
+ },
+ {
+  "id": 152,
+  "categoria": "continuacion",
+  "pregunta": "¿y cuántas unidades son?",
+  "esperado": {
+   "medida": "unidades",
+   "filtros": {
+    "concepto": "yogures"
+   }
+  },
+  "historial": [
+   {
+    "pregunta": "¿Cuánto he gastado en yogures?",
+    "consulta": {
+     "filtros": {
+      "concepto": "yogures"
+     }
+    }
+   }
+  ]
+ },
+ {
+  "id": 153,
+  "categoria": "continuacion",
+  "pregunta": "¿y en cuál menos?",
+  "esperado": {
+   "operacion": "minimo",
+   "agrupar_por": "mes"
+  },
+  "historial": [
+   {
+    "pregunta": "¿En qué mes gasté más?",
+    "consulta": {
+     "operacion": "maximo",
+     "agrupar_por": "mes"
+    }
+   }
+  ]
+ },
+ {
+  "id": 154,
+  "categoria": "fuera_de_ambito",
+  "pregunta": "¿Cuál es la capital de Francia?",
+  "esperado": {
+   "tipo": "fuera_de_ambito"
+  }
+ },
+ {
+  "id": 155,
+  "categoria": "fuera_de_ambito",
+  "pregunta": "¿Me ayudas a planificar un viaje?",
+  "esperado": {
+   "tipo": "fuera_de_ambito"
+  }
+ },
+ {
+  "id": 156,
+  "categoria": "fuera_de_ambito",
+  "pregunta": "Buenos días",
+  "esperado": {
+   "tipo": "saludo"
+  }
+ }
+]
